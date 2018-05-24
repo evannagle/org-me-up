@@ -1,15 +1,27 @@
-* Chapter 0: Some Links
+* Chapter 1
+** Run Ed
 
+RTFM:
 [[https://www.gnu.org/software/ed/manual/ed_manual.html]]
 
-* Chapter 1: Ed Essentials
-
-** Spin Up
-
+Then:
+#+BEGIN_SRC sh
 ed <file>
 ed -p ">> " <file>
+#+END_SRC
 
-** Commands
+Inside of Ed:
+#+BEGIN_SRC ed
+H
+P
+a
+I am afraid of myself.
+I should be hugging myself.
+.
+wq
+#+END_SRC
+
+** Primitive Commands
 
 |---------+------------------------------------------|
 | Command | Does                                     |
