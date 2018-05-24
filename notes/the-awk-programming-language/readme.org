@@ -1,0 +1,1594 @@
+#+TITLE: The AWK Programming Language.
+#+AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger
+#+DATE: 1988
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @pdf @bab @awk @bash
+
+* Chapter 1: An AWK Tutorial
+  :PROPERTIES:
+  :header-args: :in-file data/emp1.data
+  :END:
+** Print all lines
+#+BEGIN_SRC awk
+{ print }
+#+END_SRC
+
+#+RESULTS:
+| Beth   |  4.0 |  0 |
+| Dan    | 3.75 |  0 |
+| Kathy  |  4.0 | 10 |
+| Mark   |  5.0 | 20 |
+| Mary   |  5.5 | 22 |
+| Susie  | 4.25 | 18 |
+| Zoe    | 1.25 |  2 |
+| Leroy  | 4.55 |  5 |
+| Louise | 10.0 | 40 |
+| David  | 11.5 | 24 |
+| Evan   |  3.0 |  2 |
+| Jaimie |  2.0 |  1 |
+
+** Print a single column
+
+#+BEGIN_SRC awk
+{ print $1 }
+#+END_SRC
+
+#+RESULTS:
+| Beth   |
+| Dan    |
+| Kathy  |
+| Mark   |
+| Mary   |
+| Susie  |
+| Zoe    |
+| Leroy  |
+| Louise |
+| David  |
+| Evan   |
+| Jaimie |
+
+** Print if a condition is met.
+
+#+BEGIN_SRC awk
+$3 > 5 { print }
+#+END_SRC
+
+#+RESULTS:
+| Kathy  |  4.0 | 10 |
+| Mark   |  5.0 | 20 |
+| Mary   |  5.5 | 22 |
+| Susie  | 4.25 | 18 |
+| Louise | 10.0 | 40 |
+| David  | 11.5 | 24 |
+
+** Print from multiple files.
+
+#+BEGIN_SRC sh
+awk '{ print }' data/*.data
+#+END_SRC
+
+#+RESULTS:
+| Beth   |  4.0 |   0 |
+| Dan    | 3.75 |   0 |
+| Kathy  |  4.0 |  10 |
+| Mark   |  5.0 |  20 |
+| Mary   |  5.5 |  22 |
+| Susie  | 4.25 |  18 |
+| Zoe    | 1.25 |   2 |
+| Leroy  | 4.55 |   5 |
+| Louise | 10.0 |  40 |
+| David  | 11.5 |  24 |
+| Evan   |  3.0 |   2 |
+| Jaimie |  2.0 |   1 |
+| Moon   | 14.0 |   2 |
+| Wolfe  |  2.5 |  20 |
+| Dirkus | 10.0 |   3 |
+| Fungal |  4.0 | 2.5 |
+
+** NF = Number of fields
+
+#+BEGIN_SRC awk
+{ print NF, $1 }
+#+END_SRC
+
+#+RESULTS:
+| 3 | Beth   |
+| 3 | Dan    |
+| 3 | Kathy  |
+| 3 | Mark   |
+| 3 | Mary   |
+| 3 | Susie  |
+| 3 | Zoe    |
+| 3 | Leroy  |
+| 3 | Louise |
+| 3 | David  |
+| 3 | Evan   |
+| 3 | Jaimie |
+
+** NR = Number of rows
+
+#+BEGIN_SRC awk
+END { print NR, "rows in", FILENAME }
+#+END_SRC
+
+#+RESULTS:
+: 12 rows in data/emp1.data
+
+** Use printf to format
+
+#+BEGIN_SRC awk :results scalar value
+{ printf("total pay for %s is $%.2f\n", $1, $2 * $3) }
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+total pay for Beth is $0.00
+total pay for Dan is $0.00
+total pay for Kathy is $40.00
+total pay for Mark is $100.00
+total pay for Mary is $121.00
+total pay for Susie is $76.50
+total pay for Zoe is $2.50
+total pay for Leroy is $22.75
+total pay for Louise is $400.00
+total pay for David is $276.00
+total pay for Evan is $6.00
+total pay for Jaimie is $2.00
+#+end_example
+** Search by regex
+
+#+BEGIN_SRC awk
+/Susie/
+#+END_SRC
+
+#+RESULTS:
+| Susie | 4.25 | 18 |
+
+** Search by regex on a field
+
+#+BEGIN_SRC awk
+$1 ~ /^[S,L]/
+#+END_SRC
+
+#+RESULTS:
+| Susie  | 4.25 | 18 |
+| Leroy  | 4.55 |  5 |
+| Louise | 10.0 | 40 |
+
+** Logical operators
+
+#+BEGIN_SRC awk
+# ||, &&, !
+/Susie/ || $2 > 5 { print }
+#+END_SRC
+
+#+RESULTS:
+| Mary   |  5.5 | 22 |
+| Susie  | 4.25 | 18 |
+| Louise | 10.0 | 40 |
+| David  | 11.5 | 24 |
+
+** BEGIN
+
+#+BEGIN_SRC awk
+BEGIN { print "--" }
+#+END_SRC
+
+#+RESULTS:
+: --
+
+** END
+
+#+BEGIN_SRC awk
+END { print "--" }
+#+END_SRC
+
+#+RESULTS:
+: --
+
+** Variables - integers
+
+#+BEGIN_SRC awk
+# ints default to 0
+{ sum += $2 * 3 }
+END { printf("Sum of $%.2f", sum) }
+#+END_SRC
+
+#+RESULTS:
+: Sum of $176.40
+
+** Variables - strings
+
+#+BEGIN_SRC awk :results scalar value
+{ names = names (NR == 1 ? "" : ", ") $1 }
+END { print names }
+#+END_SRC
+
+#+RESULTS:
+: Beth, Dan, Kathy, Mark, Mary, Susie, Zoe, Leroy, Louise, David, Evan, Jaimie
+
+** If/Else
+
+#+BEGIN_SRC awk :results scalar value
+$2 > 6 { n += 1; pay += ($2 * $3) }
+END {
+  if(n > 0) {
+     print n, "employees, total pay is", pay
+     print "average pay is", pay/n
+  } else {
+     print "no employees paid more th $6/hour"
+  }
+}
+#+END_SRC
+
+#+RESULTS:
+: 2 employees, total pay is 676
+: average pay is 338
+
+** While loop
+
+#+BEGIN_SRC awk
+{
+  i = 1
+  m = "*"
+  while (i <= $3) {
+    m = m "*"
+    i++
+  }
+  m = m " (" $3 ")"
+  print $1, m
+}
+#+END_SRC
+
+#+RESULTS:
+| Beth   | *                                         | (0)  |
+| Dan    | *                                         | (0)  |
+| Kathy  | ***********                               | (10) |
+| Mark   | *********************                     | (20) |
+| Mary   | ***********************                   | (22) |
+| Susie  | *******************                       | (18) |
+| Zoe    | ***                                       | (2)  |
+| Leroy  | ******                                    | (5)  |
+| Louise | ***************************************** | (40) |
+| David  | *************************                 | (24) |
+| Evan   | ***                                       | (2)  |
+| Jaimie | **                                        | (1)  |
+
+** For loop
+
+#+BEGIN_SRC awk
+{
+  m = "="
+  for(i = 1; i < $3; i+=2) {
+    m = m "="
+  }
+  print $1, m, " (" $3 ")"
+}
+#+END_SRC
+
+#+RESULTS:
+| Beth   | =                     | (0)  |
+| Dan    | =                     | (0)  |
+| Kathy  | ======                | (10) |
+| Mark   | ===========           | (20) |
+| Mary   | ============          | (22) |
+| Susie  | ==========            | (18) |
+| Zoe    | ==                    | (2)  |
+| Leroy  | ===                   | (5)  |
+| Louise | ===================== | (40) |
+| David  | =============         | (24) |
+| Evan   | ==                    | (2)  |
+| Jaimie | =                     | (1)  |
+
+** Arrays
+
+#+BEGIN_SRC awk
+{
+  lines[NR] = $0
+}
+END {
+  for(i = 1; i <= NR; i++) {
+    print i, lines[i]
+  }
+}
+#+END_SRC
+
+#+RESULTS:
+| 1 Beth    |  4.0 |  0 |
+| 2 Dan     | 3.75 |  0 |
+| 3 Kathy   |  4.0 | 10 |
+| 4 Mark    |  5.0 | 20 |
+| 5 Mary    |  5.5 | 22 |
+| 6 Susie   | 4.25 | 18 |
+| 7 Zoe     | 1.25 |  2 |
+| 8 Leroy   | 4.55 |  5 |
+| 9 Louise  | 10.0 | 40 |
+| 10 David  | 11.5 | 24 |
+| 11 Evan   |  3.0 |  2 |
+| 12 Jaimie |  2.0 |  1 |
+
+** Comments
+
+#+BEGIN_SRC awk
+{
+  print; #pretty please?
+}
+#+END_SRC
+
+#+RESULTS:
+| Beth   |  4.0 |  0 |
+| Dan    | 3.75 |  0 |
+| Kathy  |  4.0 | 10 |
+| Mark   |  5.0 | 20 |
+| Mary   |  5.5 | 22 |
+| Susie  | 4.25 | 18 |
+| Zoe    | 1.25 |  2 |
+| Leroy  | 4.55 |  5 |
+| Louise | 10.0 | 40 |
+| David  | 11.5 | 24 |
+| Evan   |  3.0 |  2 |
+| Jaimie |  2.0 |  1 |
+
+** One-liners
+
+*** Print the nth line
+
+#+BEGIN_SRC awk
+NR == 3 { print }
+#+END_SRC
+
+#+RESULTS:
+| Kathy | 4.0 | 10 |
+
+*** Print the last field of every input line
+
+#+BEGIN_SRC awk
+{ print $NF }
+#+END_SRC
+
+#+RESULTS:
+|  0 |
+|  0 |
+| 10 |
+| 20 |
+| 22 |
+| 18 |
+|  2 |
+|  5 |
+| 40 |
+| 24 |
+|  2 |
+|  1 |
+
+*** Print every line with more than n fields:
+
+#+BEGIN_SRC awk
+NF > 2 { print }
+#+END_SRC
+
+#+RESULTS:
+| Beth   |  4.0 |  0 |
+| Dan    | 3.75 |  0 |
+| Kathy  |  4.0 | 10 |
+| Mark   |  5.0 | 20 |
+| Mary   |  5.5 | 22 |
+| Susie  | 4.25 | 18 |
+| Zoe    | 1.25 |  2 |
+| Leroy  | 4.55 |  5 |
+| Louise | 10.0 | 40 |
+| David  | 11.5 | 24 |
+| Evan   |  3.0 |  2 |
+| Jaimie |  2.0 |  1 |
+
+*** Print the total number of fields in a file
+
+#+BEGIN_SRC awk
+{ nf += NF }
+END { print nf }
+#+END_SRC
+
+#+RESULTS:
+: 36
+
+*** Print every line with the first field replaced by a line number
+
+#+BEGIN_SRC awk
+{ $1 = NR; print }
+#+END_SRC
+
+#+RESULTS:
+|  1 |  4.0 |  0 |
+|  2 | 3.75 |  0 |
+|  3 |  4.0 | 10 |
+|  4 |  5.0 | 20 |
+|  5 |  5.5 | 22 |
+|  6 | 4.25 | 18 |
+|  7 | 1.25 |  2 |
+|  8 | 4.55 |  5 |
+|  9 | 10.0 | 40 |
+| 10 | 11.5 | 24 |
+| 11 |  3.0 |  2 |
+| 12 |  2.0 |  1 |
+
+*** Print the line with the largest field
+
+#+BEGIN_SRC awk
+$1 > max { max = length($1); line = $0 }
+END { print line }
+#+END_SRC
+
+#+RESULTS:
+| Jaimie | 2.0 | 1 |
+
+*** Print every line with a field length > n chars
+
+#+BEGIN_SRC awk
+length($1) > 5 { print }
+#+END_SRC
+
+#+RESULTS:
+| Louise | 10.0 | 40 |
+| Jaimie |  2.0 |  1 |
+
+*** Reverse order
+
+#+BEGIN_SRC awk
+{ lines[NR] = $0 }
+END {
+  for (i = NR; i > 1; i--) {
+    print lines[i]
+  }
+}
+#+END_SRC
+
+#+RESULTS:
+| Jaimie |  2.0 |  1 |
+| Evan   |  3.0 |  2 |
+| David  | 11.5 | 24 |
+| Louise | 10.0 | 40 |
+| Leroy  | 4.55 |  5 |
+| Zoe    | 1.25 |  2 |
+| Susie  | 4.25 | 18 |
+| Mary   |  5.5 | 22 |
+| Mark   |  5.0 | 20 |
+| Kathy  |  4.0 | 10 |
+| Dan    | 3.75 |  0 |
+
+*** Remove a field before printing
+
+#+BEGIN_SRC awk
+{ $2 = ""; print }
+#+END_SRC
+
+#+RESULTS:
+| Beth   |  0 |
+| Dan    |  0 |
+| Kathy  | 10 |
+| Mark   | 20 |
+| Mary   | 22 |
+| Susie  | 18 |
+| Zoe    |  2 |
+| Leroy  |  5 |
+| Louise | 40 |
+| David  | 24 |
+| Evan   |  2 |
+| Jaimie |  1 |
+* Chapter 2: The AWK Language
+  :PROPERTIES:
+  :header-args: :in-file data/countries.txt
+  :END:
+
+** Built-in variables
+
+|----------+-------------------------------------------+---------|
+| Variable | Meaning                                   | Default |
+|----------+-------------------------------------------+---------|
+| ARGC     | number of command-line args               | -       |
+| ARGV     | array of command-line args                | -       |
+| FILENAME | name of current input file                | -       |
+| FNR      | record number in current file             | -       |
+| FS       | input field separator                     | " "     |
+| NF       | number of fields in current record        | -       |
+| NR       | number of records read thus far           | -       |
+| OFMT     | output format for numbers                 | "%.6g"  |
+| OFS      | output field separator                    | " "     |
+| ORS      | output record separator                   | "\n"    |
+| RLENGTH  | length of string matched by match fn      | -       |
+| RS       | controls the input record separator       | "\n"    |
+| RSTART   | start of string matched by match function | -       |
+| SUBSEP   | subscript separator                       | "\034"  |
+|----------+-------------------------------------------+---------|
+
+*** OFS = output field separator
+
+#+BEGIN_SRC awk :results scalar value
+BEGIN { OFS = "," ; IFS = "\t" }
+{ print $1, $2, $3 }
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+USSR,8649,275
+Canada,3852,25
+China,3705,1032
+USA,3615,237
+Brazil,3286,134
+India,1267,746
+Mexico,762,78
+France,211,55
+Japan,144,120
+Germany,96,61
+England,94,56
+#+end_example
+
+*** ORS = output record separator
+
+#+BEGIN_SRC awk
+BEGIN { ORS = "\n\n" }
+{ print }
+#+END_SRC
+
+#+RESULTS:
+| USSR    | 8649 |  275 | Asia          |
+|         |      |      |               |
+| Canada  | 3852 |   25 | North America |
+|         |      |      |               |
+| China   | 3705 | 1032 | Asia          |
+|         |      |      |               |
+| USA     | 3615 |  237 | North America |
+|         |      |      |               |
+| Brazil  | 3286 |  134 | South America |
+|         |      |      |               |
+| India   | 1267 |  746 | Asia          |
+|         |      |      |               |
+| Mexico  |  762 |   78 | North America |
+|         |      |      |               |
+| France  |  211 |   55 | Europe        |
+|         |      |      |               |
+| Japan   |  144 |  120 | Asia          |
+|         |      |      |               |
+| Germany |   96 |   61 | Europe        |
+|         |      |      |               |
+| England |   94 |   56 | Europe        |
+|         |      |      |               |
+
+** Built-in math functions
+
+|------------+--------------------------------------------------|
+| Function   | Value Returned                                   |
+|------------+--------------------------------------------------|
+| atan2(y,x) | arctangent of y/x in the range of -\Pi to \Pi    |
+| cos(x)     | cosine of x, with x in radians                   |
+| exp(x)     | exponential function of x, e^x                   |
+| int(x)     | integer part of x; truncated toward 0 when x > 0 |
+| log(x)     | natural (base e) log of x                        |
+| rand()     | random number where 0 <= r < 1                   |
+| sin(x)     | sine of x, with x in radians                     |
+| sqrt(x)    | square root of x                                 |
+| srand(x)   | x is new seed for rand()                         |
+|------------+--------------------------------------------------|
+
+** Built-in string functions
+
+|------------------------+-------------------------------------------------------------|
+| Function               | Description                                                 |
+|------------------------+-------------------------------------------------------------|
+| gsub(r,s)              | sub s for r globally in $0                                  |
+| gsub(r,s,t)            | sub s for r globally in string t                            |
+| index(s,t)             | return first pos of string t in s, 0 if not present         |
+| length(s)              | return number of chars in s                                 |
+| match(s,r)             | test whether s contains a substring matched by r            |
+| split(s,a)             | split s into array a on FS                                  |
+| split(s,a,fs)          | split s into array a on field separator fs                  |
+| sprintf(fmt,expr-list) | return expr-list formatted according to format string fmt   |
+| sub(r,s)               | sub s for the leftmost longest substring of $0 matched by r |
+| sub(r,s,t)             | sub s for the leftmost longest subscrint of t matched by r  |
+| substr(s,p)            | return suffix of s starting a pos p                         |
+| substr(s,p,n)          | return sub of s of length n starting at position p          |
+|------------------------+-------------------------------------------------------------|
+
+** User-defined functions
+
+#+BEGIN_SRC awk
+{ print first3($1), $2 }
+function first3(s) {
+  return toupper(substr(s,0,3));
+}
+#+END_SRC
+
+#+RESULTS:
+| USS | 8649 |
+| CAN | 3852 |
+| CHI | 3705 |
+| USA | 3615 |
+| BRA | 3286 |
+| IND | 1267 |
+| MEX |  762 |
+| FRA |  211 |
+| JAP |  144 |
+| GER |   96 |
+| ENG |   94 |
+
+** Calling system to access sytem functions
+
+#+BEGIN_SRC awk :results scalar value
+{ print }
+END {
+    print "\n"
+    system("whoami && date")
+}
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+USSR	8649	275	Asia
+Canada	3852	25	North America
+China	3705	1032	Asia
+USA	3615	237	North America
+Brazil	3286	134	South America
+India	1267	746	Asia
+Mexico	762	78	North America
+France	211	55	Europe
+Japan	144	120	Asia
+Germany	96	61	Europe
+England	94	56	Europe
+
+
+evannagle
+Wed May 16 14:25:51 HST 2018
+#+end_example
+** printf formatting characters
+*** Characters
+
+|------+-----------------------------------------|
+| Char | Print Expression As                     |
+|------+-----------------------------------------|
+| c    | ASCII char                              |
+| d    | decimal int                             |
+| e    | [-]d.ddddddE[+-\]dd                     |
+| f    | [-]ddd.dddddd                           |
+| g    | e or f conversion, whichever is shorter |
+| .    | nonsignificant zeros suppressed         |
+| o    | unsigned octal number                   |
+| s    | string                                  |
+| x    | unsigned hex number                     |
+| %    | print a %; no arg is consumed           |
+|------+-----------------------------------------|
+
+*** Examples
+
+|---------+---------+-----------------|
+| fmt     |      $1 | printf(fmt, $1) |
+|---------+---------+-----------------|
+| %c      |      97 | a               |
+| %d      |    97.5 | 97              |
+| %5d     |    97.5 | [   97]         |
+| %e      |    97.5 | 9.750000e+01    |
+| %f      |    97.5 | 97.500000       |
+| %7.2f   |    97.5 | [  97.50]       |
+| %g      |    97.5 | 97.5            |
+| %.6g    |    97.5 | 97.5            |
+| %o      |      97 | 141             |
+| %06o    |      97 | 000141          |
+| %x      |      97 | 61              |
+| %s      | January | January         |
+| %10s    | January | [   January]    |
+| %-10s   | January | [January   ]    |
+| %.3s    | January | Jan             |
+| %10.3s  | January | [       Jan]    |
+| %-10.3s | January | [Jan       ]    |
+| %%      | January | %               |
+|---------+---------+-----------------|
+** Piping
+
+#+BEGIN_SRC awk
+{ print $1 | "tr '[:upper:]' '[:lower:]'" }
+#+END_SRC
+
+#+RESULTS:
+| ussr    |
+| canada  |
+| china   |
+| usa     |
+| brazil  |
+| india   |
+| mexico  |
+| france  |
+| japan   |
+| germany |
+| england |
+
+** Input from getline
+
+#+BEGIN_SRC awk :in-file data/countries-inc.txt :results scalar value
+file != FILENAME {
+  file = FILENAME
+  filename = basename(file)
+  dirname = dir(file)
+  printf("//processing file: %s\n", filename)
+  printf("//dir: %s\n", dirname)
+}
+/^#include/ {
+  while (getline l <$2 > 0)
+    print l
+  printf("//end %s\n\n", file)
+  next
+}
+{ print }
+
+function dir(file) {
+  sub("/.*", "", file)
+  return file
+}
+
+function basename(file) {
+  sub(".*/", "", file)
+  return file
+}
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+//processing file: countries-inc.txt
+//dir: data
+USSR	8649	275	Asia
+Canada	3852	25	North America
+China	3705	1032	Asia
+USA	3615	237	North America
+Brazil	3286	134	South America
+India	1267	746	Asia
+Mexico	762	78	North America
+France	211	55	Europe
+Japan	144	120	Asia
+Germany	96	61	Europe
+England	94	56	Europe
+//end data/countries-inc.txt
+
+Iceland	1	1	Iceland
+#+end_example
+
+** Using getline to populate a variable with a system value.
+
+#+BEGIN_SRC awk :results scalar value
+BEGIN {
+  "date" | getline date
+  print date
+  split(date, d, " ")
+  print d[2] " " d[3] ", " d[6]
+}
+
+#+END_SRC
+
+#+RESULTS:
+: Thu May 17 15:59:31 HST 2018
+: May 17, 2018
+
+* Chapter 3: Data Processing
+  :PROPERTIES:
+  :header-args: :in-file data/emp-dirty.data
+  :END:
+
+** Validating columns
+
+#+BEGIN_SRC awk :results scalar value
+BEGIN {
+  section("valid rows")
+}
+isnum($3) && NF == 3 { print; next }
+{ invalid[j++] = $0 }
+END {
+  section("invalid rows")
+  for(i = 1; i <= j; i++) {
+    print invalid[i]
+  }
+}
+
+function section(title) {
+  printf("\n--\n%s:\n\n", title)
+}
+
+function isnum(n) {
+  return n ~ /^[+-]?[0-9]+$/
+}
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+--
+valid rows:
+
+Beth	4.00	0
+Dan	3.75	0
+Kathy	4.00	10
+Mark	5.00	20
+Mary	5.50	22
+Susie	4.25	18
+Zoe	1.25	2
+Leroy	4.55	5
+Louise	10.00	40
+David	11.50	24
+Evan	3.00	2
+Jaimie	2.00	1
+
+--
+invalid rows:
+
+Jared	5.00	2 5 5 323 343
+Yellow	M	What? 4.0
+Jim
+
+#+end_example
+** Sanitizing numbers
+
+#+BEGIN_SRC awk
+
+NF >= 3 && isnum($3) {
+  num = stripnum($3)
+  rolling += num
+  print $1, num, rolling
+}
+
+function stripnum(n) {
+  gsub(/[^0-9.]/, "", n)
+  return n
+}
+
+function isnum(n) {
+  return n ~ /^\$?[0-9,.]+$/
+}
+
+#+END_SRC
+
+#+RESULTS:
+| Beth   |       0 |       0 |
+| Dan    |       0 |       0 |
+| Kathy  |      10 |      10 |
+| Mark   |      20 |      30 |
+| Mary   |      22 |      52 |
+| Susie  |      18 |      70 |
+| Zoe    |       2 |      72 |
+| Leroy  |       5 |      77 |
+| Jared  |       2 |      79 |
+| Wizy   | 4520.24 | 4599.24 |
+| Louise |      40 | 4639.24 |
+| David  |      24 | 4663.24 |
+| Evan   |       2 | 4665.24 |
+| Jaimie |       1 | 4666.24 |
+** Formatted output
+
+#+BEGIN_SRC awk :results scalar value
+BEGIN {
+  errorCount = 0
+  tableWidth = 100
+  printBar("=")
+  printTitle("Payment Amounts")
+  printTitle(getDate())
+  printBar("-")
+  printTitle("")
+}
+
+{ errorsOnLine = 0 }
+
+NF != 3 {
+  logError("less than three fields")
+}
+
+!isNum($2) {
+  logError("field 2 is nonnumeric")
+}
+
+!isNum($3) {
+  logError("field 3 is nonnumeric")
+}
+
+errorsOnLine > 0 { next }
+
+{
+  $2 = parseNum($2)
+  $3 = parseNum($3)
+  prod = $2 * $3
+  totalProd += prod
+  prodf = prod > 0 ? sprintf("$%.2f", prod) : "--"
+  printExpenseLi(++i, $1, prodf)
+}
+
+END {
+  totalProdf = totalProd > 0 ? sprintf("$%.2f", totalProd) : "--"
+  printBar("-")
+  printExpenseLi(0, "TOTAL:", totalProdf)
+  if(errorCount > 0) {
+    printErrors()
+  }
+
+  printBar("=")
+}
+
+function logError(message) {
+  errorsOnLine++
+  errors[++errorCount] = "line " NR ", " message ": " $0
+}
+
+function getDate() {
+  "date" | getline date
+  split(date, d, " ")
+  date = d[2] " " d[3] ", " d[6]
+  return date
+}
+
+function printTitle(title) {
+   spacerL = sprintf("%" ((tableWidth - length(title)) / 2) "s", " ")
+   spacerR = sprintf("%" ((tableWidth - length(title) - length(spacerL))) "s", " ")
+   printf("|%s%s%s|\n", spacerL, title, spacerR)
+}
+
+function printBar(char) {
+  s = sprintf("|%" tableWidth "s|", " ")
+  gsub(" ", char, s)
+  printf("%s\n", s)
+}
+
+function printRow(col1) {
+  w = tableWidth - 2
+  gsub("\t", "    ", col1)
+  printf("| %-" w"s |\n", col1)
+}
+
+function printLi(ind, col1) {
+  line = sprintf("%4s. %s", ind, col1)
+  printRow(line)
+}
+
+function printExpenseLi(ind, name, prodf) {
+  numColW = 5
+  prodColW = 20
+  mainColW = tableWidth - numColW - prodColW - 4
+  if(ind) {
+    printf("|%" numColW "d. %-" mainColW "." mainColW "s %" prodColW "s |\n", ind, name " " dashes, prodf)
+  } else {
+    printf("|%" (numColW + mainColW + 2) "s %" prodColW "s |\n", name " " dashes, prodf)
+  }
+}
+
+function printErrors() {
+  printBar(".")
+  printRow(sprintf("Parsing errors: %d", errorCount))
+  for(i = 1; i <= errorCount; i++) {
+     printLi(i, errors[i])
+  }
+}
+
+function isNum(n) {
+  return n ~ /+?[0-9]+\.?[0-9]*/
+}
+
+function parseNum(n) {
+  gsub(/[^0-9.]/, "", n)
+  return n
+}
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+|====================================================================================================|
+|                                          Payment Amounts                                           |
+|                                            May 17, 2018                                            |
+|----------------------------------------------------------------------------------------------------|
+|                                                                                                    |
+|    1. Beth                                                                                      -- |
+|    2. Dan                                                                                       -- |
+|    3. Kathy                                                                                 $40.00 |
+|    4. Mark                                                                                 $100.00 |
+|    5. Mary                                                                                 $121.00 |
+|    6. Susie                                                                                 $76.50 |
+|    7. Zoe                                                                                    $2.50 |
+|    8. Leroy                                                                                 $22.75 |
+|    9. Wizy                                                                             $4520240.00 |
+|   10. Louise                                                                               $400.00 |
+|   11. David                                                                                $276.00 |
+|   12. Evan                                                                                   $6.00 |
+|   13. Jaimie                                                                                 $2.00 |
+|----------------------------------------------------------------------------------------------------|
+|                                                                       TOTAL:           $4521286.75 |
+|....................................................................................................|
+| Parsing errors: 10                                                                                 |
+|    1. line 5, less than three fields: Leroy Jenkins!                                               |
+|    2. line 5, field 2 is nonnumeric: Leroy Jenkins!                                                |
+|    3. line 5, field 3 is nonnumeric: Leroy Jenkins!                                                |
+|    4. line 10, less than three fields: Jared    5.00    2 5 5 323 343                              |
+|    5. line 12, less than three fields: Yellow    M    What? 4.0                                    |
+|    6. line 12, field 2 is nonnumeric: Yellow    M    What? 4.0                                     |
+|    7. line 12, field 3 is nonnumeric: Yellow    M    What? 4.0                                     |
+|    8. line 15, less than three fields: Jim                                                         |
+|    9. line 15, field 2 is nonnumeric: Jim                                                          |
+|   10. line 15, field 3 is nonnumeric: Jim                                                          |
+|====================================================================================================|
+#+end_example
+
+** Data validation
+
+#+BEGIN_SRC awk :in-file data/passwd :results scalar value
+BEGIN { FS = ":" }
+NF != 7 {
+  printf("line %d does not have 7 fields: %s\n", NR, $0)
+}
+$1 ~ /[^A-Za-z0-9]/ {
+  printf("line %d, nonalphanumeric user id: %s\n", NR, $0)
+}
+$2 == "" {
+  printf("line %d, no password: %s\n", NR, $0)
+}
+$3 ~ /[^0-9]/ {
+  printf("line %d, nonnumeric user id: %s\n", NR, $0)
+}
+$4 ~ /[^0-9]/ {
+  printf("line %d, nonnumeric group id: %s\n", NR, $0)
+}
+$6 !~ /^\// {
+  printf("line %d, invalid login directory: %s\n", NR, $0)
+}
+#+END_SRC
+
+#+RESULTS:
+: line 4 does not have 7 fields: :uucp:xutiBs2hKtcls:48:1:uucp daemon:/usr/lib/uucp:uucico
+: line 4, nonnumeric user id: :uucp:xutiBs2hKtcls:48:1:uucp daemon:/usr/lib/uucp:uucico
+: line 4, invalid login directory: :uucp:xutiBs2hKtcls:48:1:uucp daemon:/usr/lib/uucp:uucico
+** Bundling files
+
+#+BEGIN_SRC awk :in-file data/emp[0-9]\.data :results scalar value
+BEGIN { system("rm data/emp.bundle") }
+{ print FILENAME, $0 > "data/emp.bundle" }
+END { system("cat data/emp.bundle") }
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+data/emp1.data Beth	4.00	0
+data/emp1.data Dan	3.75	0
+data/emp1.data Kathy	4.00	10
+data/emp1.data Mark	5.00	20
+data/emp1.data Mary	5.50	22
+data/emp1.data Susie	4.25	18
+data/emp1.data Zoe	1.25	2
+data/emp1.data Leroy	4.55	5
+data/emp1.data Louise	10.00	40
+data/emp1.data David	11.50	24
+data/emp1.data Evan	3.00	2
+data/emp1.data Jaimie	2.00	1
+data/emp2.data Moon	14.00	2
+data/emp2.data Wolfe	2.50	20
+data/emp2.data Dirkus	10.00	3
+data/emp2.data Fungal	4.00	2.5
+#+end_example
+
+** Unbundling files
+
+#+BEGIN_SRC awk :in-file data/emp.bundle :results scalar value
+$1 != prev { close(prev); prev = gsub(".data", ".bak", $1) }
+  { print substr($0, index($0, " ") + 1) > $1 }
+END { system("cat data/emp1.bak") }
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Beth 4.00 0
+Dan 3.75 0
+Kathy 4.00 10
+Mark 5.00 20
+Mary 5.50 22
+Susie 4.25 18
+Zoe 1.25 2
+Leroy 4.55 5
+Louise 10.00 40
+David 11.50 24
+Evan 3.00 2
+Jaimie 2.00 1
+#+end_example
+
+** Multiline Records (p83)
+
+#+BEGIN_SRC awk :in-file data/addresses.txt :results scalar value
+BEGIN { RS = "" ; ORS = "\n\n" }
+/New York/
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Adam Smith
+1234 Wall St., Apt. 5C
+New York, NY 10021 212 555-4321
+David w. Copperfield 221 Dickens Lane Monterey, CA 93940 408 555-0041
+work phone 408 555-6532 Mary, birthday January 30
+Canadian Consulate 555 Fifth Ave
+New York, NY
+212 586-2400
+
+Canadian Consulate
+555 Fifth Ave
+New York, NY
+212 586-2400
+
+#+end_example
+
+#+BEGIN_SRC sh :in-file data/addresses.txt :results scalar value
+awk 'BEGIN {
+  FS = "\n"
+  RS = ""
+}
+{
+  {
+    lastName = tolower(x[split($1, x, " ")])
+    gsub("\n", "##!", $0)
+    printf("%s##!%s\n", lastName, $0)
+  }
+}' data/addresses.txt | sort |
+awk ' BEGIN {
+  FS = "##!"
+  RS = "\n"
+}
+{ print $2 " at " $3 }
+'
+#+END_SRC
+
+#+RESULTS:
+: Canadian Consulate at 555 Fifth Ave
+: David w. Copperfield at 221 Dickens Lane
+: Adam Smith at 1234 Wall St., Apt. 5C
+
+#+BEGIN_SRC sh :results scalar value
+awk 'BEGIN {
+  FS = "\n"
+  RS = ""
+}
+{
+  lastName = tolower(x[split($1, x, " ")])
+  printf("%s##!%s", lastName, $1)
+  for(i = 2; i <= NF; i++) {
+      if(match($i, /[0-9]{3}( |-)[0-9]{3}( |-)[0-9]{4}/, m)) {
+        printf("##!%s", m[0])
+      }
+  }
+  printf("\n")
+}' data/addresses.txt | sort | awk 'BEGIN {
+  FS = "##!"
+  RS = "\n"
+  OFS = ","
+  ORS = " |\n"
+}
+{
+  for(i = 2; i <= NF; i++) {
+     printf("%-30s", $i)
+  }
+  printf("\n")
+}
+'
+#+END_SRC
+
+#+RESULTS:
+: Canadian Consulate            212 586-2400
+: David w. Copperfield          408 555-0041                  408 555-6532
+: Adam Smith                    212 555-4321
+
+* Chapter 4: Reports and Databases
+  :PROPERTIES:
+  :header-args: :in-file data/countries.org
+  :END:
+
+** Generating Reports
+
+#+BEGIN_SRC sh :results scalar value
+awk 'BEGIN {
+  FS = "|"
+  OFS = ":"
+}
+NR == 1 { next }
+{
+  $1 = ""
+  for(i = 2; i <= NF; i++) {
+    gsub(/(^ +| +$)/, "", $i)
+  }
+
+
+  print $2, $3, $4, $5, $6
+}' data/countries.org | sort -t: +0 -1 +4rn | awk '
+BEGIN {
+  FS = ":"
+  OFS = " "
+  spaces = dash = sprintf("%20s", " ")
+  eq = deq = sprintf("%20s", " ")
+  gsub(" ", "-", eq)
+  gsub(" ", "=", deq)
+  gsub(" ", "-", dash)
+
+  printf("%-20s%-20s%-20s%-20s%-20s\n", "CONTINENT", "COUNTRY", "POP", "AREA", "DENSITY")
+  line =  dline = sprintf("%-100s", " ")
+  gsub(" ", "-", line)
+  gsub(" ", "=", dline)
+  printf("%s\n", line)
+}
+{
+  if(cont == $1) {
+    printf("%-20s", "|")
+  } else {
+
+    if(cont) {
+      printTotal()
+    }
+    printf("%-20s", $1)
+    cont = $1
+  }
+  printf("%-20s", $2)
+  printf("  %-18d", $3)
+  printf("  %-18d", $4)
+  printf("  %-18.1f", $5)
+
+  pop += $3
+  totalPop += 3
+
+  sqmi += $4
+  totalSqmi += $4
+
+  pct += $5
+  totalPct += $5
+
+  printf "\n"
+}
+END {
+  printTotal()
+  printGrandTotal()
+}
+function printTotal() {
+  printf("%-40s%-20s%-20s%-20s\n", "| ", eq, eq, eq)
+  printf("%-40s  %-18d  %-18d  %-18.2f\n", "|_ TOTAL for " cont, pop, sqmi, pct)
+  printf("%-40s%-20s%-20s%-20s\n", " ", deq, deq, deq)
+
+  pop = pct = sqmi = 0
+}
+function printGrandTotal() {
+  # printf("%-40s%-20s%-20s%-20s\n", " ", deq, deq, deq)
+  printf("%-40s  %-18d  %-18d  %-18.2f\n", "GRAND TOTAL", totalPop, totalSqmi, totalPct)
+  # printf("%s\n", dline)
+  printf("%-40s%-20s%-20s%-20s\n", " ", deq, deq, deq)
+  totalPop = totalSqmi = totalPct = 0
+}
+'
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+CONTINENT           COUNTRY             POP                 AREA                DENSITY
+----------------------------------------------------------------------------------------------------
+Asia                Japan                 120                 144                 833.3
+|                   India                 746                 1267                588.8
+|                   China                 1032                3705                278.5
+|                   USSR                  275                 8649                31.8
+|                                       ------------------------------------------------------------
+|_ TOTAL for Asia                         2173                13765               1732.40
+                                        ============================================================
+Europe              Germany               61                  96                  635.4
+|                   England               56                  94                  595.7
+|                   France                55                  211                 260.7
+|                                       ------------------------------------------------------------
+|_ TOTAL for Europe                       172                 401                 1491.80
+                                        ============================================================
+North America       Mexico                78                  762                 102.4
+|                   USA                   237                 3615                65.6
+|                   Canada                25                  3852                6.5
+|                                       ------------------------------------------------------------
+|_ TOTAL for North America                340                 8229                174.50
+                                        ============================================================
+South America       Brazil                134                 3286                40.8
+|                                       ------------------------------------------------------------
+|_ TOTAL for South America                134                 3286                40.80
+                                        ============================================================
+GRAND TOTAL                               33                  25681               3439.50
+                                        ============================================================
+#+end_example
+
+** Templating
+
+#+BEGIN_SRC awk :results scalar value
+BEGIN {
+  FS = "|"
+  OFS = ":"
+  while (getline <"data/letter.txt" > 0) {
+    form[++n] = $0
+  }
+}
+NR == 1 { next }
+{
+  for(i = 2; i <= NF; i++) {
+    gsub(/(^ +| +$)/, "", $i)
+  }
+  for(i = 1; i <= n; i++) {
+    temp = form[i]
+    for(j = 1; j <= NF; j++) {
+      gsub("#" j, $j, temp)
+    }
+    print temp
+  }
+  printf("\n\n")
+}
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Subject: Demographic Information About Japan
+From: AWK Demographics, Inc.
+
+In response to your request for information about Japan, our latest research has revealed that its population is 120 million people and its area is 144 million square miles. This gives Japan a population density of 833.3 people per square mile.
+
+
+Subject: Demographic Information About India
+From: AWK Demographics, Inc.
+
+In response to your request for information about India, our latest research has revealed that its population is 746 million people and its area is 1267 million square miles. This gives India a population density of 588.8 people per square mile.
+
+
+Subject: Demographic Information About China
+From: AWK Demographics, Inc.
+
+In response to your request for information about China, our latest research has revealed that its population is 1032 million people and its area is 3705 million square miles. This gives China a population density of 278.5 people per square mile.
+
+
+Subject: Demographic Information About USSR
+From: AWK Demographics, Inc.
+
+In response to your request for information about USSR, our latest research has revealed that its population is 275 million people and its area is 8649 million square miles. This gives USSR a population density of 31.8 people per square mile.
+
+
+Subject: Demographic Information About Germany
+From: AWK Demographics, Inc.
+
+In response to your request for information about Germany, our latest research has revealed that its population is 61 million people and its area is 96 million square miles. This gives Germany a population density of 635.4 people per square mile.
+
+
+Subject: Demographic Information About England
+From: AWK Demographics, Inc.
+
+In response to your request for information about England, our latest research has revealed that its population is 56 million people and its area is 94 million square miles. This gives England a population density of 595.7 people per square mile.
+
+
+Subject: Demographic Information About France
+From: AWK Demographics, Inc.
+
+In response to your request for information about France, our latest research has revealed that its population is 55 million people and its area is 211 million square miles. This gives France a population density of 260.7 people per square mile.
+
+
+Subject: Demographic Information About Mexico
+From: AWK Demographics, Inc.
+
+In response to your request for information about Mexico, our latest research has revealed that its population is 78 million people and its area is 762 million square miles. This gives Mexico a population density of 102.4 people per square mile.
+
+
+Subject: Demographic Information About USA
+From: AWK Demographics, Inc.
+
+In response to your request for information about USA, our latest research has revealed that its population is 237 million people and its area is 3615 million square miles. This gives USA a population density of 65.6 people per square mile.
+
+
+Subject: Demographic Information About Canada
+From: AWK Demographics, Inc.
+
+In response to your request for information about Canada, our latest research has revealed that its population is 25 million people and its area is 3852 million square miles. This gives Canada a population density of 6.5 people per square mile.
+
+
+Subject: Demographic Information About Brazil
+From: AWK Demographics, Inc.
+
+In response to your request for information about Brazil, our latest research has revealed that its population is 134 million people and its area is 3286 million square miles. This gives Brazil a population density of 40.8 people per square mile.
+
+
+#+end_example
+
+** Relational Database
+
+#+BEGIN_SRC awk :results scalar value :in-file data/qawk/query.qawk
+BEGIN {
+  readrel("data/qawk/relfile")
+  RS = "###"
+}
+/./ { doquery($0) }
+
+#relname[1] = countries
+#relname[2] = capitals
+#relname[3] = cc
+#cmd[3, 1] = sort countries > temp.countries
+#cmd[3, 2] = sort capitals > temp.capitals
+#cmd[3, 3] = join temp.countries temp.capitals > cc
+#attr[1, "country"] = 1
+#attr[1, "area"] = 2
+#attr[2, "country"] = 1
+
+function readrel(f) {
+  while(getline <f > 0) {
+    if($0 ~ /^[A-Za-z]+ *:/) { #name
+       gsub(/[^A-Za-z]/, "", $0)
+       relname[++nrel] = $0
+    } else if($0 ~ /^[ \t] *!/) { #command
+       cmd[nrel, ++ncmd[nrel]] = substr($0, index($0, "!") + 1)
+    } else if($0 ~ /^[ \t]*[A-Za-z]+[ \t]*$/) { #attribute
+       attr[nrel, $1] = ++nattr[nrel]
+    } else {
+        print "bad line in relfile:", $0
+    }
+  }
+}
+
+function doquery(s, i, j) {
+  for(i in qattr)
+    delete qattr[i]
+  query = s
+  #print "qawk query: ", query
+
+  # let grab $country, $population and other $variables
+  while(match(s, /\$[A-Za-z]+/)) {
+    qattr[substr(s, RSTART+1, RLENGTH-1)] = 1
+    s = substr(s, RSTART+RLENGTH+1)
+  }
+
+  for(i = 1; i <= nrel && !subset(qattr, attr, i); )
+      i++
+  if(i > nrel) {
+    missing(qattr)
+  } else {
+    for(j in qattr) {
+      gsub("\\$" j, "$" attr[i,j], query)
+    }
+    for(j = 1; j <= ncmd[i]; j++) #create table i
+       if(system(cmd[i, j]) != 0) {
+          print "command failed, query skipped\n", cmd[i,j]
+          return
+       }
+
+    awkcmd = sprintf("awk -F$'\\t' '%s' %s", query, "data/qawk/" relname[i])
+    #print awkcmd
+    system(awkcmd)
+  }
+}
+
+function subset(q, a, r, i) { #is q a subset of a[r]?
+  for(i in q) {
+    if(!((r,i) in a)) # I don't understand this yet? Hmph...
+      return 0
+  }
+  return 1
+}
+
+
+function missing(x, i) {
+  print "no table contains all of the following attributes:"
+  for(i in x)
+    print i
+}
+#+END_SRC
+
+#+RESULTS:
+: China	1032	Beijing
+: India	746	New Delhi
+: Japan	120	Tokyo
+: USSR	275	Moscow
+
+* Chapter 5: Processing words
+** Generate a random number
+#+BEGIN_SRC awk
+BEGIN {
+  print randint(50)
+  print randint(50)
+  print randint(50)
+  print randint(50)
+}
+
+function randint(n) {
+  return int(n *rand()) + 1
+}
+#+END_SRC
+
+#+RESULTS:
+| 47 |
+| 30 |
+| 16 |
+| 29 |
+
+** Generate a random letter
+
+#+BEGIN_SRC awk
+BEGIN {
+  printf("%s\n", randlet() randlet() randlet())
+  printf("%s\n", randlet() randlet() randlet())
+  printf("%s\n", randlet() randlet() randlet())
+}
+function randint(n) {
+  return int(n * rand()) + 1
+}
+
+function randlet() {
+  return substr("abcdefghijklmnopqrstuvwxyz", randint(26), 1)
+}
+#+END_SRC
+
+#+RESULTS:
+| yph |
+| ptu |
+| liu |
+
+** Madlib / string parsing
+
+#+BEGIN_SRC awk :in-file data/wawq/madlib.txt :results scalar value
+BEGIN {
+  readVars("data/wawq/arrs.txt")
+  RS = "\n"
+  FS = ""
+}
+{ print parseLine($0) }
+
+function parseLine(s) {
+  while(match(s, /\{\{[^{}]+\}\}/) && releaseValve++ < 100) {
+    awkcmd = substr(s, RSTART+2, RLENGTH-4)
+    a = substr(s, 0, RSTART - 1)
+    b = evalStr(awkcmd)
+    c = substr(s, RSTART+RLENGTH)
+    s = sprintf("%s%s%s", a, b, c)
+  }
+  return s
+}
+
+function evalStr(s) {
+  return getRandArrValue(s)
+}
+
+function dump(arr) {
+  for(i in arr) {
+    print i, "->", arr[i]
+  }
+}
+
+function trim(s) {
+  gsub(/^[ \t]|[ \t]$+/, "", s)
+}
+
+function readVars(f) {
+  while(getline <f > 0) {
+     if($0 ~ /^#delim/) {
+        trim(gsub(/#delim[ \t]*/, "", $0))
+        FS = $0 ? $0 : " "
+     } else if($1) {
+        if(!reg[$1]) {
+          reg[$1] = ++regCountc
+        }
+        for(i = 2; i <= NF; i++) {
+           values[$1, ++regCounts[$1]] = $i
+        }
+     }
+  }
+}
+
+function getValue(var) {
+  return getArrValueAt(var, 1)
+}
+
+function getArrValueAt(arr, i) {
+  if(regCounts[arr] < i) {
+    return
+  } else {
+    return values[arr, i]
+  }
+}
+
+function getRandArrValue(arr) {
+  n = randint(regCounts[arr])
+  return getArrValueAt(arr, n)
+}
+
+function randint(n) {
+  return int(n * rand()) + 1
+}
+#+END_SRC
+
+#+RESULTS:
+: Barry expediantly skips to the flippant house.
+: Leroy expediantly skips to the funky dog.
+: Leroy carefully runs to the funny cat.
+: Barry carefully runs to the smart dog.
+* Chapter 6: Little Languages

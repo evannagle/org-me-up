@@ -1,0 +1,5 @@
+BEGIN { OFS = "\t" }
+
+$continent ~ /Asia/ { print $country, $population, $capital }
+
+###

@@ -1,0 +1,12 @@
+#delim
+
+name Evan Jaimie Jonie Elvis Leroy
+noun dog cat house fart
+verb jumps skips smiles runs cries
+adj smart funny flippant funky
+adv quickly slowly expediantly quietly carefully
+name Barry
+
+#delim ;
+
+place;Honolulu;beneath the counter;under the desk

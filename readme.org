@@ -1,0 +1,45 @@
+* Org Me Up!
+** Where am I?
+
+This is cliffnotes on org-roids. Learn about anything. Mostly nerdy anythings. Then, forget about everything, and refer back to your notes.
+
+To start:
+
+1. Fork this repo.
+2. Add a book to the [[file+emacs:books/][books/]] folder (e.g. books/practical-common-lisp).
+3. Link to your book in the /library/ section of this document.
+4. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
+5. Submit a pull request to get your book added to the main branch. Or, horde your learnings like a lemming.
+
+** Some Useful Tags
+
+|-----+-----------------------------------------------------|
+| Tag | Meaning                                             |
+|-----+-----------------------------------------------------|
+| bab | Executable code snippets are included in the notes. |
+| pdf | A manual.pdf file is included in the book folder    |
+|-----+-----------------------------------------------------|
+
+** The Library
+
+*** TODO [#B] The AWK Programming Language. 		   :pdf:bab:awk:bash:
+    :SUMMARY: Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
+    :AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
+    :PUBLISHER: Addison-Wesley
+    :DATE: 1988
+    :LANGUAGE: awk
+    :CREATOR: Evan Nagle
+    :NOTES: [[file+emacs:notes/the-awk-programming-language/readme.org][The AWK Programming Language: Notes]]
+    :BOOK: [[file:books/the-awk-programming-language.pdf][The AWK Programming Language: PDF]]
+    :BUY: [[https://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref%3Dsr_1_3?s%3Dbooks&ie%3DUTF8&qid%3D1527199200&sr%3D1-3&keywords%3Dawk%2Bprogramming%2Blanguage][The AWK Programming Language: Amazon]]
+    :END:
+*** DONE [#C] Ed Mastery.					    :ed:text:
+    CLOSED: [2018-05-24 Thu 12:03]
+    :SUMMARY: ed is a bare-bones text editor that ships with every line printer and/or linux box.
+    :AUTHOR: Michael W Lucas
+    :PUBLISHER: Tilted Windmill Press
+    :DATE: 2018
+    :CREATOR: Evan Nagle
+    :NOTES: [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
+    :BUY: [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
+    :END:

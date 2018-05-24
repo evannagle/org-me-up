@@ -1,0 +1,4 @@
+{{name}} {{adv}} {{verb}} to the {{adj}} {{noun}}.
+{{name}} {{adv}} {{verb}} to the {{adj}} {{noun}}.
+{{name}} {{adv}} {{verb}} to the {{adj}} {{noun}}.
+{{name}} {{adv}} {{verb}} to the {{adj}} {{noun}}.

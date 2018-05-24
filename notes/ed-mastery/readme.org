@@ -1,0 +1,201 @@
+* Chapter 0: Some Links
+
+[[https://www.gnu.org/software/ed/manual/ed_manual.html]]
+
+* Chapter 1: Ed Essentials
+
+** Spin Up
+
+ed <file>
+ed -p ">> " <file>
+
+** Commands
+
+|---------+------------------------------------------|
+| Command | Does                                     |
+|---------+------------------------------------------|
+| H       | Echo command to the printer.             |
+| P       | Turn command prompt on/off               |
+| a       | Append to the end of the file.           |
+| .       | Exists append mode, when on its own line |
+| C-c     | Abort                                    |
+| w       | Write the file                           |
+| q       | Quit ed                                  |
+| wq      | Write /and/ quit                         |
+| Q       | Quit without saving changes              |
+|---------+------------------------------------------|
+
+* Chapter 10: Addresses
+
+|--------+---------------------------------|
+| Symbol | Meaning                         |
+|--------+---------------------------------|
+| .      | Current address                 |
+| $      | Last address                    |
+| ;      | Current address to last address |
+| -      | Previous                        |
+| +      | Next                            |
+|--------+---------------------------------|
+
+|----------------+----------------------------------------------------------------|
+| Command        | Does                                                           |
+|----------------+----------------------------------------------------------------|
+| <n>            | Print address <n>                                              |
+| +              | Advance address by one line                                    |
+| +<n>           | Advance by <n> lines                                           |
+| - or ^         | Walk backwards by one line                                     |
+| -<n>           | Walk backwards by <n> lines                                    |
+| =              | Print the address of the last line                             |
+| .=             | Print the address of the current line                          |
+| $              | Go to the last addres                                          |
+| $=             | Print the adress of the last line                              |
+|----------------+----------------------------------------------------------------|
+| Print Commands |                                                                |
+|----------------+----------------------------------------------------------------|
+| p              | Print current address                                          |
+| n              | Print, but include line numbers                                |
+| l              | Print, but include EOL markers                                 |
+| nl             | Include both line numbers and EOL markers                      |
+| ,p             | Print the entire file                                          |
+| ;p             | Print from current address to end of file                      |
+| -p             | Print previous line                                            |
+| +p             | Print next line                                                |
+| -2,+2p         | Print from two lines before => two lines after current address |
+|----------------+----------------------------------------------------------------|
+| Scrolling      |                                                                |
+|----------------+----------------------------------------------------------------|
+| z              | Print from current address and fill buffer.                    |
+| <n>z           | Print from <n> address and fill buffer.                        |
+| <n1>z<n2>      | Print from line n1 to n2, set address to n2                    |
+|----------------+----------------------------------------------------------------|
+| Bookmarks      |                                                                |
+|----------------+----------------------------------------------------------------|
+| k<letter>      | Set bookmark at current address                                |
+| '<letter>      | Return to bookmark                                             |
+|----------------+----------------------------------------------------------------|
+
+* Chapter 11: Text Editing
+
+|-------------------+-----------------------------------------------------------------------------|
+| Command           | Does                                                                        |
+|-------------------+-----------------------------------------------------------------------------|
+| u                 | Undo. Only can undo one prior change (be careful!)                          |
+|-------------------+-----------------------------------------------------------------------------|
+| Main commands     |                                                                             |
+|-------------------+-----------------------------------------------------------------------------|
+| a                 | Append after current line                                                   |
+| c                 | Overwrite current line                                                      |
+| i                 | Insert before current line                                                  |
+| d                 | Delete the current line                                                     |
+|-------------------+-----------------------------------------------------------------------------|
+| <n>a              | Insert after line n                                                         |
+| <n>i              | Insert before line n                                                        |
+| <n>c              | Overwrite line n                                                            |
+| <n>d              | Delete line n                                                               |
+| <n1>m<n2>         | Move line n1 to line n2 -- note that the first line is notated in n2 with 0 |
+| <n1>t<n2>         | Copy line n1 to line n2                                                     |
+| <n1>,<n2>j        | Append lines nX through n2 to the end of n1                                 |
+| <n1>,<n2>W <file> | Append lines n1 through n2 to another file                                  |
+| <n>r              | Append file after line n                                                    |
+|-------------------+-----------------------------------------------------------------------------|
+
+* Chapter 100: File Manipulations
+
+|---------------+------------------------------------------------------------|
+| Command       | Does                                                       |
+|---------------+------------------------------------------------------------|
+| f             | Specify filename for buffer.                               |
+| e <file>      | Switch to another file.                                    |
+| E <file>      | Switch to another file and discard changes without prompt. |
+| w <file>      | Write to a different file.                                 |
+| <n1>,<n2>w    | Write part of the buffer to a file.                        |
+|---------------+------------------------------------------------------------|
+| Shell Escapes |                                                            |
+|---------------+------------------------------------------------------------|
+| ! <command>   | Run command directly in ed                                 |
+| r ! <command> | Write command into ed                                      |
+| e ! <command> | Open a new buffer with contents from a command             |
+|---------------+------------------------------------------------------------|
+  
+*** Run ed without a file: 
+
+#+BEGIN_SRC bash
+ed
+#+END_SRC
+
+Type `a` to insert some text.
+
+Type `f <filename>` to specify a buffer.
+
+Type `w` to write your file.
+
+Type `e <file>` to switch to another file.
+
+*** Run ed with a command as the buffer:
+
+#+BEGIN_SRC bash
+ed !'echo "hi"'
+#+END_SRC
+
+* Chapter 101: Regular Expressions and Searches
+
+|----------------------+--------------------------------------------------|
+| Command              | Does                                             |
+|----------------------+--------------------------------------------------|
+| /<regex>/            | Find the next line that matches                  |
+| //                   | Search forward with the same regex               |
+| ??                   | Search backwards with the same regex             |
+| //n                  | Search forward and print line                    |
+| //nl                 | Search forward and print line and EOL mark       |
+| g/<regex>/p          | The origin of `grep`! Find all matches and print |
+| <n1>,<n2>g/<regex>/p | Find all matches within line n1 - n2             |
+| g/<regex>/d          | Delete lines that match                          |
+| g/<regex>/m$         | Move matching lines to EOF                       |
+| g/<regex>/m0         | Move matching lines to SOF                       |
+| G/<regex>/           | Interactive regex, allows editing per match      |
+| G/<regex>/ [ENTER]   | Move to the next match                           |
+| v/<regex>/           | Find all non-matches                             |
+| V/<regex>/           | Interactive regex to find all non-matches        |
+|----------------------+--------------------------------------------------|
+
+** Regex Features
+
+They're pretty standard, but in case you were wondering:
+
+|--------+------------------------------------------------------------|
+| Symbol | Meaning                                                    |
+|--------+------------------------------------------------------------|
+| ^      | Beginning of line                                          |
+| $      | End of line                                                |
+| []     | Character class                                            |
+| [^]    | Exclusionary character class                               |
+| {}     | Character repetition. Squiggly brackets need to be escaped |
+| .      | Anything                                                   |
+| *      | Repeating at least zero times                              |
+| +      | Repeating at least once                                    |
+|--------+------------------------------------------------------------|
+
+* Chapter 110: Substitution
+
+|--------------------------------+-------------------------------------------------------------|
+| Command                        | Meaning                                                     |
+|--------------------------------+-------------------------------------------------------------|
+| s/<regex>/<replace>/           | Replace regex mataches with <replace>                       |
+| s                              | Repeat the last s command                                   |
+| s/<regex>/<replace>/p          | Replace and print result                                    |
+| g/<regex>/ s/<regex>/<replace> | This is the only way to substitute /multiple lines/ at once |
+| %s/<regex>/<replace>           | I lied. This also substitutes multiple lines                |
+|--------------------------------+-------------------------------------------------------------|
+| Subexpressions                 |                                                             |
+|--------------------------------+-------------------------------------------------------------|
+| \1                             | Include subexpression 1 in replacement.                     |
+|--------------------------------+-------------------------------------------------------------|
+
+* Chapter 111: Scripting
+
+1. Create a *.ed file.
+2. Specify the commands in the file, one per line.
+3. Finish the file with the `Q` command. Or, if you want to save your changes, finish with `wq`.
+4. Run `ed {file} < {script.ed file}`
+
+

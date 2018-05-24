@@ -1,0 +1,17 @@
+countries:
+	country
+	area
+	population
+	continent
+capitals:
+	country
+	capital
+cc:
+	country
+	area
+	population
+	continent
+	capital
+	!sort data/qawk/countries.txt > data/qawk/temp.countries
+	!sort data/qawk/capitals.txt > data/qawk/temp.capitals
+	!join -t$'\t' data/qawk/temp.countries data/qawk/temp.capitals > data/qawk/cc
