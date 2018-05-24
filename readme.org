@@ -33,25 +33,27 @@ Interested in contributing? Why, you kind traveller! Here's how:
 |-------+-----------------------------------------------------------------|
 | Tag   | Meaning                                                         |
 |-------+-----------------------------------------------------------------|
-| `bab` | Executable code snippets are included in the notes.             |
-| `pdf` | A free PDF version of the book is included in the books/ folder |
+| *bab* | Executable code snippets are included in the notes.             |
+| *pdf* | A free PDF version of the book is included in the books/ folder |
 |-------+-----------------------------------------------------------------|
 
 ** Prioritizing
 
-From wanderer to wanderer, priorities vary vastly. Feel free to ignore or reset these priorities to meet your own esoteric predilections.
+From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Feel free to ignore or reset these priorities to meet your own esoteric predilections.
 
 |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
 | Priority | Meaning                                                                                                                                         |
 |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
-| #A       | This book is a must-read. Donald Knuth probably wrote it.                                                                                       |
-| #B       | These are books that provide fundamental information on a given topic.                                                                          |
-| #C       | These are books that are interesting and will provide some tangentially powerful tools. Read these if you need some time away from your family. |
-| #D       | These are somewhat esoteric books that are fun to read.                                                                                         |
-| #E       | These are somewhat esoteric books that have hemorrhaged all of their value. Read these if you hate yourself.                                    |
+| *#A*     | This book is a must-read. Donald Knuth probably wrote it.                                                                                       |
+| *#B*     | These are books that provide fundamental information on a given topic.                                                                          |
+| *#C*     | These are books that are interesting and will provide some tangentially powerful tools. Read these if you need some time away from your family. |
+| *#D*     | These are somewhat esoteric books that are fun to read.                                                                                         |
+| *#E*     | These are somewhat esoteric books that have hemorrhaged all of their value. Read these if you hate yourself.                                    |
 |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
 
 ** The Library
+
+If you're underwhelmed, please come back in twenty years. By then, my kids will be in college, and I'll have more time to fine-tune my own derelict personal pursuits.
 
 *** TODO [#C] The AWK Programming Language. 		   :pdf:bab:awk:bash:
 Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
