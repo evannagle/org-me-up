@@ -23,7 +23,7 @@ To start:
 ** The Library
 
 *** TODO [#B] The AWK Programming Language. 		   :pdf:bab:awk:bash:
-    :SUMMARY: Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
+Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
     :AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
     :PUBLISHER: Addison-Wesley
     :DATE: 1988
@@ -34,8 +34,8 @@ To start:
     :BUY: [[https://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref%3Dsr_1_3?s%3Dbooks&ie%3DUTF8&qid%3D1527199200&sr%3D1-3&keywords%3Dawk%2Bprogramming%2Blanguage][The AWK Programming Language: Amazon]]
     :END:
 *** DONE [#C] Ed Mastery.					    :ed:text:
+Ed is a bare-bones text editor that ships with every line printer and/or linux box.
     CLOSED: [2018-05-24 Thu 12:03]
-    :SUMMARY: ed is a bare-bones text editor that ships with every line printer and/or linux box.
     :AUTHOR: Michael W Lucas
     :PUBLISHER: Tilted Windmill Press
     :DATE: 2018
