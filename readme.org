@@ -1,24 +1,41 @@
 * Org Me Up!
 ** Where am I?
 
-This is cliffnotes on org-roids. Learn about anything. Mostly nerdy anythings. Then, forget about everything, and refer back to your notes.
+Hi, there. Welcome to Org-Me-Up. This is cliffnotes on org-roids. Learn about anything. Mostly nerdy anythings. Then, forget about everything, and refer back to your notes.
 
-To start:
+*** Installing Org-Me-Up
+
+#+BEGIN_SRC sh
+# step 1: clone me
+git clone git@github.com:evannagle/org-me-up.git
+
+# step 2: spend 14 years learning Emacs and Emacs org mode
+open "https://orgmode.org/"
+
+# step 3: come back when your jeans are silken, and pick a tome:
+ls org-me-up/notes
+emacs org-me-up/the-awk-programming-language/readme.org
+#+END_SRC
+
+*** How Do I Contribute
+
+Interested in contributing? Why, you kind traveller! Here's how:
 
 1. Fork this repo.
-2. Add a book to the [[file+emacs:books/][books/]] folder (e.g. books/practical-common-lisp).
-3. Link to your book in the /library/ section of this document.
-4. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
-5. Submit a pull request to get your book added to the main branch. Or, horde your learnings like a lemming.
+2. Add a PDF of the book to the [[file+emacs:books/][books/]] folder (e.g. books/practical-common-lisp).
+3. Add your org-based book notes to the [[emacs%2Bfile:notes/][notes/]] folder. Take a peak at another set of notes to get an idea for how things work around here.
+4. Link to your book in the /library/ section of this document.
+5. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
+6. Submit a pull request to get your book added to the main branch. Or, horde your learnings like a lemming.
 
 ** Some Useful Tags
 
-|-----+-----------------------------------------------------|
-| Tag | Meaning                                             |
-|-----+-----------------------------------------------------|
-| bab | Executable code snippets are included in the notes. |
-| pdf | A manual.pdf file is included in the book folder    |
-|-----+-----------------------------------------------------|
+|-------+-----------------------------------------------------------------|
+| Tag   | Meaning                                                         |
+|-------+-----------------------------------------------------------------|
+| `bab` | Executable code snippets are included in the notes.             |
+| `pdf` | A free PDF version of the book is included in the books/ folder |
+|-------+-----------------------------------------------------------------|
 
 ** The Library
 
