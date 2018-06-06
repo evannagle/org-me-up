@@ -10,8 +10,9 @@
   :header-args: :in-file data/todo :results scalar
   :END:
 ** Resources
-   [[https://www.gnu.org/software/ed/manual/ed_manual.html]]
-   [[https://sanctum.geek.nz/arabesque/actually-using-ed/]]
+- [[https://www.gnu.org/software/ed/manual/ed_manual.html]]
+- [[https://sanctum.geek.nz/arabesque/actually-using-ed/]]
+
 ** Open ed as an editor
 
 #+BEGIN_SRC sh
@@ -386,10 +387,6 @@ ed -s data/todo <<<'1a
 : sleep for nine hours
 : swing around the tree
 : call mom
-
-|-------------------+-----------------------------------------------------------------------------|
-| <n1>,<n2>j        | Append lines nX through n2 to the end of n1                                 |
-|-------------------+-----------------------------------------------------------------------------|
 
 * Chapter 100: File Manipulations
   :PROPERTIES:

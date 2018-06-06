@@ -60,7 +60,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
 
 If you're underwhelmed, please come back in twenty years. By then, my kids will be in college, and I'll have more time to fine-tune my own derelict personal pursuits.
 
-*** TODO [#C] The AWK Programming Language. 		   :pdf:bab:awk:bash:
+*** TODO [#C] The AWK Programming Language. 		   :pdf:bab:awk:
     Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
     :AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
     :PUBLISHER: Addison-Wesley
@@ -71,7 +71,7 @@ If you're underwhelmed, please come back in twenty years. By then, my kids will 
     :BOOK: [[file:books/the-awk-programming-language.pdf][The AWK Programming Language: PDF]]
     :BUY: [[https://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref%3Dsr_1_3?s%3Dbooks&ie%3DUTF8&qid%3D1527199200&sr%3D1-3&keywords%3Dawk%2Bprogramming%2Blanguage][The AWK Programming Language: Amazon]]
     :END:
-*** DONE [#D] Ed Mastery.					    :ed:text:
+*** DONE [#D] Ed Mastery.					    :ed:bab:text:
     CLOSED: [2018-06-06 Wed 00:20]
     Ed is a bare-bones text editor that ships with every line printer and/or linux box.
     :AUTHOR: Michael W Lucas
