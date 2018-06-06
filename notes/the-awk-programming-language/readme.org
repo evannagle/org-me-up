@@ -331,7 +331,6 @@ END {
 | Jaimie |  2.0 |  1 |
 
 ** One-liners
-
 *** Print the nth line
 
 #+BEGIN_SRC awk

@@ -1,44 +1,93 @@
+#+TITLE: Ed Mastery
+#+AUTHOR: Michael W Lucas
+#+DATE: 2018
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @ed @linux
+
 * Chapter 1
-** Run Ed
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
+** Resources
+   [[https://www.gnu.org/software/ed/manual/ed_manual.html]]
+   [[https://sanctum.geek.nz/arabesque/actually-using-ed/]]
+** Open ed as an editor
 
-RTFM:
-[[https://www.gnu.org/software/ed/manual/ed_manual.html]]
-
-Then:
 #+BEGIN_SRC sh
-ed <file>
-ed -p ">> " <file>
+ed -p "~ " data/todo
 #+END_SRC
 
-Inside of Ed:
-#+BEGIN_SRC ed
-H
-P
-a
-I am afraid of myself.
-I should be hugging myself.
+** Run ed from the command line.
+#+BEGIN_SRC sh :results scalar
+ed -s data/todo <<<',n'
+#+END_SRC
+
+#+RESULTS:
+: 1	eat breakfast
+: 2	buy groceries
+: 3	sleep for nine hours
+: 4	swing around the tree
+: 5	call mom
+
+** Run ed from the command line, passing an ed file containing directives
+
+#+BEGIN_SRC sh
+ed -s data/todo < data/print-lines.ed
+#+END_SRC
+
+#+RESULTS:
+| 1 | eat breakfast         |
+| 2 | buy groceries         |
+| 3 | sleep for nine hours  |
+| 4 | swing around the tree |
+| 5 | call mom              |
+
+** Append a line to a file
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'a
+learn how to use ed!
 .
-wq
+,p'
+
+# replace Q with wq if you'd like to save your changes.
 #+END_SRC
 
-** Primitive Commands
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+: learn how to use ed!
 
-|---------+------------------------------------------|
-| Command | Does                                     |
-|---------+------------------------------------------|
-| H       | Echo command to the printer.             |
-| P       | Turn command prompt on/off               |
-| a       | Append to the end of the file.           |
-| .       | Exists append mode, when on its own line |
-| C-c     | Abort                                    |
-| w       | Write the file                           |
-| q       | Quit ed                                  |
-| wq      | Write /and/ quit                         |
-| Q       | Quit without saving changes              |
-|---------+------------------------------------------|
+** Append lines at index
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'2a
+learn how to use ed
+and do something else
+.
+,p
+Q'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: learn how to use ed
+: and do something else
+: sleep for nine hours
+: swing around the tree
+: call mom
 
 * Chapter 10: Addresses
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
 
+** Address symbols
 |--------+---------------------------------|
 | Symbol | Meaning                         |
 |--------+---------------------------------|
@@ -47,27 +96,77 @@ wq
 | ;      | Current address to last address |
 | -      | Previous                        |
 | +      | Next                            |
+| n,n    | Range                           |
 |--------+---------------------------------|
 
-|----------------+----------------------------------------------------------------|
-| Command        | Does                                                           |
-|----------------+----------------------------------------------------------------|
-| <n>            | Print address <n>                                              |
-| +              | Advance address by one line                                    |
-| +<n>           | Advance by <n> lines                                           |
-| - or ^         | Walk backwards by one line                                     |
-| -<n>           | Walk backwards by <n> lines                                    |
-| =              | Print the address of the last line                             |
-| .=             | Print the address of the current line                          |
-| $              | Go to the last addres                                          |
-| $=             | Print the adress of the last line                              |
+** $p = print the last line
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'$p'
+#+END_SRC
+
+#+RESULTS:
+: call mom
+
+** <N1>n = print line N1
+
+#+BEGIN_SRC sh
+# print the second line
+ed -s data/todo <<<'1+2'
+#+END_SRC
+
+#+RESULTS:
+: sleep for nine hours
+
+** <N1>,<N2>n = print lines N1 - N2
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'2,3n'
+#+END_SRC
+
+#+RESULTS:
+: 2	buy groceries
+: 3	sleep for nine hours
+
+** = returns an address number (aka line number)
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'! echo "current index: "
+.=' && echo
+
+ed -s data/todo <<<'! echo "current index - 2:"
+-2=' && echo
+
+ed -s data/todo <<<'! echo "index of last line:"
+$=' && echo
+
+ed -s data/todo <<<'! echo "index of first line:"
+1=' && echo
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+current index: 
+5
+
+current index - 2:
+3
+
+index of last line:
+5
+
+index of first line:
+1
+#+end_example
+
+** p, n, l = print lines(s)
 |----------------+----------------------------------------------------------------|
 | Print Commands |                                                                |
 |----------------+----------------------------------------------------------------|
-| p              | Print current address                                          |
-| n              | Print, but include line numbers                                |
-| l              | Print, but include EOL markers                                 |
-| nl             | Include both line numbers and EOL markers                      |
+| p              | Print line at current address                                  |
+| n              | Print line and line number                                     |
+| l              | Print line and EOL markers                                     |
+| nl             | Print line with line number and EOL markers                    |
 | ,p             | Print the entire file                                          |
 | ;p             | Print from current address to end of file                      |
 | -p             | Print previous line                                            |
@@ -80,134 +179,471 @@ wq
 | <n>z           | Print from <n> address and fill buffer.                        |
 | <n1>z<n2>      | Print from line n1 to n2, set address to n2                    |
 |----------------+----------------------------------------------------------------|
+
+*** Example to printing in segments
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'1,2p
+$
+! pwd
+$-'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: call mom
+: /Users/evannagle/Repos/org-me-up/notes/ed-mastery
+: swing around the tree
+
+** k = bookmarks
+|----------------+----------------------------------------------------------------|
 | Bookmarks      |                                                                |
 |----------------+----------------------------------------------------------------|
 | k<letter>      | Set bookmark at current address                                |
 | '<letter>      | Return to bookmark                                             |
 |----------------+----------------------------------------------------------------|
 
+#+BEGIN_SRC sh
+ed -s data/todo <<<"2ka
+'a+
+'a
+'a-"
+#+END_SRC
+
+#+RESULTS:
+: sleep for nine hours
+: buy groceries
+: eat breakfast
+
 * Chapter 11: Text Editing
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
+
+** u = undo
+
+#+BEGIN_SRC sh
+ed -s data/todo<<<'1m2
+,n
+u
+! echo "---"
+,n'
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+1	buy groceries
+2	eat breakfast
+3	sleep for nine hours
+4	swing around the tree
+5	call mom
+---
+1	eat breakfast
+2	buy groceries
+3	sleep for nine hours
+4	swing around the tree
+5	call mom
+#+end_example
+
+** a = append
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'2a
+line 1
+line 2
+.
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: line 1
+: line 2
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** c = change
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'2c
+buy groceries at Whole Foods
+.
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries at Whole Foods
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** i = insert
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'3i
+This goes /above/ line 3
+And so does this
+.
+3+2a
+And this goes after line 3.
+Adding 2 to adjust for lines above.
+.
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: This goes /above/ line 3
+: And so does this
+: sleep for nine hours
+: And this goes after line 3.
+: Adding 2 to adjust for lines above.
+: swing around the tree
+: call mom
+
+** d = delete
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'3d
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: swing around the tree
+: call mom
+
+** m = move line
+
+<n1>m<n2> ==> n1 is the line *number*, starting at 1. n2 is the line *slot*, starting at 0.
+
+- Move third item to the first slot: 3m0
+- Move the last item to second slot: $m1
+- Move the first item to last slot:1m$
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'2m3
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: sleep for nine hours
+: buy groceries
+: swing around the tree
+: call mom
+
+** t = copy line
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '2t2
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** r = insert file
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< 'r data/todo2
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+: jump on a trampoline
+: sleep in the shower
+
+** W = insert into another file
+** j = join lines
+
+#+BEGIN_SRC sh
+ed -s data/todo <<<'1a
+, 
+.
+1,3j
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast, buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
 
 |-------------------+-----------------------------------------------------------------------------|
-| Command           | Does                                                                        |
-|-------------------+-----------------------------------------------------------------------------|
-| u                 | Undo. Only can undo one prior change (be careful!)                          |
-|-------------------+-----------------------------------------------------------------------------|
-| Main commands     |                                                                             |
-|-------------------+-----------------------------------------------------------------------------|
-| a                 | Append after current line                                                   |
-| c                 | Overwrite current line                                                      |
-| i                 | Insert before current line                                                  |
-| d                 | Delete the current line                                                     |
-|-------------------+-----------------------------------------------------------------------------|
-| <n>a              | Insert after line n                                                         |
-| <n>i              | Insert before line n                                                        |
-| <n>c              | Overwrite line n                                                            |
-| <n>d              | Delete line n                                                               |
-| <n1>m<n2>         | Move line n1 to line n2 -- note that the first line is notated in n2 with 0 |
-| <n1>t<n2>         | Copy line n1 to line n2                                                     |
 | <n1>,<n2>j        | Append lines nX through n2 to the end of n1                                 |
-| <n1>,<n2>W <file> | Append lines n1 through n2 to another file                                  |
-| <n>r              | Append file after line n                                                    |
 |-------------------+-----------------------------------------------------------------------------|
 
 * Chapter 100: File Manipulations
-
-|---------------+------------------------------------------------------------|
-| Command       | Does                                                       |
-|---------------+------------------------------------------------------------|
-| f             | Specify filename for buffer.                               |
-| e <file>      | Switch to another file.                                    |
-| E <file>      | Switch to another file and discard changes without prompt. |
-| w <file>      | Write to a different file.                                 |
-| <n1>,<n2>w    | Write part of the buffer to a file.                        |
-|---------------+------------------------------------------------------------|
-| Shell Escapes |                                                            |
-|---------------+------------------------------------------------------------|
-| ! <command>   | Run command directly in ed                                 |
-| r ! <command> | Write command into ed                                      |
-| e ! <command> | Open a new buffer with contents from a command             |
-|---------------+------------------------------------------------------------|
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
   
-*** Run ed without a file: 
+** f = Specify a filename for the current buffer.
+** w = write to file
+** <N1>,<N2>w = write part of the buffer to file
+** e <file> = switch to another file
+** E <file> = switch to another file, discard changes on current file
+** ed = run ed without a file
 
-#+BEGIN_SRC bash
-ed
+#+BEGIN_SRC sh
+ed -s <<< 'a
+line 1
+line 2
+.
+2m0
+,p'
 #+END_SRC
 
-Type `a` to insert some text.
+#+RESULTS:
+: line 2
+: line 1
 
-Type `f <filename>` to specify a buffer.
+** ed -s !'<command>' = run ed on a command
 
-Type `w` to write your file.
-
-Type `e <file>` to switch to another file.
-
-*** Run ed with a command as the buffer:
-
-#+BEGIN_SRC bash
-ed !'echo "hi"'
+#+BEGIN_SRC sh
+ed -s !'ls data' <<< '0a
+====== Files in data folder: ======
+.
+,p'
 #+END_SRC
+
+#+RESULTS:
+: ====== Files in data folder: ======
+: dup.ed
+: jabberwocky.poem
+: links.ed
+: print-lines.ed
+: todo
+: todo2
+
+** r !<command> = run a command directly inside of ed
+
+#+BEGIN_SRC sh
+ed -s <<< 'a
+running command `ls data`:
+==========
+.
+r !ls data
+3a
+ <== first file 
+.
+3,4j
+$a
+ <== last file
+.
+$-,$j
+,p'
+
+#+END_SRC
+
+#+RESULTS:
+: running command `ls data`:
+: ==========
+: dup.ed <== first file 
+: jabberwocky.poem
+: links.ed
+: print-lines.ed
+: todo
+: todo2 <== last file
+
+** e !<command> = run a command and edit the output in a new buffer
+** ! <command> = run command
 
 * Chapter 101: Regular Expressions and Searches
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
 
-|----------------------+--------------------------------------------------|
-| Command              | Does                                             |
-|----------------------+--------------------------------------------------|
-| /<regex>/            | Find the next line that matches                  |
-| //                   | Search forward with the same regex               |
-| ??                   | Search backwards with the same regex             |
-| //n                  | Search forward and print line                    |
-| //nl                 | Search forward and print line and EOL mark       |
-| g/<regex>/p          | The origin of `grep`! Find all matches and print |
-| <n1>,<n2>g/<regex>/p | Find all matches within line n1 - n2             |
-| g/<regex>/d          | Delete lines that match                          |
-| g/<regex>/m$         | Move matching lines to EOF                       |
-| g/<regex>/m0         | Move matching lines to SOF                       |
-| G/<regex>/           | Interactive regex, allows editing per match      |
-| G/<regex>/ [ENTER]   | Move to the next match                           |
-| v/<regex>/           | Find all non-matches                             |
-| V/<regex>/           | Interactive regex to find all non-matches        |
-|----------------------+--------------------------------------------------|
+** /<regex>/ prints FIRST matching line
 
-** Regex Features
+#+BEGIN_SRC sh
+ed -s data/todo <<< '/.*/'
+#+END_SRC
 
-They're pretty standard, but in case you were wondering:
+#+RESULTS:
+: eat breakfast
 
-|--------+------------------------------------------------------------|
-| Symbol | Meaning                                                    |
-|--------+------------------------------------------------------------|
-| ^      | Beginning of line                                          |
-| $      | End of line                                                |
-| []     | Character class                                            |
-| [^]    | Exclusionary character class                               |
-| {}     | Character repetition. Squiggly brackets need to be escaped |
-| .      | Anything                                                   |
-| *      | Repeating at least zero times                              |
-| +      | Repeating at least once                                    |
-|--------+------------------------------------------------------------|
+** // = search forward with same regex
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '/a/
+//'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: swing around the tree
+
+** ?? = search backward with same regex
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '/a/
+??'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: call mom
+
+** g/<regex>/p = GREP! find all matches and print
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< 'g/ee/p'
+#+END_SRC
+
+#+RESULTS:
+: sleep for nine hours
+: swing around the tree
+
+** <N1>,<N2>g/<regex>/p = grep within range
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '1,2g/e/p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+
+** g/<regex>/d = delete all lines that match
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< 'g/ee/d
+,p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: call mom
+
+** g/<regex>/m<N> = move matching lines to N
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< 'g/ee/m0
+,p'
+#+END_SRC
+
+#+RESULTS:
+: swing around the tree
+: sleep for nine hours
+: eat breakfast
+: buy groceries
+: call mom
+
+** G/<regex> = interactive regex, allows editing per match
+** v/<regex>/ = find all non-matches
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< 'v/ee/p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: call mom
+
+** V/<regex>/ interactive regex for non-matches, allows editing per match
 
 * Chapter 110: Substitution
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
 
-|--------------------------------+-------------------------------------------------------------|
-| Command                        | Meaning                                                     |
-|--------------------------------+-------------------------------------------------------------|
-| s/<regex>/<replace>/           | Replace regex mataches with <replace>                       |
-| s                              | Repeat the last s command                                   |
-| s/<regex>/<replace>/p          | Replace and print result                                    |
-| g/<regex>/ s/<regex>/<replace> | This is the only way to substitute /multiple lines/ at once |
-| %s/<regex>/<replace>           | I lied. This also substitutes multiple lines                |
-|--------------------------------+-------------------------------------------------------------|
-| Subexpressions                 |                                                             |
-|--------------------------------+-------------------------------------------------------------|
-| \1                             | Include subexpression 1 in replacement.                     |
-|--------------------------------+-------------------------------------------------------------|
+** s/<regex>/<replace>/ = replace
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '3s/ee/__EE__/
+,n'
+#+END_SRC
+
+#+RESULTS:
+: 1	eat breakfast
+: 2	buy groceries
+: 3	sl__EE__p for nine hours
+: 4	swing around the tree
+: 5	call mom
+
+** %s/<regex>/<replace> = replace all
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '%s/ee/__EE__/
+,n'
+#+END_SRC
+
+#+RESULTS:
+: 1	eat breakfast
+: 2	buy groceries
+: 3	sl__EE__p for nine hours
+: 4	swing around the tr__EE__
+: 5	call mom
+
+** \<N> = subexpression
+
+#+BEGIN_SRC sh
+# parenthesees need to be escaped!
+
+ed -s data/todo <<< '%s/\([aeiou]\)/*\1*/g
+,n'
+#+END_SRC
+
+#+RESULTS:
+: 1	*e**a*t br*e**a*kf*a*st
+: 2	b*u*y gr*o*c*e*r*i**e*s
+: 3	sl*e**e*p f*o*r n*i*n*e* h*o**u*rs
+: 4	sw*i*ng *a*r*o**u*nd th*e* tr*e**e*
+: 5	c*a*ll m*o*m
 
 * Chapter 111: Scripting
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
 
-1. Create a *.ed file.
-2. Specify the commands in the file, one per line.
-3. Finish the file with the `Q` command. Or, if you want to save your changes, finish with `wq`.
-4. Run `ed {file} < {script.ed file}`
+** Example
 
+#+BEGIN_SRC sh
+ed -s data/todo <<< '2d
+w data/todo2.txt
+! echo "==> data/todo2.txt"
+,p
+1m2
+1d
+w data/todo3.txt
+! echo "==> data/todo3.txt"
+,p
+Q'
+
+# let's cleanup
+rm data/todo2.txt
+rm data/todo3.txt
+#+END_SRC
+
+#+RESULTS:
+: ==> data/todo2.txt
+: eat breakfast
+: sleep for nine hours
+: swing around the tree
+: call mom
+: ==> data/todo3.txt
+: eat breakfast
+: swing around the tree
+: call mom
 

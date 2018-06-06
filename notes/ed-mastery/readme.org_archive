@@ -1,0 +1,26 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/evannagle/Repos/org-me-up/notes/ed-mastery/readme.org
+
+
+* \<N> = subexpression
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-06-06 Wed 00:18
+  :ARCHIVE_FILE: ~/Repos/org-me-up/notes/ed-mastery/readme.org
+  :ARCHIVE_OLPATH: Chapter 110: Substitution
+  :ARCHIVE_CATEGORY: readme
+  :END:
+
+#+BEGIN_SRC sh
+ed -s data/todo <<< '%s/\([aeiou]\)/*\1*/g
+,n'
+#+END_SRC
+
+#+RESULTS:
+: 1	*e**a*t br*e**a*kf*a*st
+: 2	b*u*y gr*o*c*e*r*i**e*s
+: 3	sl*e**e*p f*o*r n*i*n*e* h*o**u*rs
+: 4	sw*i*ng *a*r*o**u*nd th*e* tr*e**e*
+: 5	c*a*ll m*o*m
+
