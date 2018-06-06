@@ -45,15 +45,15 @@ END'
 : Hello, World
 
 
-** Assignment: <tab><variable> = <value>
+** Assignment: <space><variable> = <value>
 
 #+BEGIN_SRC sh
 snobol4 -b <<< '
  NUM1VAR = "foo"
  DOTTY..VAR = NUM1VAR
  DUNDER__VAR = DOTTY..VAR
- SPACEY VAR = DUNDER__VAR
- OUTPUT = SPACEY VAR
+ VAR = DUNDER__VAR
+ OUTPUT = VAR
 END'
 #+END_SRC
 
