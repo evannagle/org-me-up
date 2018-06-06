@@ -1,0 +1,187 @@
+#+TITLE: The Snobol4 Programming Language
+#+AUTHOR: R. E. Griswald, J. F. Poage, I. P. Polonsky
+#+DATE: 1971
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @snobol @esoteric
+
+* Chapter 1: Introduction
+  :PROPERTIES:
+  :header-args: :in-file data/todo :results scalar
+  :END:
+
+** Hello, World
+*** From file
+#+BEGIN_SRC sh
+echo "data/hello.sn:\n"
+
+ed -s data/hello.sn <<< ',n'
+
+echo 
+
+snobol4 -b data/hello.sn
+#+END_SRC
+
+#+RESULTS:
+: data/hello.sn:
+: 
+: 1	* SNOBOL program to print Hello World
+: 2	  HELLO = "Hello, World"
+: 3	  OUTPUT = HELLO
+: 4	END
+: 
+: Hello, World
+
+*** Inline
+
+#+BEGIN_SRC sh
+snobol4 -b <<<'
+  HELLO = "Hello, World"
+  OUTPUT = HELLO
+END'
+#+END_SRC
+
+#+RESULTS:
+: Hello, World
+
+
+** Assignment: <tab><variable> = <value>
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ NUM1VAR = "foo"
+ DOTTY..VAR = NUM1VAR
+ DUNDER__VAR = DOTTY..VAR
+ SPACEY VAR = DUNDER__VAR
+ OUTPUT = SPACEY VAR
+END'
+#+END_SRC
+
+#+RESULTS:
+: foo
+
+
+** Arithmetic
+*** +, - * (), the usual candidates
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+  M = 4
+  N = 8.2
+  P = N * M / (N - 1)
+  OUTPUT = P
+END'
+#+END_SRC
+
+#+RESULTS:
+: 4.55555555555556
+
+*** ** = exponentiation
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ OUTPUT = 3 ** 3
+END'
+#+END_SRC
+
+#+RESULTS:
+: 27
+
+** Strings
+*** Can be specified via single or double quote.
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '* This kind of escaping is only necessary when you are working inline
+ APOST = "'"'"'" 
+ QUOTE = '"'"'"'"'"'
+ OUTPUT = QUOTE "You can" APOST "t always get what you want." QUOTE
+END'
+#+END_SRC
+
+#+RESULTS:
+: "You can't always get what you want."
+
+*** Concatenated like awk: <s3> = <s1> <s2>
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+  A = "a"
+  B = "b"
+  C = "(" A B ")c"
+  OUTPUT = C
+END'
+#+END_SRC
+
+#+RESULTS:
+: (ab)c
+
+*** <variable> = <EOL> = sets a string variable to NULL
+*** Strings are implicitly converted in arithmetic expressions
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ S4 = "4.0"
+ N5 = S4 + 1.1
+ OUTPUT = N5
+ S5 = "-> " N5
+ OUTPUT = S5
+END'
+#+END_SRC
+
+#+RESULTS:
+: 5.1
+: -> 5.1
+
+** Pattern Matching
+*** Replace a substring
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ WORD = "Hello, World"
+ WORD "e" = "_"
+ OUTPUT = WORD
+END'
+#+END_SRC
+
+#+RESULTS:
+: H_llo, World
+
+*** Replace a substring with string concatenation
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ HAND = "AC4DAHKDKS"
+ RANK = 4
+ SUIT = "D"
+ HAND (RANK SUIT) = "--"
+ OUTPUT = HAND
+END'
+#+END_SRC
+
+#+RESULTS:
+: AC--AHKDKS
+
+*** Replace a substring using an OR pattern
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ VOWELS = "a" | "e" | "i" | "o" | "u"
+ HELLO = "Hello, World"
+ HELLO VOWELS = "_"
+ OUTPUT = HELLO
+END'
+#+END_SRC
+
+#+RESULTS:
+: H_llo, World
+
+#+BEGIN_SRC sh
+snobol4 -b <<< '
+ ROW = "K"
+ NO. = 20
+ "K24" ROW NO. + 4
+END'
+#+END_SRC
+
+#+RESULTS:
+

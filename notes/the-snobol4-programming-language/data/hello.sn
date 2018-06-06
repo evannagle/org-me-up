@@ -1,0 +1,4 @@
+* SNOBOL program to print Hello World
+  HELLO = "Hello, World"
+  OUTPUT = HELLO
+END
