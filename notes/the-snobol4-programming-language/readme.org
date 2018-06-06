@@ -175,13 +175,5 @@ END'
 #+RESULTS:
 : H_llo, World
 
-#+BEGIN_SRC sh
-snobol4 -b <<< '
- ROW = "K"
- NO. = 20
- "K24" ROW NO. + 4
-END'
-#+END_SRC
 
-#+RESULTS:
 
