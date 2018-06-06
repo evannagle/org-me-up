@@ -1,6 +1,5 @@
 #+Author: Evan Nagle
 #+Email: evan@mantle.co
-#+Title: Org Me Up!
 #+STARTUP: showall
 
 * Org Me Up!
