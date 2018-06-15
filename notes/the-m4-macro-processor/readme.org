@@ -9,6 +9,30 @@
   :PROPERTIES:
   :results:  scalar value
   :END:      
+** Built-in macros (table) 						:ref:
+|-----------------------------|
+| changequote(L, R)           |
+| define(name, replacement)   |
+| divert(number)              |
+| divnum                      |
+| dnl                         |
+| dumpdef(`name',`name')      |
+| errprint(s, s, ...)         |
+| eval(numeric expression)    |
+| ifdef(`name', ift, iff)     |
+| include(file)               |
+| incr(number)                |
+| index(s1, s2)               |
+| len(string)                 |
+| maketemp(...XXX...)         |
+| sinclude(file)              |
+| substr(str, p, n)           |
+| syscmd(s)                   |
+| translit(str, from, to)     |
+| undefine(`macro')           |
+| undivert(number,number,...) |
+|-----------------------------|
+
 ** Usage
 
 m4 [files]
