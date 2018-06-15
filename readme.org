@@ -84,6 +84,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
     :END:
 ** DONE [#C] The M4 Macro Processor :pdf:bab:short:
    CLOSED: [2018-06-14 Thu 20:55]
+   M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
    :AUTHOR: Brian W. Kernigan, Dennis M. Richie
    :PUBLISHER: Bell Laboratories
    :DATE: 1977
