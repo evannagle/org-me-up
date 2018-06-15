@@ -35,13 +35,14 @@ Interested in contributing? Why, you kind traveller! Here's how:
 
 * Tags
 
-|-------+-----------------------------------------------------------------|
-| Tag   | Meaning                                                         |
-|-------+-----------------------------------------------------------------|
-| *bab* | Executable code snippets are included in the notes.             |
-| *eso* | Esoteric books that might interest the self-afflicted.          |
-| *pdf* | A free PDF version of the book is included in the books/ folder |
-|-------+-----------------------------------------------------------------|
+|---------+-----------------------------------------------------------------|
+| Tag     | Meaning                                                         |
+|---------+-----------------------------------------------------------------|
+| *bab*   | Executable code snippets are included in the notes.             |
+| *eso*   | Esoteric books that might interest the self-afflicted.          |
+| *pdf*   | A free PDF version of the book is included in the books/ folder |
+| *short* | A short essay or chapbook-sized document.                       |
+|---------+-----------------------------------------------------------------|
 
 * Pritories
 
@@ -81,6 +82,13 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
     :NOTES: [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
     :BUY: [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
     :END:
+** DONE [#C] The M4 Macro Processor :pdf:bab:short:
+   CLOSED: [2018-06-14 Thu 20:55]
+   :AUTHOR: Brian W. Kernigan, Dennis M. Richie
+   :PUBLISHER: Bell Laboratories
+   :DATE: 1977
+   :ESSAY: [[file:books/the-m4-macro-processor.pdf][The M4 Macro Processor]]
+   :NOTES: [[file+emacs:notes/the-m4-macro-processor/readme.org][The M4 Macro Processor]]
 ** TODO [#D] The Snobol4 Programming Langage. :pdf:eso:
    Snobol is a text-oriented programming language used primarily in the 1960's for text manipulation tasks.
    :AUTHOR: R. E. Griswold, J. F. Poage, I. P. Polonsky

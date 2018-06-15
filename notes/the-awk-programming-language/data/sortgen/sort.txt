@@ -1,0 +1,5 @@
+field separator is ,
+primary key is field 2
+  increasing alphabetic
+secondary key is field 3
+  reverse numeric

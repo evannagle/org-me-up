@@ -1,0 +1,260 @@
+#+TITLE: The M4 Macro Processor
+#+AUTHOR: Brian W. Kernigan, Dennis M. Ritchie
+#+DATE: 1977
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @pdf @bab @m4 @unix @essay
+
+* M4 Features
+  :PROPERTIES:
+  :results:  scalar value
+  :END:      
+** Usage
+
+m4 [files]
+
+OR 
+
+m4 <<<'...'
+
+** define(var, stuff)
+
+#+BEGIN_SRC sh 
+m4 <<< '
+define(foo,"bar")
+foo
+'
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: "bar"
+: 
+
+** `' = escape var
+
+#+BEGIN_SRC sh
+m4 <<<"
+define(foo,bar)
+\`foo' = foo
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: foo = bar
+: 
+
+** Quoting the `var' in define is usually suggested
+
+#+BEGIN_SRC sh
+m4 <<< "
+define(\`NN', \`\`N'')
+define(N, 100)
+NN is now N
+
+define(N, 200)
+NN is now N
+
+define(\`N', 200)
+NN is now N"
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+
+N is now 100
+
+
+N is now 100
+
+
+N is now 200
+#+end_example
+
+** changequote([,]) to change those pesky `'s
+
+#+BEGIN_SRC sh
+m4 <<< 'changequote({,})
+define(foo,bar)
+{foo} = foo'
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: foo = bar
+
+** undefine(var) = set to null
+
+#+BEGIN_SRC sh
+m4 <<<"
+changequote({,})
+define({N}, 100)
+{N} is N
+undefine({N})
+{N} is N again
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: 
+: N is 100
+: 
+: N is N again
+: 
+
+** undefine() can undefine macros, so be careful!
+
+#+BEGIN_SRC sh
+m4 <<<"
+define(N, 100)
+undefine(undefine)
+undefine(N)
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: 
+: undefine(100)
+: 
+
+** ifdef({var}, ift, iff)
+
+#+BEGIN_SRC sh
+m4 <<<"
+changequote({,})
+ifdef({N}, 1, 2)
+define(N, 100)
+ifdef({N}, 1, 2)
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: 2
+: 
+: 1
+: 
+
+** ifdef({var}, {action}, [{action}])
+
+#+BEGIN_SRC sh
+m4 <<<"
+changequote({,})
+ifdef({N}, {define(P,1)}, {define(P,2)})
+{P} is P
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: 
+: P is 2
+: 
+
+** $N = pass an argument to a macro
+
+#+BEGIN_SRC sh
+m4 data/macro-args.m4
+#+END_SRC
+
+#+RESULTS:
+: 
+: x = x + 1
+: 
+: 
+: xyz
+
+** incr = increments var by 1
+
+#+BEGIN_SRC sh
+m4 <<<"
+define(\`N', 1)N
+define(\`N', incr(N))N
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 1
+: 2
+: 
+
+** eval() translates template string inline
+
+#+BEGIN_SRC sh
+m4 <<<"
+define(\`N', 3)
+define(\`m', \`2**N+1')
+define(\`M', \`eval(2**N+1)')
+\`m' = m
+\`M' = M
+"
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: 
+: 
+: m = 2**3+1
+: M = 9
+: 
+
+** include() = includes a file
+** sinclude() = includes a file if it exists, fails silently otherwise
+** divert(N) = place content into a temporary file, N
+** undivert = brings back all diversions in the order given
+** syscmd = system command
+
+#+BEGIN_SRC sh
+m4 <<<'syscmd(date)'
+#+END_SRC
+
+#+RESULTS:
+: Thu Jun 14 20:44:31 HST 2018
+: 
+
+** ifelse(a, b, c) = if a matches b, then c
+** len(s) = length of a string
+
+#+BEGIN_SRC sh
+m4 <<<"len(foo)"
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+** substr(start, len)
+
+#+BEGIN_SRC sh
+m4 <<<"substr(now is the time, 1)"
+m4 <<<"substr(now is the time, 0, 1)"
+#+END_SRC
+
+#+RESULTS:
+: ow is the time
+: n
+
+** translit(s,f,t) = replace f with t in string s
+
+#+BEGIN_SRC sh
+m4 <<<"translit(meet,e,a)"
+#+END_SRC
+
+#+RESULTS:
+: maat
+
+** errprint = send errors to standard error output
+** dumpdef(n) = output var metadata for n

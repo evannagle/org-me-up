@@ -1,0 +1,9 @@
+Mike,Aber,22,M,Sober,1000
+Evan,Nagle,35,M,Drunk,3000
+Evan,Nagle,24,M,Sober,3100
+Jaimie,Nagle,34,F,Sober,3000
+Jonie,Nagle,2,F,Toddler,4000
+Elvis,Nagle,1,M,Baby,4000
+Leroy,Nagle,6,M,Dog,200
+Mike,Zibra,6,M,Dog,200
+Joon,Jark,35,F,Sober,2000

@@ -477,7 +477,6 @@ END {
   :PROPERTIES:
   :header-args: :in-file data/countries.txt
   :END:
-
 ** Built-in variables
 
 |----------+-------------------------------------------+---------|
@@ -767,7 +766,6 @@ BEGIN {
   :PROPERTIES:
   :header-args: :in-file data/emp-dirty.data
   :END:
-
 ** Validating columns
 
 #+BEGIN_SRC awk :results scalar value
@@ -1173,7 +1171,6 @@ awk 'BEGIN {
   :PROPERTIES:
   :header-args: :in-file data/countries.org
   :END:
-
 ** Generating Reports
 
 #+BEGIN_SRC sh :results scalar value
@@ -1469,7 +1466,7 @@ function missing(x, i) {
 : Japan	120	Tokyo
 : USSR	275	Moscow
 
-* Chapter 5: Processing words
+* Chapter 5: Proocessing words
 ** Generate a random number
 #+BEGIN_SRC awk
 BEGIN {
@@ -1591,3 +1588,68 @@ function randint(n) {
 : Leroy carefully runs to the funny cat.
 : Barry carefully runs to the smart dog.
 * Chapter 6: Little Languages
+** ASM -- toy assembler and interpreter
+   :PROPERTIES:
+   :header-args: :in-file data/asm/asm
+
+#+BEGIN_SRC sh :results scalar
+awk -f data/asm/asm data/asm/sum-nums.as data/asm/numbers.txt
+#+END_SRC
+
+#+RESULTS:
+: 1132
+
+** Graphing Language
+
+#+BEGIN_SRC sh :results scalar
+awk -f data/graph/graph.awk data/graph/deaths.graph
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+        |----------------------------------------------------------------------|
+        |                                           *                          |
+        |                                                                      |
+60000   -                                       *                              |
+        |                                                                      |
+        |                                                                      |
+        |                                                     *                |
+        |                                                *            *        |
+        |                                                      * *             |
+45000   -                                                       *              |
+        |                 *         *       *                                  |
+        |                      *                                               |
+        |            *        *                                                |
+        |                                                                      |
+30000   -        *                                                             |
+        |                                                                      |
+        |                                                                      |
+        |   *                                                                  |
+        |                                                                      |
+15000   -                                                                      |
+        |                                                                      |
+        |--------|--------|--------|--------|-------|--------|--------|--------|
+                1930     1940     1950     1960    1970     1980     1990       
+                        Annual Traffic Deaths, USA, 1925 - 1984                 
+#+end_example
+
+** A Sort Generator
+
+#+BEGIN_SRC sh
+scmd=$(awk -f data/sortgen/sortgen.awk data/sortgen/sort.txt)
+#echo $scmd
+
+cat data/sortgen/sortable.txt | eval $scmd
+#+END_SRC
+
+#+RESULTS:
+| Mike   | Aber  | 22 | M | Sober   | 1000 |
+| Joon   | Jark  | 35 | F | Sober   | 2000 |
+| Evan   | Nagle | 35 | M | Drunk   | 3000 |
+| Jaimie | Nagle | 34 | F | Sober   | 3000 |
+| Evan   | Nagle | 24 | M | Sober   | 3100 |
+| Leroy  | Nagle |  6 | M | Dog     |  200 |
+| Jonie  | Nagle |  2 | F | Toddler | 4000 |
+| Elvis  | Nagle |  1 | M | Baby    | 4000 |
+| Mike   | Zibra |  6 | M | Dog     |  200 |
+

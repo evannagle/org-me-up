@@ -1,0 +1,52 @@
+*		Remove excess spaces from incoming input
+		&TRIM		=	1
+
+*		Our pattern for pulling the next char from the line
+		NEXT.CH		=	LEN(1) . CH
+
+*		The string of letters we're going to count
+		UCASE		= 	'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		LCASE		=	'abcdefghijklmnopqrstuvwxyz'
+		ULCASES		=	'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
+		
+*		A hash table of letter counts
+		COUNTS		=	TABLE(26)
+
+		DEFINE("UPPER(STR)")		:(END_UPPER)
+UPPER		STR LEN(1) . LETTER =		:F(RETURN)
+		LCASE LETTER                  	:F(APPEND)
+		
+*		Find the lower case letter, then grab the next letter in the string
+*		which, as you might have guessed, is the upper case equivalent!
+		ULCASES LETTER LEN(1) . LETTER
+APPEND		UPPER = UPPER LETTER		:(UPPER)
+						:(RETURN)
+END_UPPER
+		
+*		Read next line, display when no more lines
+READ		LINE = INPUT			:F(DISPLAY)
+
+*		Count number of lines
+		NR = NR + 1			
+		
+*		A hearty feature of Snobol!
+*		Pass TEXT through the NEXT.CH pattern
+*		Set the match to ""
+*		NEXT.CH spits the match into CH
+*		if no pattern is found, read the next line.
+READ.CHAR	LINE NEXT.CH =	 	     	 :F(READ)
+
+*		Let's make sure this CH is a letter
+	      	ULCASES CH			:F(READ.CHAR)
+		CH = UPPER(CH)
+
+*	      	Update the count for this letter
+	       	COUNTS<CH> = COUNTS<CH> + 1	:(READ.CHAR)
+	
+DISPLAY
+		OUTPUT = "Rows: " NR
+		
+LOOP.COUNTS	UCASE NEXT.CH =			:F(END)
+		EQ(0,COUNTS<CH>)		:S(LOOP.COUNTS)
+		OUTPUT = CH ": " COUNTS<CH>	:(LOOP.COUNTS)
+END
