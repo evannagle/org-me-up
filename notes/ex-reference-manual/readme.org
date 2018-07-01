@@ -1,0 +1,346 @@
+#+TITLE: Ex Reference Manual
+#+AUTHOR: William Joy, Mark Horton
+#+DATE: Unknown
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @pdf short eso -e 's/@+/@/g'
+
+* Starting Ex
+** References
+
+Some of these notes don't really come from the manual; they've been reworked from the Ed Mastery book.
+I was interested in comparing ed and ex. I've flagged ed-comparative notes with :ed:
+
+** Open ex as an editor :ed:
+
+#+BEGIN_SRC sh
+ex data/todo
+#+END_SRC
+
+** Run ex from the command line :ed:
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'set nu
+%'
+#+END_SRC
+
+#+RESULTS:
+:       1 eat breakfast
+:       2 buy groceries
+:       3 sleep for nine hours
+:       4 swing around the tree
+:       5 call mom
+   
+* File Manipulation
+** Edits can be saved with :w or :file <name>
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'a
+create a second todo file
+.
+file %2
+wq'
+
+cat data/todo2
+rm data/todo2
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+: create a second todo file
+
+** ex -r = returns files saved for you
+** ex -r resume = resumes after a crash
+   
+* Address Primitives
+|-------+-----------------------------------------------|
+| Var   | References                                    |
+|-------+-----------------------------------------------|
+| .     | The current line                              |
+| n     | The nth line                                  |
+| $     | The last line                                 |
+| %     | The entire buffer: An abbreviation for 1,$    |
+|       | in ed "," is synonymous                       |
+| +n -n | An offset relative to the current buffer line |
+| /pat/ | Scan forward for a line with pat              |
+| ?pat? | Scan backwards for a line with pat            |
+|-------+-----------------------------------------------|
+
+* Commands
+** (a)ppend
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'2 a
+new line 3
+.
+%'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: new line 3
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** (c)hange
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'3c
+new third line
+.
+%'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: new third line
+: swing around the tree
+: call mom
+
+** (co)py
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'3,5 co 2
+%'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** (d)elete
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'d2
+%'
+#+END_SRC    
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+
+** (e)dit <file>
+
+#+BEGIN_SRC sh :results scalar
+ex <<<'e data/todo
+1p
+e data/todo2
+2p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: and yet another todo
+
+** e +n <file>
+
+#+BEGIN_SRC sh
+ex <<<'e +2 data/todo
+p'
+#+END_SRC    
+
+#+RESULTS:
+: buy groceries
+
+** g/re/p
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'g/\(eat\|sleep\)/p'
+#+END_SRC    
+
+#+RESULTS:
+: eat breakfast
+: sleep for nine hours
+
+** g!/re/p
+
+#+BEGIN_SRC sh :results scalar
+ex <<<'e data/todo
+g!/eat/p
+g/eat/p'
+#+END_SRC    
+
+#+RESULTS:
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+: eat breakfast
+
+** (i)nsert
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'3i
+this is the 3rd line
+.
+%'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: this is the 3rd line
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** (j)oin
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'1 j 2
+%'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** j!
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'1 a
+,
+.
+1 j! 2
+1 j 2
+%'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast, buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** mar(k)
+** list = shows line endings
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'% list'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast$
+: buy groceries$
+: sleep for nine hours$
+: swing around the tree$
+: call mom$
+
+** map = define fn key
+** (m)ove <addr>
+** (n)ext = move to next file
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo data/todo2 <<<'%
+next
+%'
+
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+: another todo
+: and yet another todo
+
+** (nu)mber or #
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<< "% nu"
+#+END_SRC
+
+#+RESULTS:
+:       1 eat breakfast
+:       2 buy groceries
+:       3 sleep for nine hours
+:       4 swing around the tree
+:       5 call mom
+
+** preserve = if write isn't working and you're freaking out
+** (p)rint or P
+** (pu)t = yank back deleted lines
+
+#+BEGIN_SRC sh
+ex data/todo <<<'1 d
+3 pu
+% p'
+
+#+END_SRC
+
+#+RESULTS:
+| buy   | groceries |      |       |
+| sleep | for       | nine | hours |
+| swing | around    | the  | tree  |
+| eat   | breakfast |      |       |
+| call  | mom       |      |       |
+
+** (q)uit
+** q! = quit and discare changes without warning
+** (r)ead
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'3 read data/todo2
+% p'
+#+END_SRC
+
+#+RESULTS:
+: eat breakfast
+: buy groceries
+: sleep for nine hours
+: another todo
+: and yet another todo
+: swing around the tree
+: call mom
+
+** (rew)ind
+** rew!
+** set = variables
+
+#+BEGIN_SRC sh
+ex <<<'set nu
+set'
+#+END_SRC
+
+#+RESULTS:
+| helplang=en  number  scroll=11  fileencodings=ucs-bom | utf-8 | default | latin1  iskeyword=@ | 48-57 | _ | 192-255 |
+
+** (sh)ell
+** (s)ubstitute
+
+#+BEGIN_SRC sh :results scalar
+ex data/todo <<<'% s/eat/devour/
+% p'
+#+END_SRC
+
+#+RESULTS:
+: devour breakfast
+: buy groceries
+: sleep for nine hours
+: swing around the tree
+: call mom
+
+** stop
+
+
+
+

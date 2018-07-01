@@ -36,6 +36,8 @@
 ** Usage
 
 m4 [files]
+m4 --define=FOO="bar" file.txt.m4 > file.txt
+m4 -DFOO="bar" file.txt.m4 > file.txt
 
 OR 
 
