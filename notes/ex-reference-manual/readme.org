@@ -1,6 +1,6 @@
 #+TITLE: Ex Reference Manual
 #+AUTHOR: William Joy, Mark Horton
-#+DATE: Unknown
+#+DATE: 1978
 #+EMAIL: evan@mantle.co
 #+CREATOR: Evan Nagle
 #+TAGS: @pdf short eso -e 's/@+/@/g'
