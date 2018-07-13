@@ -91,6 +91,13 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :NOTES: [[file+emacs:notes/ex-reference-manual/readme.org][Ex Reference Manual]]
    :END:
 ** TODO [#D] Exploiting the m4 Macro Language                      :pdf:m4:bab:short:
+   M4 is a macro processor available on Unix. This short paper discusses creative approaches to applying m4 templating.
+   :AUTHOR: Kenneth J. Turner
+   :PUBLISHER: University of Stirling
+   :DATE: 1994
+   :ESSAY: [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
+   :NOTES: [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Exploiting the m4 Macro Language]]
+
 ** DONE [#C] The M4 Macro Processor                                :pdf:m4:bab:short:
    CLOSED: [2018-06-14 Thu 20:55]
    M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
