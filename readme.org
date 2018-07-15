@@ -90,7 +90,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :ESSAY: [[file:books/ex-reference-manual.pdf][Ex Reference Manual]]
    :NOTES: [[file+emacs:notes/ex-reference-manual/readme.org][Ex Reference Manual]]
    :END:
-** TODO [#D] Exploiting the m4 Macro Language                      :pdf:m4:bab:short:
+** DONE [#D] Exploiting the m4 Macro Language 		   :pdf:m4:bab:short:
    M4 is a macro processor available on Unix. This short paper discusses creative approaches to applying m4 templating.
    :AUTHOR: Kenneth J. Turner
    :PUBLISHER: University of Stirling
