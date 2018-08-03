@@ -9,7 +9,6 @@
   :PROPERTIES:
   :header-args: :in-file data/todo :results scalar
   :END:
-
 ** Hello, World
 *** Inline
 
@@ -74,7 +73,7 @@ cat data/jabberwocky.txt | snobol4 data/lines.sno
 33.         All mimsy were the borogoves, 
 34.               And the mome raths outgrabe.
 #+end_example
-
+    
 ** Assignment: <space><variable> = <value>
 
 The space is important. Without it, you'll get an error like this:
@@ -209,6 +208,9 @@ snobol4 -b <<< '
  OUTPUT = WORD
 END'
 #+END_SRC
+
+#+RESULTS:
+: H_llo, World
 
 *** <variable><pattern> . <match> Replace a string and capture what you replaced
 
@@ -379,9 +381,10 @@ END'
 
 #+BEGIN_SRC sh
 snobol4 -b <<<'
- MONTH = "APRIL"
- $MONTH = "CRUEL"
- OUTPUT = APRIL
+   MONTH = "APRIL"
+#  APRIL = "CRUEL"
+   $MONTH = "CRUEL"
+   OUTPUT = APRIL
 END'
 #+END_SRC
 
@@ -478,10 +481,6 @@ END
 #+END_SRC
 
 #+RESULTS:
-: Match!
-: First letter: L
-: Second letter: e
-: Next 3 letters: roy
 
 ** Defined functions
 *** DELETE
@@ -500,7 +499,7 @@ END'
 
 #+RESULTS:
 : BCDBR
-
+    
 *** COMB
 
 #+BEGIN_SRC sh
@@ -694,8 +693,11 @@ X: 1
 Y: 16
 #+end_example
 
-
 * Chapter 2: Pattern Matching
+  :PROPERTIES:
+  :header-args: :results scalar
+  :END:
+
 ** &ANCHOR = match only start of string
 
 #+BEGIN_SRC sh
@@ -853,8 +855,11 @@ END'
 
 #+BEGIN_SRC sh
 snobol4 -b <<<'
- STR = "   SNOBOL4"
- STR SPAN(" ") POS(3) RTAB(0) . OUTPUT
+ STR1 = "   SNOBOL4"
+ STR2 = " SNOBOL4"
+
+ STR1 SPAN(" ") POS(3) RTAB(0) . OUTPUT
+ STR2 SPAN(" ") POS(3) RTAB(0) . OUTPUT
 END
 '
 #+END_SRC
@@ -924,3 +929,253 @@ END
 #+RESULTS:
 : abcdef
 
+* Chapter 3: Primitive Functions
+  :PROPERTIES:
+  :header-args: :results scalar
+  :END:
+
+** INTEGER(N) checks if variable is convertable to an int
+
+#+BEGIN_SRC sh
+snobol4 <<<'
+    INTEGER(4)      :F(ERR)
+    INTEGER("4")    :F(ERR)
+    INTEGER("X")    :F(ERR)
+                    :S(END)
+ERR OUTPUT = "Invalid input encountered."
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: Invalid input encountered.
+
+** IDENT(X, Y) checks if X === Y (stricter than EQ(X, Y)
+
+#+BEGIN_SRC sh
+snobol4 <<<'
+    X = 3
+    Y = "3"
+    IDENT(X,Y)    :S(YES)F(NO)
+YES OUTPUT = X " === " Y :(END)
+NO  OUTPUT = X " !== " Y :(END)
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: 3 !== 3
+
+** DIFFER(X, Y) checks if X !== Y
+** LGT(A, B) checks for alphabetic order
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<<'
+        &ANCHOR = 1; &FULLSCAN = 1
+        FLIP = LEN(*I) . HEAD LEN(1) $ X LEN(1) $ Y *LGT(X,Y)
+        STR = "LABORATORIES"
+        OUTPUT = STR
+        LIMIT = SIZE(STR) - 2
+
+LOOP    STR FLIP = HEAD Y X
+#       OUTPUT = STR
+        I = LT(I, LIMIT) I + 1    :S(LOOP)
+        I = 0
+        LIMIT = GT(LIMIT, 0) LIMIT - 1     :S(LOOP)
+        OUTPUT = STR
+END'
+#+END_SRC
+
+#+RESULTS:
+: LABORATORIES
+: AABEILOORRST
+
+** SIZE(A) = length of a string
+** REPLACE(str, [chars], [new chars])
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<< '
+        BITS = OUTPUT = "1101111101"
+        FLIPPED_BITS = OUTPUT = REPLACE(BITS, "01", "10")
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: 1101111101
+: 0010000010
+
+** TRIM(str) = removes leading and trailing spaces
+** DUPL(str, n) = repeats str n times
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<<'
+        TITLE = "Hello, World"
+
+        BAR = "|"
+        OSIZE = 50
+        ISIZE = OSIZE - (SIZE(BAR) * 2)
+        TSIZE = (ISIZE - SIZE(TITLE)) / 2
+        LINE = DUPL("-", OSIZE)
+        BARS = "|" DUPL(" ", ISIZE) "|"
+
+        OUTPUT = LINE
+        OUTPUT = BARS
+        OUTPUT = BARS
+        OUTPUT = BAR DUPL(" ", TSIZE) TITLE DUPL(" ", TSIZE) BAR
+        OUTPUT = BARS
+        OUTPUT = BARS
+        OUTPUT = LINE
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: --------------------------------------------------
+: |                                                |
+: |                                                |
+: |                  Hello, World                  |
+: |                                                |
+: |                                                |
+: --------------------------------------------------
+
+** REMDR = remainder
+
+#+BEGIN_SRC sh
+snobol4 <<< '
+    OUTPUT = REMDR(13,2)
+    OUTPUT = REMDR(43,8)
+    OUTPUT = REMDR(-14, -5)
+END
+'
+#+END_SRC
+
+#+RESULTS:
+|  1 |
+|  3 |
+| -4 |
+
+** DATE() = current date
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<< '
+        OUTPUT = DATE()
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: 08/02/2018 08:39:14
+
+** TIME() = amount of time passed in ms since beginning of execution
+
+#+BEGIN_SRC sh
+snobol4 <<<'
+    Y = OUTPUT = TIME()
+    OUTPUT = DUPL("-", 30)
+    OUTPUT = TIME() - Y
+    OUTPUT = TIME() - Y
+    OUTPUT = TIME() - Y
+END
+'
+#+END_SRC
+
+#+RESULTS:
+|            0.00500000000000034 |
+| ------------------------------ |
+|             0.0229999999999997 |
+|             0.0249999999999999 |
+|             0.0269999999999997 |
+
+** EVAL(str) = evaluates a string
+
+#+BEGIN_SRC sh
+snobol4 <<<'
+        S = "(X * SIZE(X)) - 2"
+        U = *((X * SIZE(X)) - 2)
+        X = 5
+        OUTPUT = EVAL(S)
+        OUTPUT = EVAL(U)
+END
+'
+#+END_SRC
+
+#+RESULTS:
+| 3 |
+| 3 |
+
+** APPLY(fn, arg1, ... , argN) = call function by name
+
+#+BEGIN_SRC sh
+snobol4 <<< '
+        OUTPUT = APPLY("REMDR", 31, 12)
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: 7
+
+** NEGATION = ~
+
+The negation key is listed as ALT+170: ¬
+But the actual negation key is a tilde: ~
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<<'
+                X = 1
+                Y = 2
+                OUTPUT = DIFFER(X,Y) "They differ"                
+                OUTPUT = DIFFER(X,X) "They do not differ"
+                OUTPUT = ~(DIFFER(X,X)) "They do not differ"
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: They differ
+: They do not differ
+
+** INTERROGATION = ?
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<<'
+                X = 1
+                Y = 2
+                OUTPUT = ?(DIFFER(X,Y)) "They differ"
+                OUTPUT = ?(DIFFER(X,X)) "They do not differ"
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: They differ
+
+** LOAD(prototype, fn) = add FORTRAN or ASSEMBLY libs
+** OPSYN(x,y,n) = create aliases and override operators
+
+#+BEGIN_SRC sh :results scalar
+snobol4 <<<'
+                OPSYN("ADD", "+", 2)
+
+                OUTPUT = "FUN WITH " ADD(3,4)
+                OUTPUT = DUPL("-", 20)
+
+                DEFINE("PLUS(X,Y)")             :(END_PLUS)
+PLUS            PLUS = X " + " Y " = " ADD(X,Y) :(RETURN)
+END_PLUS
+
+                OUTPUT = PLUS(3,4)
+                OPSYN("+", "PLUS", 2)
+                OUTPUT = 3 + 4
+END
+'
+#+END_SRC
+
+#+RESULTS:
+: FUN WITH 7
+: --------------------
+: 3 + 4 = 7
+: 3 + 4 = 7
+
+* Chapter 4: Programmer Defined Functions

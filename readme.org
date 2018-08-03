@@ -60,7 +60,6 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
 
 * The Library
 
-
 ** TODO [#C] The AWK Programming Language. 		          :pdf:bab:awk:
     Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
     :AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
@@ -90,7 +89,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :ESSAY: [[file:books/ex-reference-manual.pdf][Ex Reference Manual]]
    :NOTES: [[file+emacs:notes/ex-reference-manual/readme.org][Ex Reference Manual]]
    :END:
-** DONE [#D] Exploiting the m4 Macro Language 		   :pdf:m4:bab:short:
+** DONE [#D] Exploiting the m4 Macro Language 		          :pdf:m4:bab:short:
    M4 is a macro processor available on Unix. This short paper discusses creative approaches to applying m4 templating.
    :AUTHOR: Kenneth J. Turner
    :PUBLISHER: University of Stirling
