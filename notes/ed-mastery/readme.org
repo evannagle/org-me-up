@@ -7,7 +7,7 @@
 
 * Chapter 1: Basics
   :PROPERTIES:
-  :header-args: :in-file data/todo :results scalar
+  :header-args: :results scalar
   :END:
 ** Resources
 - [[https://www.gnu.org/software/ed/manual/ed_manual.html]]
@@ -38,15 +38,16 @@ ed -s data/todo < data/print-lines.ed
 #+END_SRC
 
 #+RESULTS:
-| 1 | eat breakfast         |
-| 2 | buy groceries         |
-| 3 | sleep for nine hours  |
-| 4 | swing around the tree |
-| 5 | call mom              |
+: 1	eat breakfast
+: 2	buy groceries
+: 3	sleep for nine hours
+: 4	swing around the tree
+: 5	call mom
 
 ** Append a line to a file
 
 #+BEGIN_SRC sh
+# a lone period means "I'm done"
 ed -s data/todo <<<'a
 learn how to use ed!
 .
@@ -85,9 +86,8 @@ Q'
 
 * Chapter 10: Addresses
   :PROPERTIES:
-  :header-args: :in-file data/todo :results scalar
+  :header-args: :results scalar
   :END:
-
 ** Address symbols
 |--------+---------------------------------|
 | Symbol | Meaning                         |

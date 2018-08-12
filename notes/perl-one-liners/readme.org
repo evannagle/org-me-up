@@ -1,0 +1,7 @@
+#+TITLE: Perl One-Liners
+#+AUTHOR: Peteris Krumins
+#+DATE: 2014
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @perl @bab
+

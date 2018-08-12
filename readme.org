@@ -27,7 +27,15 @@ emacs org-me-up/the-awk-programming-language/readme.org
 Interested in contributing? Why, you kind traveller! Here's how:
 
 1. Fork this repo.
-2. Run `make book`. 
+2. Run this script:
+
+#+BEGIN_SRC emacs-lisp
+;; if you add this file to your config,
+;; you can call M-x org-me-up/make-book
+;; until the cows come home
+(load-file "./scripts/make-book.el")
+#+END_SRC
+
 3. Start taking notes.
 4. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
 5. Update this main readme once you're at least partially finished.
@@ -81,7 +89,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
     :NOTES: [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
     :BUY: [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
     :END:
-** TODO [#D] Ex Reference Manual.                                  :pdf:bab:short:
+** DONE [#D] Ex Reference Manual.			      :pdf:bab:short:
+   CLOSED: [2018-08-12 Sun 11:49]
    Ex is an extended version of the Ed editor and a precursor to Vi.
    :AUTHOR: William Joy, Mark Horton
    :PUBLISHER: University of California, Berkeley
@@ -96,6 +105,22 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :DATE: 1994
    :ESSAY: [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
    :NOTES: [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Exploiting the m4 Macro Language]]
+
+** DONE [#C] Evil - Extensible vi Layer for Emacs	 :pdf:emacs:vi:short:
+   CLOSED: [2018-08-12 Sun 11:49]
+   Documentation on the Evil mode for Emacs
+   :AUTHOR: Frank Fischer and Vergard Oye
+   :PUBLISHER: Frank Fischer and Vergard Oye
+   :DATE: 2011
+   :ESSAY: [[file:books/evil-extensible-vi-layer-for-emacs.pdf][Evil - Extensible vi Layer for Emacs]]
+   :NOTES: [[file+emacs:notes/evil-extensible-vi-layer-for-emacs/readme.org][Evil - Extensible vi Layer for Emacs]]
+
+** TODO [#B] Perl One-Liners 
+   130 single-line programs that "get things done."
+   :AUTHOR: Peteris Krumins
+   :PUBLISHER: No Starch Press
+   :DATE: 2014
+   :NOTES: [[file+emacs:notes/perl-one-liners/readme.org][Perl One-Liners]]
 
 ** DONE [#C] The M4 Macro Processor                                :pdf:m4:bab:short:
    CLOSED: [2018-06-14 Thu 20:55]

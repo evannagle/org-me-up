@@ -1,0 +1,185 @@
+#+TITLE: Evil - Extensible vi Layer for Emacs
+#+AUTHOR: Frank Fischer and Vergard Oye
+#+DATE: 2011
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @pdf @emacs @vi @short
+
+* Overview
+** Modes and states
+
+|-----------+---------------|
+| Mode line | State name    |
+|-----------+---------------|
+|       <N> | Normal State  |
+|       <I> | Insert State  |
+|       <V> | Visual State  |
+|       <R> | Replace State |
+|       <E> | Emacs State   |
+|-----------+---------------|
+
+
+*** C-Z toggles between <N> and <E> modes
+    
+* Settings
+** General
+*** evil-auto-indent = line autoindented when switching to <I>
+*** evil-shift-width = num of cols shifted with > and < keys
+*** evil-repeat-move-cursor = repeating command . will move cursor
+*** evil-find-skip-newlines = f, F, t, and T can skep to new lines
+*** evil-move-cursor-back = cursor moves backwards when exiting insert state
+*** evil-want-fine-undo = undo action on complex commands like cw undone in multiple steps
+*** evil-regexp-search = / and ? use regexp
+*** evil-search-wrap = / and ? wrap lines
+*** evil-flash-delay = how long to flash matchs when pressing n and N
+*** evil-want-C-i-jump = C-i jumps forward in the jump list
+*** evil-want-C-u-scroll = scroll the buffer with C-u
+
+** The Cursor
+
+*** evil-default-cursor
+*** evil-normal-state-cursor
+*** evil-insert-state-cursor
+*** evil-visual-state-cursor
+*** evil-replace-state-cursor
+*** evil-operator-state-cursor
+*** evil-motion-state-cursor
+*** evil-emacs-state-cursor
+
+** The Initial State
+
+*** evil-set-initial-state **mode state**
+
+* Keymaps
+
+Keymaps are modified with the Emacs 'define-key function:
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map "w" 'foo)
+#+END_SRC
+
+** Global keymap: 
+
+*** evil-normal-state-map
+*** evil-insert-state-map
+*** evil-visual-state-map
+*** evil-replace-state-map
+*** evil-operator-state-map
+*** evil-motion-state-map
+*** evil-motion-state-map
+
+** Buffer-local keymap:
+
+*** evil-normal-state-local-map
+*** evil-insert-state-local-map
+*** evil-visual-state-local-map
+*** evil-replace-state-local-map
+*** evil-operator-state-local-map
+*** evil-motion-state-local-map
+
+** evil-define-key
+
+Add state bindings to a regular keymap
+
+* Hooks
+** evil-normal-state-entry-hook
+** evil-normal-state-exit-hook
+** evil-insert-state-entry-hook
+** evil-insert-state-exit-hook
+** evil-visual-state-entry-hook
+** evil-visual-state-exit-hook
+** evil-replace-state-entry-hook
+** evil-replace-state-exit-hook
+** evil-operator-state-entry-hook
+** evil-operator-state-exit-hook
+** evil-motion-state-entry-hook
+** evil-motion-state-exit-hook
+** evil-next-state
+** evil-previous-state
+
+* Macros
+** Motions
+- Motions are commands that move the cursor like w and e
+- Motions are defined with the macro **evil-define-motion**
+
+*** evil-declare-motion <command>
+    Declare command to be a motion. This ensures that it works properly in Visual state.
+
+*** evil-define-motion <motion> [count args...]
+
+    
+#+BEGIN_SRC elisp
+(evil-define-motion foo-forward (count)
+  "Move to the right by COUNT characters."
+  :type inclusive
+  (forward-char (or count 1)))
+#+END_SRC
+
+** Operators
+- An operator is a command which acts on the text moved over by a motion, such as c, d, and y
+- Operators are defined with the macro **evil-define-macro**
+
+*** evil-define-operator <operator> [beg end type args...]
+    
+
+#+BEGIN_SRC emacs-lisp
+(evil-define-operator evil-rot13 (beg end)
+  "ROT13 encrypt text."
+  (rot13-region beg end))
+#+END_SRC
+
+** Text Objects
+- A text object is a special kind of motion which sets a beginning position as well as an ending position.
+- Examples include iw and a(.
+- Text objects a defined with the macro **evil-define-text-object**
+
+*** evil-define-text-object <object> [count args...]
+
+#+BEGIN_SRC emacs-lisp
+(evil-define-text-object foo (count)
+  "Select three characters."
+  (list (point) (+ (point) 3)))
+#+END_SRC
+
+** Types
+- A type is a transformation on a pair of buffer positions. 
+- Evil defines the types 'exclusive', 'inclusive', 'line', and 'block'
+- Types are defined with the macro **evil-define-type**
+
+*** evil-define-type <type> <doc> <keyword-args...>
+
+** States
+   
+States are defined with the macro **evil-define-state**
+
+Evil defines the states Normal, Insert, Visual, Replace, and Emacs
+
+*** evil-define-state <state> <doc> <keyword-args...> <body...>
+
+* Other Internals
+** Command Properties
+
+Evil defines command properties to store information about commands, such as whether they should be repeated. 
+
+A command property is a :keyword with an associated value, e.g., :repeat nil.
+
+*** evil-add-command-properties <command> &rest <properties>
+    Add properties to an existing command.
+
+*** evil-set-command-properties <command> &rest <properties>
+    Like evil-add-command-properties, but reset all previous properties.
+
+*** evil-get-command-property <command> <property>
+    Return the value of a command property.
+
+*** evil-define-command <command> <args...> <doc> <keyword-args...> <body...>
+    Define a command with comman properties keyword-args
+
+*** evil-declare-repeat <command>
+    Declare a command to be repeatable.
+
+*** evil-declare-not-repeat <command>
+    Declare a command to be non-repeatable.
+
+*** evil-declare-change-repeat <command>
+    Declare a command to be repeatable by buffer changes rather than keystrokes.
