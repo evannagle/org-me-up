@@ -120,8 +120,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :AUTHOR: Peteris Krumins
    :PUBLISHER: No Starch Press
    :DATE: 2014
+   :BUY: [[https://www.amazon.com/Perl-One-Liners-Programs-That-Things/dp/159327520X][Perl One-Liners]]
    :NOTES: [[file+emacs:notes/perl-one-liners/readme.org][Perl One-Liners]]
-
 ** DONE [#C] The M4 Macro Processor                                :pdf:m4:bab:short:
    CLOSED: [2018-06-14 Thu 20:55]
    M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
@@ -137,5 +137,6 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :PUBLISHER: Prentice Hall, Inc.
    :DATE: 1971
    :BOOK: [[file:books/the-snobol4-programming-language.pdf][The Snobol4 Programming Language]]
+   :BUY: [[https://www.amazon.com/s/ref%3Dnb_sb_noss?url%3Dsearch-alias%253Dstripbooks&field-keywords%3Dthe%2Bsnobol4%2Bprogramming%2Blanguage][The Snobol4 Programming Language]]
    :NOTES: [[file+emacs:notes/the-snobol4-programming-language/readme.org][The Snobol4 Programming Language]]
    :END: 

@@ -5,3 +5,546 @@
 #+CREATOR: Evan Nagle
 #+TAGS: @perl @bab
 
+* Spacing
+  :PROPERTIES:
+  :header-args: :results scalar 
+  :END:
+
+** Print a file
+
+- `perl -n <file>` wraps while loop around program
+- `perl -p <file>` wraps while loop around program AND prints (like awk)
+- `perl -pe "<command> <file>"` executes command on each line of file   
+  
+#+BEGIN_SRC sh
+perl -pe0 data/lines.txt
+# which is the same as:
+# perl -pe '' data/lines/txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 2
+: 
+: line 3
+: line 4
+
+Which is the same as:
+
+#+BEGIN_SRC perl :in-file :results output
+open(FILE, "data/lines.txt");
+
+while(<FILE>) {
+  # this is where the -e command is inserted
+  # our -e command is empty, so I'm empty!
+} continue {
+  print or die "-p failed: $!\n";
+}
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 2
+: 
+: line 3
+: line 4
+
+** Double-space a file
+#+BEGIN_SRC sh
+perl -pe '$\ = "\n"' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+line 2
+
+
+
+line 3
+
+line 4
+
+#+end_example
+** Double-space a file (better!)
+
+#+BEGIN_SRC sh
+perl -pe 'BEGIN { $\ = "\n" }' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+line 2
+
+
+
+line 3
+
+line 4
+
+#+end_example
+
+** Double-space a file using $_
+
+#+BEGIN_SRC sh
+# $_ => the current line
+# .= => assignment operator like PHP
+perl -pe '$_ .= "\n"' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+line 2
+
+
+
+line 3
+
+line 4
+
+#+end_example
+
+** Double-space a file using substitution
+
+#+BEGIN_SRC sh
+perl -pe 's/$/\n/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+line 2
+
+
+
+line 3
+
+line 4
+
+#+end_example
+
+** Double-space a file using say in Perl 5.10+
+   
+#+BEGIN_SRC sh
+# -n => loop like -p but doesn't print
+# -E => same as -e but enables perl 5.10 features
+perl -nE 'say' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+line 2
+
+
+
+line 3
+
+line 4
+
+#+end_example
+
+** Double-space a file, excluding the blank lines
+
+#+BEGIN_SRC sh
+perl -pe '$_ .= "\n" unless /^$/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: 
+: line 2
+: 
+: 
+: line 3
+: 
+: line 4
+: 
+
+** Double-space a file, excluding empty lines
+
+#+BEGIN_SRC sh
+perl -pe '$_ .= "\n" if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: 
+: line 2
+: 
+: 
+: line 3
+: 
+: line 4
+: 
+
+** Triple-space a file
+
+#+BEGIN_SRC sh
+perl -pe '$_ .= "\n\n" if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+
+line 2
+
+
+
+line 3
+
+
+line 4
+
+
+#+end_example
+
+** N-space a file
+
+#+BEGIN_SRC sh
+perl -pe '$_ .= "\n"x7 if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+
+
+
+
+
+
+
+line 2
+
+
+
+
+
+
+
+
+line 3
+
+
+
+
+
+
+
+line 4
+
+
+
+
+
+
+
+#+end_example
+
+** Add a blank line before every line
+
+#+BEGIN_SRC sh
+perl -pe 's/^/\n/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+line 1
+
+line 2
+
+
+
+line 3
+
+line 4
+#+end_example
+
+** Remove all blank lines
+
+#+BEGIN_SRC sh
+perl -ne 'print if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 2
+: line 3
+: line 4
+
+** Remove all consecutive blank lines, leaving only one
+
+#+BEGIN_SRC sh
+# -00 => paragarph slurp mode
+perl -00pe0 data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 2
+: 
+: line 3
+: line 4
+
+** Compress/expand all blank lines into N consecutive blank lines
+
+#+BEGIN_SRC sh
+perl -00pe '$_ .= "\n"x3' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+line 1
+line 2
+
+
+
+
+line 3
+line 4
+
+
+
+#+end_example
+
+** Double-space between words
+
+#+BEGIN_SRC sh
+perl -pe 's/ /  /g' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line  1
+: line  2
+: 
+: line  3
+: line  4
+
+** Remove all spacing between words
+
+#+BEGIN_SRC sh
+perl -pe 's/ +//g' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line1
+: line2
+: 
+: line3
+: line4
+
+** Change spacing between all words to one space
+
+#+BEGIN_SRC sh
+perl -pe 's/ +/ /g' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 2
+: 
+: line 3
+: line 4
+
+** Insert a space between all characters
+
+#+BEGIN_SRC sh
+# -l => l[octal], enable line ending processing 
+# without -l, line endings are also gobbled
+perl -lpe 's// /g' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+:  l i n e   1 
+:  l i n e   2 
+:  
+:  l i n e   3 
+:  l i n e   4 
+
+* Numbering
+  :PROPERTIES:
+  :header-args: :results scalar 
+  :END:
+
+** Number all lines in a file
+
+#+BEGIN_SRC sh
+perl -pe '$_ = "$..\t$_"' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1.	line 1
+: 2.	line 2
+: 3.	
+: 4.	line 3
+: 5.	line 4
+
+** Number only non-empty lines in a file
+
+#+BEGIN_SRC sh
+# $x is created automatically on first increment
+perl -pe '$_ = ++$x . " $_" if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 line 1
+: 2 line 2
+: 
+: 3 line 3
+: 4 line 4
+
+** Number only non-empty lines, drop empty lines
+
+#+BEGIN_SRC sh
+perl -ne 'print ++$x . " $_" if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 line 1
+: 2 line 2
+: 3 line 3
+: 4 line 4
+
+** Number all lines but print only non-empty lines
+
+#+BEGIN_SRC sh
+perl -ne 'print "$. $_" if /\S/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 line 1
+: 2 line 2
+: 4 line 3
+: 5 line 4
+
+** Number and print only lines that match a pattern
+
+#+BEGIN_SRC sh
+perl -ne 'print "Match " . ++$x . ", Line $.: $_" if /line [2-4]/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: Match 1, Line 2: line 2
+: Match 2, Line 4: line 3
+: Match 3, Line 5: line 4
+** Number all lines in a file using a custom format
+
+#+BEGIN_SRC sh
+perl -ne 'printf "%-5d %s", $., $_' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1     line 1
+: 2     line 2
+: 3     
+: 4     line 3
+: 5     line 4
+
+** Print total number of lines in a file (wc -l)
+
+#+BEGIN_SRC sh
+perl -lne 'END { print $. }' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: 34
+
+** Print total number of lines in a file using context switch
+
+#+BEGIN_SRC sh
+perl -e 'print $n = () = <>' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: 34
+
+** Print the number of non-empty lines in a file
+
+#+BEGIN_SRC sh
+perl -le 'print scalar(grep { /./ } <>)' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: 28
+
+*** Golfing = creating the shortest Perl program that does a particular task
+*** ~~ Double bitwise negation => converts list to scalar
+
+#+BEGIN_SRC sh
+perl -lE 'say~~grep{/./}<>' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: 28
+
+** Print the number of empty lines in a file
+
+#+BEGIN_SRC sh
+perl -nE 'say~~grep{/^\S/}<>' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: 13
+
+** Print the number of lines that match a pattern (grep -c)
+
+#+BEGIN_SRC sh
+# $x + 0 ensures that 0 is printed if no matches are found
+perl -lne '$x++ if /line [1-9]/; END { print $x + 0 }' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+** Number words across all lines
+
+#+BEGIN_SRC sh
+# s/regex/replace/ge => the e interprets the replacement as code
+perl -pe 's/(\w+)/++$i."[$1]"/ge' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1[line] 2[1]
+: 3[line] 4[2]
+: 
+: 5[line] 6[3]
+: 7[line] 8[4]
+
+** Number words on each liners
+
+#+BEGIN_SRC sh
+perl -pe '$i = 0; s/([aeiou])/++$i."[$1]"/ge' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: l1[i]n2[e] 1
+: l1[i]n2[e] 2
+: 
+: l1[i]n2[e] 3
+: l1[i]n2[e] 4
+
+** Replace all words with their numeric positions
+
+#+BEGIN_SRC sh
+perl -pe 's/(\w+)/++$i/ge' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 2
+: 3 4
+: 
+: 5 6
+: 7 8
+
+* Calculations

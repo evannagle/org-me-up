@@ -6,22 +6,41 @@
 #+TAGS: @pdf @emacs @vi @short
 
 * Overview
+** Reference
+- [[git://gitorious.org/evil/evil.git][Github Repo]]
+- [[https://www.emacswiki.org/emacs/Evil][Wiki]]
+
 ** Modes and states
 
-|-----------+---------------|
-| Mode line | State name    |
-|-----------+---------------|
-|       <N> | Normal State  |
-|       <I> | Insert State  |
-|       <V> | Visual State  |
-|       <R> | Replace State |
-|       <E> | Emacs State   |
-|-----------+---------------|
-
+|-----------+----------+---------------|
+| Mode line | Symbol   | State name    |
+|-----------+----------+---------------|
+|       <N> | 'normal  | Normal State  |
+|       <I> | 'insert  | Insert State  |
+|       <V> | 'visual  | Visual State  |
+|       <R> | 'replace | Replace State |
+|       <E> | 'emacs   | Emacs State   |
+|-----------+----------+---------------|
 
 *** C-Z toggles between <N> and <E> modes
     
+** States as symbols
+
+When a macro or function requests a **state** variable, you can pass one of the following symbols:
+- 'normal => Normal state
+- 'insert => Insert state
+- 'visual => Visual state
+- 'replace => Replace state
+- 'emacs => Emacs state
+
 * Settings
+
+Setting should preferably be set before Evil is loaded:
+
+#+BEGIN_SRC elisp
+(setq evil-shift-width 8)
+#+END_SRC
+
 ** General
 *** evil-auto-indent = line autoindented when switching to <I>
 *** evil-shift-width = num of cols shifted with > and < keys
@@ -36,7 +55,6 @@
 *** evil-want-C-u-scroll = scroll the buffer with C-u
 
 ** The Cursor
-
 *** evil-default-cursor
 *** evil-normal-state-cursor
 *** evil-insert-state-cursor
@@ -47,9 +65,16 @@
 *** evil-emacs-state-cursor
 
 ** The Initial State
+*** evil-set-initial-state <mode> <state>
 
-*** evil-set-initial-state **mode state**
+#+BEGIN_SRC emacs-lisp
+;; here's a list of the modes you can specify
+;; 'emacs 'normal 'insert 'visual 'operator 'replace 'motion
+(evil-state-property t :modes)
 
+;; example setting of mode
+(evil-set-initial-state 'text-mode 'normal)
+#+END_SRC
 * Keymaps
 
 Keymaps are modified with the Emacs 'define-key function:
@@ -59,7 +84,6 @@ Keymaps are modified with the Emacs 'define-key function:
 #+END_SRC
 
 ** Global keymap: 
-
 *** evil-normal-state-map
 *** evil-insert-state-map
 *** evil-visual-state-map
@@ -69,7 +93,6 @@ Keymaps are modified with the Emacs 'define-key function:
 *** evil-motion-state-map
 
 ** Buffer-local keymap:
-
 *** evil-normal-state-local-map
 *** evil-insert-state-local-map
 *** evil-visual-state-local-map
@@ -77,9 +100,19 @@ Keymaps are modified with the Emacs 'define-key function:
 *** evil-operator-state-local-map
 *** evil-motion-state-local-map
 
-** evil-define-key
+** evil-define-key <state> <keymap> <command>
 
-Add state bindings to a regular keymap
+- Add state bindings to a regular keymap
+- Similar to define-key with an added argument for <state>
+
+#+BEGIN_SRC emacs-lisp
+;; this function needs to pass commandp
+(defun my/evil/tilde ()
+  (interactive) ;;this is required for the fun to be considered a commandp
+  (message "Why would I do this?"))
+
+(evil-define-key 'normal 'evil-normal-state-map (kbd "~") 'my/evil/tilde)
+#+END_SRC
 
 * Hooks
 ** evil-normal-state-entry-hook
@@ -101,14 +134,28 @@ Add state bindings to a regular keymap
 ** Motions
 - Motions are commands that move the cursor like w and e
 - Motions are defined with the macro **evil-define-motion**
-
 *** evil-declare-motion <command>
     Declare command to be a motion. This ensures that it works properly in Visual state.
 
 *** evil-define-motion <motion> [count args...]
+   Motions can be called via :<line> motion, e.g. :142 evil-goto-line
+**** type => inclusive, line, block, or exclusive
+**** jump => store previous position in jump list
 
-    
 #+BEGIN_SRC elisp
+;; Defined in ~/.emacs.d/elpa/evil-20180723.1243/evil-commands.el
+(evil-define-motion evil-goto-line (count)
+  "Go to the first non-blank character of line COUNT.
+By default the last line."
+  :jump t
+  :type line
+  (if (null count)
+      (with-no-warnings (end-of-buffer))
+    (goto-char (point-min))
+    (forward-line (1- count)))
+  (evil-first-non-blank))
+
+;; From docs
 (evil-define-motion foo-forward (count)
   "Move to the right by COUNT characters."
   :type inclusive
@@ -118,11 +165,40 @@ Add state bindings to a regular keymap
 ** Operators
 - An operator is a command which acts on the text moved over by a motion, such as c, d, and y
 - Operators are defined with the macro **evil-define-macro**
-
+- Operators can be called explicity just like motions, e.g. :124 evil-delete
+  
 *** evil-define-operator <operator> [beg end type args...]
     
-
 #+BEGIN_SRC emacs-lisp
+;; Defined in ~/.emacs.d/elpa/evil-20180723.1243/evil-commands.el
+(evil-define-operator evil-delete (beg end type register yank-handler)
+  "Delete text from BEG to END with TYPE.
+Save in REGISTER or in the kill-ring with YANK-HANDLER."
+  (interactive "<R><x><y>")
+  (unless register
+    (let ((text (filter-buffer-substring beg end)))
+      (unless (string-match-p "\n" text)
+        ;; set the small delete register
+        (evil-set-register ?- text))))
+  (let ((evil-was-yanked-without-register nil))
+    (evil-yank beg end type register yank-handler))
+  (cond
+   ((eq type 'block)
+    (evil-apply-on-block #'delete-region beg end nil))
+   ((and (eq type 'line)
+         (= end (point-max))
+         (or (= beg end)
+             (/= (char-before end) ?\n))
+         (/= beg (point-min))
+         (=  (char-before beg) ?\n))
+    (delete-region (1- beg) end))
+   (t
+    (delete-region beg end)))
+  ;; place cursor on beginning of line
+  (when (and (called-interactively-p 'any)
+             (eq type 'line))
+    (evil-first-non-blank)))
+
 (evil-define-operator evil-rot13 (beg end)
   "ROT13 encrypt text."
   (rot13-region beg end))
@@ -141,6 +217,13 @@ Add state bindings to a regular keymap
   (list (point) (+ (point) 3)))
 #+END_SRC
 
+    
+#+BEGIN_SRC emacs-lisp
+(evil-define-text-object evil-a-word (count &optional beg end type)
+  "Select a word."
+  (evil-select-an-object 'evil-word beg end type count))
+#+END_SRC
+    
 ** Types
 - A type is a transformation on a pair of buffer positions. 
 - Evil defines the types 'exclusive', 'inclusive', 'line', and 'block'
@@ -156,6 +239,39 @@ Evil defines the states Normal, Insert, Visual, Replace, and Emacs
 
 *** evil-define-state <state> <doc> <keyword-args...> <body...>
 
+* Common Customizations
+** Add a command to Normal state
+
+#+BEGIN_SRC emacs-lisp
+(evil-define-key 'normal 'evil-normal-state-map (kbd "M") 'my/function)
+#+END_SRC
+
+** Add a C-* command to Insert state
+
+#+BEGIN_SRC emacs-lisp
+(evil-define-key 'insert 'evil-insert-state-map (kbd "C-n") 'next-line)
+#+END_SRC
+   
+** Define ex command
+** Escape from non-normal mode with a C-* command
+
+#+BEGIN_SRC emacs-lisp
+(setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
+      evil-escape-excluded-major-modes '(neotree-mode)
+      evil-escape-key-sequence "jk"
+      evil-escape-delay 0.25)
+
+(add-hook 'after-init-hook #'evil-escape-mode)
+
+(define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
+(define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
+(define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
+(define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(evil-ex-define-cmd "def[ine]" 'elisp-def)
+#+END_SRC
+   
 * Other Internals
 ** Command Properties
 
