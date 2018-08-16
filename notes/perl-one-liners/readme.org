@@ -388,6 +388,7 @@ perl -pe '$_ = "$..\t$_"' data/lines.txt
 : 2.	line 2
 : 3.	
 : 4.	line 3
+
 : 5.	line 4
 
 ** Number only non-empty lines in a file
@@ -548,3 +549,513 @@ perl -pe 's/(\w+)/++$i/ge' data/lines.txt
 : 7 8
 
 * Calculations
+  :PROPERTIES:
+  :header-args: :results scalar 
+  :END:
+
+** Convert number to unary
+
+#+BEGIN_SRC sh :results scalar
+perl -lne '(1x$_) !~ /^1?$|^(11+?)\1+$/ && print "$_ is prime"' data/numbers.txt
+#+END_SRC
+
+#+RESULTS:
+: 2 is prime
+: 3 is prime
+: 5 is prime
+: 7 is prime
+: 11 is prime
+: 13 is prime
+: 17 is prime
+: 19 is prime
+
+** Print the sum of all fields on one line
+
+#+BEGIN_SRC sh
+# -M => import
+# -MList::Util=sum => import sum function from List::Util
+# http://perldoc.perl.org/List/Util.html
+
+perl -MList::Util=sum -alne 'print sum @F' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 6
+: 15
+: 24
+: 33
+: 42
+
+#+BEGIN_SRC perl
+# -MList::Util=sum is equivalent to
+use List::Util qw(sum);
+
+@list = 1..5;
+
+sum @list;
+#+END_SRC
+
+#+RESULTS:
+: 15
+
+** Print sum of all fields on all lines
+
+#+BEGIN_SRC sh
+perl -MList::Util=sum -alne '$i += sum @F; END { print $i }' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 120
+** Shuffle all fields on each line
+
+#+BEGIN_SRC sh
+perl -MList::Util=shuffle -alne 'print join " ", shuffle @F' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 line
+: line 2
+: 
+: line 3
+: 4 line
+** Find min element on each line
+
+#+BEGIN_SRC sh
+perl -MList::Util=min -alne 'print min @F' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 4
+: 7
+: 10
+: 13
+** Find min element in all lines
+*** Memory insensitive
+#+BEGIN_SRC sh
+perl -MList::Util=min -alne '@nums = (@nums, @F); END { print min @nums }' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 1
+
+*** Memory sensitive
+
+#+BEGIN_SRC sh
+perl -MList::Util=min -alne '
+  $rmin = min @F;
+  $min = $rmin unless defined $min and $min < $rmin;
+  END { print $min }
+' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 1
+** Find max element on each line
+
+#+BEGIN_SRC sh
+perl -MList::Util=max -alne 'print max(@F)' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 3
+: 6
+: 9
+: 12
+: 15
+
+** Find max in entire file
+
+*** Memory insensitive
+
+#+BEGIN_SRC sh
+perl -MList::Util=max -alne '@nums = (@nums, @F); END { print max @nums }' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 15
+
+*** Memory sensitive
+
+#+BEGIN_SRC sh
+perl -MList::Util=max -alne '
+  $rmax = max @F;
+  $max = $rmax unless defined $max and $max < $rmas;
+  END { print $max }' data/number-grid.txt
+#+END_SRC
+
+#+RESULTS:
+: 15
+** Replace each field with its absolute value
+
+#+BEGIN_SRC sh
+perl -alne 'print "@{[map { abs } @F]}"' data/signed-numbers.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 2 3 4
+: 2 1 9 123 4
+: 15 2 1.5 4
+** Print total number of fields on each line
+
+#+BEGIN_SRC sh
+perl -alne 'print scalar @F' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 2
+: 2
+: 0
+: 2
+: 2
+
+** Print the total number of fields on each line, followed by the line
+
+#+BEGIN_SRC sh
+perl -alne 'print ~~@F, " $_"' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 2 line 1
+: 2 line 2
+: 0 
+: 2 line 3
+: 2 line 4
+** Print the total number of fields on all lines
+
+#+BEGIN_SRC sh
+perl -alne '$f += ~~@F; END { print $f }' data/jabberwocky.poem 
+#+END_SRC
+
+#+RESULTS:
+: 166
+
+** Print the number of fields that match a pattern
+
+*** Less succinct, with map
+#+BEGIN_SRC sh
+perl -alne 'map { /line/ && $t++ } @F; END { print $t || 0 }' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 4
+*** More succinct, with grep
+
+#+BEGIN_SRC sh
+perl -alne '$f += grep /line/, @F; END { print $f || 0 }' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+** Print the total number of lines that match a pattern
+
+#+BEGIN_SRC sh
+perl -lne '/line/ && $t++; END { print $t || 0 }' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 4
+** Print the number π
+
+#+BEGIN_SRC sh
+perl -Mbignum=bpi -le 'print bpi(21)'
+#+END_SRC
+
+#+RESULTS:
+: 3.14159265358979323846
+** Print the number e
+
+#+BEGIN_SRC sh
+perl -Mbignum=bexp -le 'print bexp(2,31)'
+#+END_SRC
+
+#+RESULTS:
+: 7.389056098930650227230427460575
+
+** Print UNIX time
+
+#+BEGIN_SRC sh
+perl -le 'print time'
+#+END_SRC
+
+#+RESULTS:
+: 1534378425
+
+** Print GMT
+
+#+BEGIN_SRC sh
+perl -le 'print ~~gmtime'
+#+END_SRC
+
+#+RESULTS:
+: Thu Aug 16 00:47:36 2018
+** Print Local Time
+
+#+BEGIN_SRC sh
+perl -le 'print ~~localtime'
+#+END_SRC
+
+#+RESULTS:
+: Wed Aug 15 14:48:05 2018
+** Print yesterday's date
+
+#+BEGIN_SRC sh
+perl -MPOSIX -le '
+  @now = localtime;
+  $now[3] -= 1;
+  print ~~localtime mktime @now
+'
+#+END_SRC
+
+#+RESULTS:
+: Tue Aug 14 14:49:07 2018
+
+** Print the date 14 months, 9 days and 7 seconds ago
+
+#+BEGIN_SRC sh
+perl -MPOSIX -le '
+  @now = localtime;
+  $now[0] -= 7;
+  $now[3] -= 9;
+  $now[4] -= 14;
+  print ~~localtime mktime @now'
+#+END_SRC
+
+#+RESULTS:
+: Tue Jun  6 15:10:13 2017
+
+** Calculate the factorial
+
+#+BEGIN_SRC sh
+perl -MMath::BigInt -le 'print Math::BigInt->new(5)->bfac()'
+#+END_SRC
+
+#+RESULTS:
+: 120
+** Calculate greatest common divisor
+
+#+BEGIN_SRC sh
+perl -MMath::BigInt=bgcd -le 'print bgcd(20,60,30)'
+#+END_SRC
+
+#+RESULTS:
+: 10
+** Calculate the least common multiple
+
+#+BEGIN_SRC sh
+perl -MMath::BigInt=blcm -le 'print blcm(35,20,8)'
+#+END_SRC
+
+#+RESULTS:
+: 280
+** Generate 10 random numbers between 5 and 15
+
+#+BEGIN_SRC sh
+perl -le 'print join ",", map { int(rand(15-5)) + 5 } 1..10' 
+#+END_SRC
+
+#+RESULTS:
+: 11,14,14,12,7,11,5,13,6,12
+** Generate all permutations of a list
+
+#+BEGIN_SRC sh
+
+# need to install Algorithm::Permute for this
+# or at least I did...
+# perl -MCPAN -e 'install Algorithm::Permute'
+
+perl -MAlgorithm::Permute -le '
+  $l = [1,2,3,4,5];
+  $p = Algorithm::Permute->new($l);
+  print "@r" while @r = $p->next'
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+5 4 3 2 1
+4 5 3 2 1
+4 3 5 2 1
+4 3 2 5 1
+4 3 2 1 5
+5 3 4 2 1
+3 5 4 2 1
+3 4 5 2 1
+3 4 2 5 1
+3 4 2 1 5
+5 3 2 4 1
+3 5 2 4 1
+3 2 5 4 1
+3 2 4 5 1
+3 2 4 1 5
+5 3 2 1 4
+3 5 2 1 4
+3 2 5 1 4
+3 2 1 5 4
+3 2 1 4 5
+5 4 2 3 1
+4 5 2 3 1
+4 2 5 3 1
+4 2 3 5 1
+4 2 3 1 5
+5 2 4 3 1
+2 5 4 3 1
+2 4 5 3 1
+2 4 3 5 1
+2 4 3 1 5
+5 2 3 4 1
+2 5 3 4 1
+2 3 5 4 1
+2 3 4 5 1
+2 3 4 1 5
+5 2 3 1 4
+2 5 3 1 4
+2 3 5 1 4
+2 3 1 5 4
+2 3 1 4 5
+5 4 2 1 3
+4 5 2 1 3
+4 2 5 1 3
+4 2 1 5 3
+4 2 1 3 5
+5 2 4 1 3
+2 5 4 1 3
+2 4 5 1 3
+2 4 1 5 3
+2 4 1 3 5
+5 2 1 4 3
+2 5 1 4 3
+2 1 5 4 3
+2 1 4 5 3
+2 1 4 3 5
+5 2 1 3 4
+2 5 1 3 4
+2 1 5 3 4
+2 1 3 5 4
+2 1 3 4 5
+5 4 3 1 2
+4 5 3 1 2
+4 3 5 1 2
+4 3 1 5 2
+4 3 1 2 5
+5 3 4 1 2
+3 5 4 1 2
+3 4 5 1 2
+3 4 1 5 2
+3 4 1 2 5
+5 3 1 4 2
+3 5 1 4 2
+3 1 5 4 2
+3 1 4 5 2
+3 1 4 2 5
+5 3 1 2 4
+3 5 1 2 4
+3 1 5 2 4
+3 1 2 5 4
+3 1 2 4 5
+5 4 1 3 2
+4 5 1 3 2
+4 1 5 3 2
+4 1 3 5 2
+4 1 3 2 5
+5 1 4 3 2
+1 5 4 3 2
+1 4 5 3 2
+1 4 3 5 2
+1 4 3 2 5
+5 1 3 4 2
+1 5 3 4 2
+1 3 5 4 2
+1 3 4 5 2
+1 3 4 2 5
+5 1 3 2 4
+1 5 3 2 4
+1 3 5 2 4
+1 3 2 5 4
+1 3 2 4 5
+5 4 1 2 3
+4 5 1 2 3
+4 1 5 2 3
+4 1 2 5 3
+4 1 2 3 5
+5 1 4 2 3
+1 5 4 2 3
+1 4 5 2 3
+1 4 2 5 3
+1 4 2 3 5
+5 1 2 4 3
+1 5 2 4 3
+1 2 5 4 3
+1 2 4 5 3
+1 2 4 3 5
+5 1 2 3 4
+1 5 2 3 4
+1 2 5 3 4
+1 2 3 5 4
+1 2 3 4 5
+#+end_example
+** Generate the powerset
+
+#+BEGIN_SRC sh
+# perl -MCPAN -e 'install List::PowerSet'
+
+perl -MList::PowerSet=powerset -le '
+  @l = (1,2,3,4,5);
+  print "@$_" for @{powerset(@l)}'
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+1 2 3 4 5
+2 3 4 5
+1 3 4 5
+3 4 5
+1 2 4 5
+2 4 5
+1 4 5
+4 5
+1 2 3 5
+2 3 5
+1 3 5
+3 5
+1 2 5
+2 5
+1 5
+5
+1 2 3 4
+2 3 4
+1 3 4
+3 4
+1 2 4
+2 4
+1 4
+4
+1 2 3
+2 3
+1 3
+3
+1 2
+2
+1
+
+#+end_example
+** Convert an IP address to an unsigned integer
+
+#+BEGIN_SRC sh
+perl -le '
+  $i = 3;
+  $u += ($_<<8*$i--) for "127.0.0.1" =~ /(\d+)/g;
+  print $u;
+'
+#+END_SRC
+
+#+RESULTS:
+: 2130706433
+** Convert an unsigned integer to an IP address
+
+#+BEGIN_SRC sh
+perl -MSocket -le 'print inet_ntoa(pack("N", 2130706433))'
+#+END_SRC
+
+#+RESULTS:
+: 127.0.0.1
