@@ -10,10 +10,6 @@
 ** . = any one character
 
 #+BEGIN_SRC sh
-
-#+END_SRC
-
-#+BEGIN_SRC sh
 grep A...es data/price-list.txt
 #+END_SRC
 
