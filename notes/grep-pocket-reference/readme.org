@@ -1,0 +1,290 @@
+#+TITLE: Grep Pocket Reference
+#+AUTHOR: John Bambenek, Agnieszka Klus
+#+DATE: 2009
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: emacs, bab
+
+* Regular Expression Metacharacters
+
+** . = any one character
+
+#+BEGIN_SRC sh
+
+#+END_SRC
+
+#+BEGIN_SRC sh
+grep A...es data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** [] = character class
+
+#+BEGIN_SRC sh
+grep '[Pp]' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Apples | $9.00    |         |
+| Plum   | $2.50    |         |
+| Dodge  | Intrepid | $12,300 |
+
+** [^] = negated character class
+
+#+BEGIN_SRC sh
+grep 'P[^l]' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Peach $2.75
+
+** \c = escape char
+
+#+BEGIN_SRC sh
+grep "\$2\." data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Peach | $2.75 |
+| Plum  | $2.50 |
+
+** ^ = start of line
+
+#+BEGIN_SRC sh
+grep '^[AP]' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Apples | $9.00 |
+| Peach  | $2.75 |
+| Plum   | $2.50 |
+
+** $ = end of line
+
+#+BEGIN_SRC sh
+grep '00$' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Apples   | $9.00    |         |
+| Cherries | $4.00    |         |
+| Zuchini  | $11.00   |         |
+| Dodge    | Intrepid | $12,300 |
+
+** \< = start of word
+
+#+BEGIN_SRC sh
+grep '\<Apples' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** \> = end of word
+
+#+BEGIN_SRC sh
+grep 'es\>' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Apples   | $9.00 |
+| Oranges  | $1.25 |
+| Cherries | $4.00 |
+
+** ? = optional
+
+You'll need to escape the ? in some shells, e.g.:
+
+#+BEGIN_SRC sh
+grep 'Peach\(es\)\?' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Peach $2.75
+
+** * = match pattern any number of times
+
+#+BEGIN_SRC sh
+grep 'Ap*' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** {N} = match pattern N times 
+
+You'll need to escape {} in some shells, e.g.:
+
+#+BEGIN_SRC sh
+grep "p\{2\}" data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** {N,} = match at least N times
+** {N1,N2} = match between N1 and N2 times
+** | = match either expression
+
+#+BEGIN_SRC sh
+grep 'Ap\|Pe' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Apples | $9.00 |
+| Peach  | $2.75 |
+
+** - = indicates a range in []
+** () = limit scope of alternation
+** \1, \2 = backreference to previous parenthetical match
+ 
+#+BEGIN_SRC sh
+grep "\(11\)\.\1" data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Zuchini $11.11
+
+** \b = word boundary
+** \B = alternative to \\
+** \w = word character
+** \W = Non-word character
+** \` = Start of buffer
+** \' = End of buffer
+
+* POSIX Character Classes
+
+Requires -E flag
+
+** [:alpha:] = a-zA-Z
+** [:digit:] = 0-9
+
+#+BEGIN_SRC sh :results scalar
+grep -oE '[[:digit:],\.]+$' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: 9.00
+: 1.25
+: 4.00
+: 2.75
+: 2.50
+: 11.11
+: 12,300
+
+** [:alnum:] = a-zA-Z0-9
+** [:blank:] = space or tab
+** [:xdigit:] = A-Fa-f0-9
+** [:punct:] = any punctuation symbol
+** [:print:] = any non-control, printable characters
+** [:space:] = space
+** [:graph:] = exclude space chars
+** [:upper:] = any uppercase letter
+** [:lower:] = any lowercase letter
+** [:cntrl:] = control characters
+
+* Common Flags
+
+** -e <pattern> = if you don't want to quote your pattern
+** -f|--file <file>
+** -i|--ignore-case
+** -v|--invert-match
+** -w|--word-regexp = line must have words with spaces/punct
+** -x|--line-regexp = like -w, but must match entire line
+** -c|--count = returns count of matchs
+
+#+BEGIN_SRC sh
+grep -ice apple data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: 1
+
+** -l|--files-with-output 
+
+#+BEGIN_SRC sh
+grep -lie apples data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: data/price-list.txt
+
+** -L|--files-without-match = opposite of -l
+** -m <N>|--max-count=<N>
+
+#+BEGIN_SRC sh
+grep -m 2 -e a data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Oranges | $1.25 |
+| Peach   | $2.75 |
+
+** -o|--only-matching = print only the text that matches
+
+#+BEGIN_SRC sh :results scalar
+grep -oE '\<[[:alpha:]]+([[:lower:]])\1[[:alpha:]]+' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples
+: Cherries
+
+** -q|--quiet|--silient = returns only 0 or 1
+
+#+BEGIN_SRC sh
+if grep -qe xxx data/price-list.txt ; then
+  echo "YOU NAUGHTY"
+else
+  echo "YOU NOT NAUGHTY"
+fi
+#+END_SRC
+
+#+RESULTS:
+: YOU NOT NAUGHTY
+
+
+** -s|--no-messages = silence error messages
+** -b|--byte-offset
+
+#+BEGIN_SRC sh :results scalar
+grep -o -b 'n' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: 13:n
+: 65:n
+: 80:n
+
+** --label=<LABEL>
+
+This one doesn't seem to work for me.
+
+#+BEGIN_SRC sh :results scalar
+cat data/price-list.txt | grep --label=FRUIT -oE '^[[:alpha:]]+\>' 
+#+END_SRC
+
+#+RESULTS:
+: Apples
+: Oranges
+: Cherries
+: Peach
+: Plum
+: Zuchini
+: Dodge
+
+** -n|--line-number = include line number in output
+** -T|--initial-tab = layout results with in the format of <grep metadata><tab><line>
+
+This also doesn't work for me.
+
+#+BEGIN_SRC sh
+grep -Tnoe Apple data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+
+** -u|--unix-byte-offsets = for Windows to emulate Unix byte offset
+** -Z|--null = prints an ascii null after each filename
