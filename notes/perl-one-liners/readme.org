@@ -1059,3 +1059,54 @@ perl -MSocket -le 'print inet_ntoa(pack("N", 2130706433))'
 
 #+RESULTS:
 : 127.0.0.1
+* Working with Arrays and Strings
+
+** Generate and print the alphabet
+
+#+BEGIN_SRC sh
+perl -le 'print a..z'
+#+END_SRC
+
+#+RESULTS:
+: abcdefghijklmnopqrstuvwxyz
+** Generate and print the alphabet with a delimiter
+
+#+BEGIN_SRC sh :results scalar
+perl -le "$, = ','; print ('a'..'z')"
+#+END_SRC
+
+#+RESULTS:
+: a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
+** Create a hex lookup table
+
+#+BEGIN_SRC sh
+perl -le "printf('%x', 255)"
+#+END_SRC
+
+#+RESULTS:
+: ff
+** Convert number back from hex to dec
+
+#+BEGIN_SRC sh
+perl -le '$num = "ff"; print hex $num'
+#+END_SRC
+
+#+RESULTS:
+: 255
+** Generate a random number
+
+#+BEGIN_SRC sh
+perl -le "print rand 26"
+#+END_SRC
+
+#+RESULTS:
+: 4.58638578798318
+
+** Generate a random password
+
+#+BEGIN_SRC sh
+perl -le 'print map { ("a".."z")[rand 26] } 1..8'
+#+END_SRC
+
+#+RESULTS:
+: vnweuhvn

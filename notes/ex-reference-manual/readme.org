@@ -1,4 +1,4 @@
-#+TITLE: Ex Reference Manual
+
 #+AUTHOR: William Joy, Mark Horton
 #+DATE: 1978
 #+EMAIL: evan@mantle.co
@@ -340,7 +340,7 @@ ex data/todo <<<'% s/eat/devour/
 : call mom
 
 ** stop
-
+   
 
 
 
