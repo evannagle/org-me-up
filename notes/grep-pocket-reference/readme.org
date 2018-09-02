@@ -284,3 +284,307 @@ grep -Tnoe Apple data/price-list.txt
 
 ** -u|--unix-byte-offsets = for Windows to emulate Unix byte offset
 ** -Z|--null = prints an ascii null after each filename
+** -A <N>|--after-context=<N> = prints match + N lines after match
+
+#+BEGIN_SRC sh
+grep -A 2 -ie apples data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Apples   | $9.00 |
+| Oranges  | $1.25 |
+| Cherries | $4.00 |
+
+** -B <N>|--before-context=<N> = prints N lines before match + match
+
+#+BEGIN_SRC sh
+grep -B 2 -ie peach data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Oranges  | $1.25 |
+| Cherries | $4.00 |
+| Peach    | $2.75 |
+
+** -C <N>|--context=<N> = print N lines before match + match + N lines after match
+
+#+BEGIN_SRC sh
+grep -C 2 -ie peach data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+| Oranges  | $1.25  |
+| Cherries | $4.00  |
+| Peach    | $2.75  |
+| Plum     | $2.50  |
+| Zuchini  | $11.11 |
+
+** -a|--text = process binary file as if it were text
+** --binary-files=<binary|without-match|text> = how to process binary file
+** -d|--directories <read|recurse> = how to handle directories
+
+ 
+#+BEGIN_SRC sh
+grep -d recurse -ie peach data/
+#+END_SRC
+
+#+RESULTS:
+: data//price-list.txt:Peach $2.75
+
+** --exclude=<GLOB> = exclude files that match glob pattern
+** -l = ignore binary files
+** --include=<GLOB> = include only files taht match glob pattern
+
+#+BEGIN_SRC sh
+grep -R --include=price*.txt -ie peach data/
+#+END_SRC
+
+#+RESULTS:
+: data//price-list.txt:Peach $2.75
+
+** -r|-R|--recursive = same as `-d recurse`
+
+#+BEGIN_SRC sh
+grep -Rie peach data
+#+END_SRC
+
+#+RESULTS:
+: data/price-list.txt:Peach $2.75
+
+
+* Other Flags
+** --line-buffered = use line buffering for output
+** --mmap = Uses mmap() POSIX function instead of read()
+** -U|--binary = Windows-specific, treat all files as binary
+** -V|--version = version of grep installed
+** -z|--null-data = input lines are assumed to end with an ASCII NUL char instead of a newline char
+
+* egrep|grep -E = extended, with less need for escaping
+
+** Don't need to escape ()
+
+#+BEGIN_SRC sh
+grep -E '(eac)' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Peach $2.75
+
+** Don't need to escape {}
+
+#+BEGIN_SRC sh
+grep -E 'p{2}' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** Don't need to escape ?
+
+#+BEGIN_SRC sh
+grep -iE 'apples?' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** Don't need to escape +
+
+#+BEGIN_SRC sh
+grep -iE ap+les data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+
+* fgrep|grep -F = fixed string, with no regexes and faster perf
+
+#+BEGIN_SRC sh
+grep -iF apples data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: Apples $9.00
+
+** fgrep Flags
+*** -b = shows block number where string pattern was found
+*** -c = count of matches
+*** -e|-string
+*** -f|--file
+*** -h = don't show filenames when fgrepping more than one file
+*** -i = ignore case
+*** -l = display file names with matches    
+*** -n = print line number before match
+*** -v = match any line that does NOT match pattern
+*** -x = prints out entire line match (which is the default)
+
+* grep -P
+
+  The -P flag is not available grep versions, including the version installed on MacOS.
+
+** Escapes
+
+|--------+--------------------------------------+-----|
+| Escape | Character                            | Hex |
+|--------+--------------------------------------+-----|
+| \a     | alarm                                | 07  |
+| \c<X>  | CTRL + X                             |     |
+| \e     | escape                               | 1B  |
+| \f     | form feed                            | 0C  |
+| \n     | new line                             | 0A  |
+| \r     | return                               | 0D  |
+| \t     | tab                                  | 09  |
+| \d     | any decimal                          |     |
+| \D     | any non-decimal                      |     |
+| \s     | any whitespace                       |     |
+| \S     | any non-whitespace                   |     |
+| \w     | any word char                        |     |
+| \W     | any non-word char                    |     |
+| \b     | any word boundary                    |     |
+| \B     | any non-word boundary                |     |
+| \A     | at start of subject                  |     |
+| \Z     | at end of subject or before new line |     |
+| \z     | at end of subject                    |     |
+| \G     | matches at first matching position   |     |
+|--------+--------------------------------------+-----|
+
+** Character Properies \p{<code>}
+
+|------+-----------------------|
+| Code | Charset               |
+|------+-----------------------|
+| C    | Other                 |
+| Cc   | Control               |
+| Cf   | Format                |
+| Cn   | Unassigned            |
+| Co   | Private use           |
+| Cs   | Surrogate             |
+| L    | Letter                |
+| Ll   | Lowercase             |
+| Lm   | Modifier              |
+| Lo   | Other letter          |
+| Lt   | Title case            |
+| Lu   | Uppercase             |
+| M    | Mark                  |
+| Mc   | Spacing mark          |
+| Me   | Enclosing mark        |
+| Mn   | Non-spacing mark      |
+| No   | Other number          |
+| N    | Number                |
+| Nd   | Decimal               |
+| Nl   | Letter number         |
+| P    | Punctuation           |
+| Pc   | Connector punctuation |
+| Pd   | Dash punctuation      |
+| Pe   | Close punctuation     |
+| Pf   | Final punctuation     |
+| Pi   | Initial punctuation   |
+| Po   | Other punctuation     |
+| Ps   | Open punctuation      |
+| S    | Symbol                |
+| Sc   | Currency symbol       |
+| Sk   | Modifier symbol       |
+| Sm   | Math symbol           |
+| So   | Other symbol          |
+| Z    | Separator             |
+| Zl   | Line separator        |
+| Zp   | Paragraph separator   |
+| Zs   | Space separator       |
+|------+-----------------------|
+
+#+BEGIN_SRC sh
+grep -Poe '\p{Sc}9\.\d{2}' data/price-list.txt
+#+END_SRC
+
+#+RESULTS:
+: $9.00
+
+* Recipes
+
+** IP addresses
+
+#+BEGIN_SRC sh :results scalar
+grep -Ef data/ip.grep <<<'
+123.24.45.67
+Hamburger
+312.543.121.1
+'
+#+END_SRC
+
+#+RESULTS:
+: 123.24.45.67
+: 312.543.121.1
+
+
+** MAC addresses
+
+#+BEGIN_SRC sh
+grep -Ef data/mac-address.grep <<<'
+ab:14:ed:41:aa:00
+'
+#+END_SRC
+
+#+RESULTS:
+: ab:14:ed:41:aa:00
+
+** Email addresses
+
+#+BEGIN_SRC sh :results scalar
+grep -Ef data/email.grep <<<'
+evan@mantle.co
+hamburger
+evan+me@mantle.co
+'
+#+END_SRC
+
+#+RESULTS:
+: evan@mantle.co
+: evan+me@mantle.co
+
+** US phone numbers
+
+#+BEGIN_SRC sh :results scalar
+grep -oEf data/phone.grep <<<'
+808-555-5555
+8085555555
+808 555-5555
+1 808 555-5555
+12 Hamburgers
+102 304 405'
+#+END_SRC
+
+#+RESULTS:
+: 808-555-5555
+: 8085555555
+: 808 555-5555
+: 1 808 555-5555
+
+** Social security numbers
+
+#+BEGIN_SRC sh :results scalar
+grep -Eof data/social-security.grep <<<'
+123-45-6789
+123456789
+12345
+'
+#+END_SRC
+
+#+RESULTS:
+: 123-45-6789
+: 123456789
+
+** Credit card numbers
+
+#+BEGIN_SRC sh :results scalar
+grep -Eof data/credit-card.grep <<<'
+1234 5678 9012 3456
+1234567890123456
+1234-56789-9012-3456
+1234-567890-12345'
+#+END_SRC
+
+#+RESULTS:
+: 1234 5678 9012 3456
+: 1234567890123456
+: 1234-567890-12345
