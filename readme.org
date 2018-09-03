@@ -126,6 +126,12 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :NOTES: [[file+emacs:notes/grep-pocket-reference/readme.org][Grep Pocket Reference]]
 
 ** TODO [#C] Org Mode Tutorial                                     :video:
+   A YouTube video series detailing Emacs org mode.
+   :AUTHOR: Rainer König
+   :DATE: 2017
+   :VIDEO: [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Org Mode Tutorial - Episode 1]]
+   :NOTES: [[file+emacs:notes/org-mode-tutorial/readme.org][Org Mode Tutorial]]
+
 ** TODO [#B] Perl One-Liners                                       :perl:bab: 
    130 single-line programs that "get things done."
    :AUTHOR: Peteris Krumins
