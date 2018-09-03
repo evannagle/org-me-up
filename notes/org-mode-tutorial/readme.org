@@ -1,0 +1,78 @@
+
+#+TITLE: OrgMode Tutorial
+#+AUTHOR: Rainer König
+#+DATE: 2017
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @emacs @org
+
+* Episode 1: Headlines in Outline Mode
+  :PROPERTIES:
+  :VIDEO: [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1]]
+  :END:
+
+** Outline Mode
+
+|-----------+---------------+------------------------------------------|
+| Key       | Function      | Description                              |
+|-----------+---------------+------------------------------------------|
+| TAB       | org-cycle     | show/hide current subtree                |
+| SHIFT+TAB | org-shifttab  | show/hide entire org tree                |
+| M-RIGHT   | org-metaright | Increase node level                      |
+| M-LEFT    | org-metaleft  | Decrease node level                      |
+| M-UP      | org-metaup    | Increase node level                      |
+| C-c C-w   | org-refile    | Move (refile) node to a different parent |
+|-----------+---------------+------------------------------------------|
+
+*** Item 1
+**** Item A
+**** Item B
+*** Item 2
+*** Item 3
+**** Item C    
+***** Item i     
+***** Item ii
+*** Item 4
+* Episode 2: TODO Keywords
+  :BEGIN:
+  :VIDEO: [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2]]
+  :END:
+
+** Create a task
+** TODO Type SHIFT + RIGHT to mark as TODO
+** DONE Type SHIFT + LEFT to mark TODO as DONE
+   CLOSED: [2018-09-02 Sun 15:58]
+** Change default TODO/DONE sequence with #+TODO: <TODO> | <DONE>
+*** Instructions from the [[https://orgmode.org/manual/Per_002dfile-keywords.html][Org Manual]]
+*** Tip: on any new line, you can type "#+" then M-RIGHT to see what properties can be specified.
+
+** On the line below, you can type C-c C-c to update the todo sequence:
+#+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
+
+*** SOMEDAY I'll do this.
+*** NEXT I'll do another thing
+*** WAITING One this other thing
+*** DONE With this smaller thing
+    CLOSED: [2018-09-02 Sun 16:05]
+*** CANCELLED This dumb thing
+    CLOSED: [2018-09-02 Sun 16:06]
+
+*** You can also type C-c C-t to select from menu.
+* Episode 3: Schedule, Deadlines, and Agenda Views
+
+|---------+---------------------+--------------|
+| Key     | Description         | Function     |
+|---------+---------------------+--------------|
+| C-c C-s | Schedule a task     | org-schedule |
+| C-c C-d | Schedule a deadline | org-deadline |
+| C-c a a | Show agenda view    | org-agenda   |
+|---------+---------------------+--------------|
+
+** C-c C-s = schedules a task
+   SCHEDULED: <2020-01-01 Wed>
+** C-c C-d = set a deadline   
+   DEADLINE: <2020-01-01 Wed>
+** You can schedule and set deadline.
+   DEADLINE: <2018-09-21 Fri> SCHEDULED: <2018-09-02 Sun>
+** You can also schedule a specific time
+   SCHEDULED: <2018-09-02 Sun 01:00>
