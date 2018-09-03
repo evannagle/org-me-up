@@ -50,6 +50,7 @@ Interested in contributing? Why, you kind traveller! Here's how:
 | *eso*   | Esoteric books that might interest the self-afflicted.          |
 | *pdf*   | A free PDF version of the book is included in the books/ folder |
 | *short* | A short essay or chapbook-sized document.                       |
+| *video* | These are notes on a video series.                              |
 |---------+-----------------------------------------------------------------|
 
 * Pritories
@@ -89,7 +90,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
     :NOTES: [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
     :BUY: [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
     :END:
-** DONE [#D] Ex Reference Manual.			      :pdf:bab:short:
+** DONE [#D] Ex Reference Manual.			          :pdf:bab:short:
    CLOSED: [2018-08-12 Sun 11:49]
    Ex is an extended version of the Ed editor and a precursor to Vi.
    :AUTHOR: William Joy, Mark Horton
@@ -106,7 +107,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :ESSAY: [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
    :NOTES: [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Exploiting the m4 Macro Language]]
 
-** DONE [#C] Evil - Extensible vi Layer for Emacs	 :pdf:emacs:vi:short:
+** DONE [#C] Evil - Extensible vi Layer for Emacs	          :pdf:emacs:vi:short:
    CLOSED: [2018-08-12 Sun 11:49]
    Documentation on the Evil mode for Emacs
    :AUTHOR: Frank Fischer and Vergard Oye
@@ -115,7 +116,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :ESSAY: [[file:books/evil-extensible-vi-layer-for-emacs.pdf][Evil - Extensible vi Layer for Emacs]]
    :NOTES: [[file+emacs:notes/evil-extensible-vi-layer-for-emacs/readme.org][Evil - Extensible vi Layer for Emacs]]
 
-** TODO [#B] Grep Pocket Reference                          :bab:short:
+** DONE [#B] Grep Pocket Reference                                 :bab:short:
+   CLOSED: [2018-09-02 Sun 11:20]
    The grep commands let users find text in a given file or output quickly and easily.
    :AUTHOR: John Bambenek, Agnieszka Klus
    :PUBLISHER: O'Reilly Media
@@ -123,7 +125,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :BUY: [[https://www.amazon.com/grep-Pocket-Reference-Utility-OReilly/dp/0596153600/ref=sr_1_1?ie=UTF8&qid=1535761943&sr=8-1&keywords=grep+pocket+reference][Grep Pocket Reference]]
    :NOTES: [[file+emacs:notes/grep-pocket-reference/readme.org][Grep Pocket Reference]]
 
-** TODO [#B] Perl One-Liners 
+** TODO [#C] Org Mode Tutorial                                     :video:
+** TODO [#B] Perl One-Liners                                       :perl:bab: 
    130 single-line programs that "get things done."
    :AUTHOR: Peteris Krumins
    :PUBLISHER: No Starch Press

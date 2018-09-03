@@ -1,5 +1,4 @@
-
-#+TITLE: OrgMode Tutorial
+#+TITLE: Org Mode Tutorial
 #+AUTHOR: Rainer König
 #+DATE: 2017
 #+EMAIL: evan@mantle.co
