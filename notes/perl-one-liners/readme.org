@@ -1691,46 +1691,15 @@ All mimsy were the borogoves,
 ** Print all lines in reverse order
 
 #+BEGIN_SRC sh :results scalar
-perl -lne 'print scalar reverse' data/jabberwocky.poem
+perl -lne 'print scalar reverse' data/lines.txt
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
- sevot yhtils eht dna ,gillirb sawTôÄ‚
- :ebaw eht ni elbmig dna eryg diD      
- ,sevogorob eht erew ysmim llA
- .ebargtuo shtar emom eht dnA      
-
- !nos ym ,kcowrebbaJ eht eraweBúÄ‚
- !hctac taht swalc eht ,etib taht swaj ehT      
- nuhs dna ,drib bujbuJ eht eraweB
- ùÄ‚!hctansrednaB suoimurf ehT      
-
- ;dnah ni drows laprov sih koot eH
- îÄ‚thguos eh eof emoxnam eht emit gnoL      
- eert mutmuT eht yb eh detser oS
- .thguoht ni elihwa doots dnA      
-
- ,doots eh thguoht hsiffu ni sa ,dnA
- ,emalf fo seye htiw ,kcowrebbaJ ehT      
- ,doow yeglut eht hguorht gnilffihw emaC
- !emac ti sa delbrub dnA      
-
- hguorht dna hguorht dnA !owt ,enO !owt ,enO
- !kcans-rekcins tnew edalb laprov ehT      
- daeh sti htiw dna ,daed ti tfel eH
- .kcab gnihpmulag tnew eH      
-
- ?kcowrebbaJ eht nials uoht tsah dnAúÄ‚
- !yob hsimaeb ym ,smra ym ot emoC      
- ùÄ‚!yallaC !hoollaC !yad suojbarf O
- .yoj sih ni deltrohc eH      
-
- sevot yhtils eht dna ,gillirb sawTôÄ‚
- :ebaw eht ni elbmig dna eryg diD      
- ,sevogorob eht erew ysmim llA
-.ebargtuo shtar emom eht dnA      
-#+end_example
+: 1 enil
+: 2 enil
+: 
+: 3 enil
+: 4 enil
 
 ** Print columns in reverse order
 
