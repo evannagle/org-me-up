@@ -45,15 +45,22 @@ Interested in contributing? Why, you kind traveller! Here's how:
 
 * Tags
 
-|---------+-----------------------------------------------------------------|
-| Tag     | Meaning                                                         |
-|---------+-----------------------------------------------------------------|
-| *BAB*   | Executable code snippets are included in the notes.             |
-| *ESO*   | Esoteric books that might interest the self-afflicted.          |
-| *PDF*   | A free PDF version of the book is included in the books/ folder |
-| *SHORT* | A short essay or chapbook-sized document.                       |
-| *VIDEO* | These are notes on a video series.                              |
-|---------+-----------------------------------------------------------------|
+|---------+-------------+-----------------------------------------------------------------|
+| Tag     | C-c C-q Key | Meaning                                                         |
+|---------+-------------+-----------------------------------------------------------------|
+| *AWK*   | a           | The AWK Programming language                                    |
+| *BAB*   | b           | Executable code snippets are included in the notes.             |
+| *C*     | c           | The C Programming Language                                      |
+| *EMACS* | e           | Books related to the Emacs operating system                     |
+| *BASH*  | h           | Books related to shells sans turtles                            |
+| *LINUX* | l           | Linux-related books                                             |
+| *PDF*   | p           | A free PDF version of the book is included in the books/ folder |
+| *PERL*  | r           | The Perl Programming Language                                   |
+| *SHORT* | s           | A short essay or chapbook-sized document.                       |
+| *VIM*   | v           | Books related to Ed, Ex, Vi, Vim, Elvis, &c                     |
+| *VIDEO* | y           | These are notes on a video series.                              |
+| *ESO*   | z           | Esoteric books that might interest the self-afflicted.          |
+|---------+-------------+-----------------------------------------------------------------|
 
 * Pritories
 
