@@ -3,7 +3,6 @@
 #+DATE: 2014
 #+EMAIL: evan@mantle.co
 #+CREATOR: Evan Nagle
-#+TAGS: @perl @bab
 
 * Spacing
   :PROPERTIES:
@@ -1060,7 +1059,6 @@ perl -MSocket -le 'print inet_ntoa(pack("N", 2130706433))'
 #+RESULTS:
 : 127.0.0.1
 * Working with Arrays and Strings
-
 ** Generate and print the alphabet
 
 #+BEGIN_SRC sh
@@ -1110,3 +1108,641 @@ perl -le 'print map { ("a".."z")[rand 26] } 1..8'
 
 #+RESULTS:
 : vnweuhvn
+  
+** Create a string of a specific length
+
+#+BEGIN_SRC sh
+perl -le 'print "x"' 
+#+END_SRC
+
+#+RESULTS:
+: x
+
+#+BEGIN_SRC sh
+perl -le 'print "a"x10'
+#+END_SRC
+
+#+RESULTS:
+: aaaaaaaaaa
+
+** Create an array from a string 
+
+#+BEGIN_SRC sh :results scalar
+perl -le '@friends = qw/Jim John Joan/; print (join ", ", @friends)'
+#+END_SRC
+
+#+RESULTS:
+: Jim, John, Joan
+
+** Create a string from the command-line arguments
+
+#+BEGIN_SRC sh :results scalar
+perl -le 'print (join ", ", @ARGV)' val1 val2 val3
+#+END_SRC
+
+#+RESULTS:
+: val1, val2, val3
+
+** Find the numeric values for characters in a string
+
+#+BEGIN_SRC sh :results scalar
+perl -le 'print join ", ", map { ord } split //, "hello, world"'
+#+END_SRC
+
+#+RESULTS:
+: 104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100
+
+** Find the hex values for characters in a string
+
+#+BEGIN_SRC sh :results scalar
+perl -le '
+  print join ", ", map { sprintf "0x%x", ord $_ } split //, "hello, world"
+'
+#+END_SRC
+
+#+RESULTS:
+: 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64
+
+** Find the octal values for characters in a string
+
+#+BEGIN_SRC sh :results scalar
+perl -le '
+  print join ", ", map { sprintf "%#o", ord $_ } split //, "hello, world"
+'
+#+END_SRC
+
+#+RESULTS:
+: 0150, 0145, 0154, 0154, 0157, 054, 040, 0167, 0157, 0162, 0154, 0144
+
+** Convert a list of ASCII values into a string
+
+#+BEGIN_SRC sh
+perl -le '
+  @ascii = qw/99 111 100 105 110 103/;
+  print pack("C*", @ascii);
+'
+#+END_SRC
+
+#+RESULTS:
+: coding
+
+** Generate an array with odd numbers from 1 to 100
+
+#+BEGIN_SRC sh :results scalar
+perl -le '
+  @odd = grep { $_ % 2 == 1 } 1..100;
+  print join ", ", @odd;
+'
+#+END_SRC
+
+#+RESULTS:
+: 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99
+
+** Generate an array with even numbers from 1 to 100
+
+#+BEGIN_SRC sh :results scalar
+perl -le '
+  @even = grep { $_ % 2 == 0 } 1..100;
+  print join ", ", @even;
+'
+#+END_SRC
+
+#+RESULTS:
+: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100
+
+** Find the length of a string
+
+#+BEGIN_SRC sh
+perl -le 'print length "foo"'
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+** Find the number of elements in an array
+
+#+BEGIN_SRC sh
+perl -le '
+  @a = qw/one two three/;
+  print ~~@a;
+'
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+* Text Conversion and Substitution
+** y operator = transliterate
+
+#+BEGIN_SRC sh
+perl -le '
+  $str = "foo";
+  $str =~ y/fo/ga/;
+  print $str;
+'
+#+END_SRC
+
+#+RESULTS:
+: gaa
+
+** ROT13 a string
+
+#+BEGIN_SRC sh
+perl -le '
+  $string = "bananas";
+  $string =~ y/A-Za-z/N-ZA-Mn-za-m/;
+  print $string
+'
+#+END_SRC
+
+#+RESULTS:
+: onananf
+
+** Base64-encode a string
+
+#+BEGIN_SRC sh
+perl -MMIME::Base64 -e 'print encode_base64("string")'
+#+END_SRC
+
+#+RESULTS:
+: c3RyaW5n
+
+** Base64-decode a string
+
+#+BEGIN_SRC sh
+perl -MMIME::Base64 -e 'print decode_base64("c3RyaW5n")'
+#+END_SRC
+
+#+RESULTS:
+: string
+
+** URL-escape a string
+
+#+BEGIN_SRC sh
+perl -MURI::Escape -le 'print uri_escape("https://mantle.co")'
+#+END_SRC
+
+#+RESULTS:
+: https%3A%2F%2Fmantle.co
+
+** URL-unescape a string
+
+#+BEGIN_SRC sh
+perl -MURI::Escape -le 'print uri_unescape("https%3A%2F%2Fmantle")'
+#+END_SRC
+
+#+RESULTS:
+: https://mantle
+** HTML-encode a string
+
+#+BEGIN_SRC sh
+perl -MHTML::Entities -le 'print encode_entities("<html>")'
+#+END_SRC
+
+#+RESULTS:
+: &lt;html&gt;
+
+** HTML-decode a string
+
+#+BEGIN_SRC sh
+perl -MHTML::Entities -le 'print decode_entities("&lt;html&gt;")'
+#+END_SRC
+
+#+RESULTS:
+: <html>
+
+** Convert all text to uppercase
+
+#+BEGIN_SRC sh :results scalar
+perl -le '
+  $a = "foo";
+  print uc $a;
+'
+
+perl -le '
+  $a = "foo";
+  $a =~ y/[a-z]/[A-Z]/;
+  print $a;
+'
+
+perl -le 'print "\Ufoo"'
+#+END_SRC
+
+#+RESULTS:
+: FOO
+: FOO
+: FOO
+
+** Convert all text to lowercase
+
+#+BEGIN_SRC sh :results scalar
+perl -le '
+  $a = "FOO";
+  print lc $a;
+'
+
+perl -le '
+  $a = "FOO";
+  $a =~ y/[A-Z]/[a-z]/;
+  print $a;
+'
+
+perl -le 'print "\LFOO"'
+#+END_SRC
+
+#+RESULTS:
+: foo
+: foo
+: foo
+
+** Uppercase first letter of each line
+
+#+BEGIN_SRC sh :results scalar
+perl -nle 'print "\u\L$_"' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: Line 1
+: Line 2
+: 
+: Line 3
+: Line 4
+
+** Invert the letter case
+
+#+BEGIN_SRC sh
+perl -ple 'y/[A-Za-z]/[a-zA-Z]/' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+| LINE | 1 |
+| LINE | 2 |
+|      |   |
+| LINE | 3 |
+| LINE | 4 |
+
+** Title Case each line
+
+#+BEGIN_SRC sh :results scalar
+perl -ple 's/(\w+)/\u$1/g' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas Brillig, And The Slithy Toves 
+      Did Gyre And Gimble In The Wabe: 
+All Mimsy Were The Borogoves, 
+      And The Mome Raths Outgrabe. 
+
+“Beware The Jabberwock, My Son! 
+      The Jaws That Bite, The Claws That Catch! 
+Beware The Jubjub Bird, And Shun 
+      The Frumious Bandersnatch!” 
+
+He Took His Vorpal Sword In Hand; 
+      Long Time The Manxome Foe He Sought— 
+So Rested He By The Tumtum Tree 
+      And Stood Awhile In Thought. 
+
+And, As In Uffish Thought He Stood, 
+      The Jabberwock, With Eyes Of Flame, 
+Came Whiffling Through The Tulgey Wood, 
+      And Burbled As It Came! 
+
+One, Two! One, Two! And Through And Through 
+      The Vorpal Blade Went Snicker-Snack! 
+He Left It Dead, And With Its Head 
+      He Went Galumphing Back. 
+
+“And Hast Thou Slain The Jabberwock? 
+      Come To My Arms, My Beamish Boy! 
+O Frabjous Day! Callooh! Callay!” 
+      He Chortled In His Joy. 
+
+’Twas Brillig, And The Slithy Toves 
+      Did Gyre And Gimble In The Wabe: 
+All Mimsy Were The Borogoves, 
+      And The Mome Raths Outgrabe.
+#+end_example
+
+** Strip leading whitespace
+
+#+BEGIN_SRC sh :results scalar
+perl -ple 's/^\s+//' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+The frumious Bandersnatch!” 
+
+He took his vorpal sword in hand; 
+Long time the manxome foe he sought— 
+So rested he by the Tumtum tree 
+And stood awhile in thought. 
+
+And, as in uffish thought he stood, 
+The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood, 
+And burbled as it came! 
+
+One, two! One, two! And through and through 
+The vorpal blade went snicker-snack! 
+He left it dead, and with its head 
+He went galumphing back. 
+
+“And hast thou slain the Jabberwock? 
+Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!” 
+He chortled in his joy. 
+
+’Twas brillig, and the slithy toves 
+Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+And the mome raths outgrabe.
+#+end_example
+
+** Strip trailing whitespace
+
+#+BEGIN_SRC sh :results scalar
+perl -ple 's/\s+$//' data/jabberwocky.poem 
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves
+      Did gyre and gimble in the wabe:
+All mimsy were the borogoves,
+      And the mome raths outgrabe.
+
+“Beware the Jabberwock, my son!
+      The jaws that bite, the claws that catch!
+Beware the Jubjub bird, and shun
+      The frumious Bandersnatch!”
+
+He took his vorpal sword in hand;
+      Long time the manxome foe he sought—
+So rested he by the Tumtum tree
+      And stood awhile in thought.
+
+And, as in uffish thought he stood,
+      The Jabberwock, with eyes of flame,
+Came whiffling through the tulgey wood,
+      And burbled as it came!
+
+One, two! One, two! And through and through
+      The vorpal blade went snicker-snack!
+He left it dead, and with its head
+      He went galumphing back.
+
+“And hast thou slain the Jabberwock?
+      Come to my arms, my beamish boy!
+O frabjous day! Callooh! Callay!”
+      He chortled in his joy.
+
+’Twas brillig, and the slithy toves
+      Did gyre and gimble in the wabe:
+All mimsy were the borogoves,
+      And the mome raths outgrabe.
+#+end_example
+
+** Strip whitespace from beginning and end of line
+
+#+BEGIN_SRC sh :results scalar
+perl -ple 's/^\s+|\s+$//' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves
+Did gyre and gimble in the wabe: 
+All mimsy were the borogoves,
+And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son!
+The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun
+The frumious Bandersnatch!” 
+
+He took his vorpal sword in hand;
+Long time the manxome foe he sought— 
+So rested he by the Tumtum tree
+And stood awhile in thought. 
+
+And, as in uffish thought he stood,
+The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood,
+And burbled as it came! 
+
+One, two! One, two! And through and through
+The vorpal blade went snicker-snack! 
+He left it dead, and with its head
+He went galumphing back. 
+
+“And hast thou slain the Jabberwock?
+Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!”
+He chortled in his joy. 
+
+’Twas brillig, and the slithy toves
+Did gyre and gimble in the wabe: 
+All mimsy were the borogoves,
+And the mome raths outgrabe.
+#+end_example
+
+** Replace one string with another in a file
+
+#+BEGIN_SRC sh :results scalar
+perl -pe 's/a/_/' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Tw_s brillig, and the slithy toves 
+      Did gyre _nd gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome r_ths outgrabe. 
+
+“Bew_re the Jabberwock, my son! 
+      The j_ws that bite, the claws that catch! 
+Bew_re the Jubjub bird, and shun 
+      The frumious B_ndersnatch!” 
+
+He took his vorp_l sword in hand; 
+      Long time the m_nxome foe he sought— 
+So rested he by the Tumtum tree 
+      And stood _while in thought. 
+
+And, _s in uffish thought he stood, 
+      The J_bberwock, with eyes of flame, 
+C_me whiffling through the tulgey wood, 
+      And burbled _s it came! 
+
+One, two! One, two! And through _nd through 
+      The vorp_l blade went snicker-snack! 
+He left it de_d, and with its head 
+      He went g_lumphing back. 
+
+“And h_st thou slain the Jabberwock? 
+      Come to my _rms, my beamish boy! 
+O fr_bjous day! Callooh! Callay!” 
+      He chortled in his joy. 
+
+’Tw_s brillig, and the slithy toves 
+      Did gyre _nd gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome r_ths outgrabe.
+#+end_example
+
+** Replace one string with another on lines that match a pattern
+
+#+BEGIN_SRC sh :results scalar
+perl -pe '/^\s+Did/ && s/[aeiou]/_/' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+      D_d gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+
+He took his vorpal sword in hand; 
+      Long time the manxome foe he sought— 
+So rested he by the Tumtum tree 
+      And stood awhile in thought. 
+
+And, as in uffish thought he stood, 
+      The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood, 
+      And burbled as it came! 
+
+One, two! One, two! And through and through 
+      The vorpal blade went snicker-snack! 
+He left it dead, and with its head 
+      He went galumphing back. 
+
+“And hast thou slain the Jabberwock? 
+      Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!” 
+      He chortled in his joy. 
+
+’Twas brillig, and the slithy toves 
+      D_d gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe.
+#+end_example
+** Print paragraphs in reverse order
+
+#+BEGIN_SRC sh :results scalar
+perl -00 -e 'print reverse <>' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe.
+“And hast thou slain the Jabberwock? 
+      Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!” 
+      He chortled in his joy. 
+
+One, two! One, two! And through and through 
+      The vorpal blade went snicker-snack! 
+He left it dead, and with its head 
+      He went galumphing back. 
+
+And, as in uffish thought he stood, 
+      The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood, 
+      And burbled as it came! 
+
+He took his vorpal sword in hand; 
+      Long time the manxome foe he sought— 
+So rested he by the Tumtum tree 
+      And stood awhile in thought. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+#+end_example
+
+** Print all lines in reverse order
+
+#+BEGIN_SRC sh :results scalar
+perl -lne 'print scalar reverse' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+ sevot yhtils eht dna ,gillirb sawT���
+ :ebaw eht ni elbmig dna eryg diD      
+ ,sevogorob eht erew ysmim llA
+ .ebargtuo shtar emom eht dnA      
+
+ !nos ym ,kcowrebbaJ eht eraweB���
+ !hctac taht swalc eht ,etib taht swaj ehT      
+ nuhs dna ,drib bujbuJ eht eraweB
+ ���!hctansrednaB suoimurf ehT      
+
+ ;dnah ni drows laprov sih koot eH
+ ���thguos eh eof emoxnam eht emit gnoL      
+ eert mutmuT eht yb eh detser oS
+ .thguoht ni elihwa doots dnA      
+
+ ,doots eh thguoht hsiffu ni sa ,dnA
+ ,emalf fo seye htiw ,kcowrebbaJ ehT      
+ ,doow yeglut eht hguorht gnilffihw emaC
+ !emac ti sa delbrub dnA      
+
+ hguorht dna hguorht dnA !owt ,enO !owt ,enO
+ !kcans-rekcins tnew edalb laprov ehT      
+ daeh sti htiw dna ,daed ti tfel eH
+ .kcab gnihpmulag tnew eH      
+
+ ?kcowrebbaJ eht nials uoht tsah dnA���
+ !yob hsimaeb ym ,smra ym ot emoC      
+ ���!yallaC !hoollaC !yad suojbarf O
+ .yoj sih ni deltrohc eH      
+
+ sevot yhtils eht dna ,gillirb sawT���
+ :ebaw eht ni elbmig dna eryg diD      
+ ,sevogorob eht erew ysmim llA
+.ebargtuo shtar emom eht dnA      
+#+end_example
+
+** Print columns in reverse order
+
+#+BEGIN_SRC sh :results scalar
+perl -alne '
+  print "@{[reverse @F]}"; # quotes are important here
+' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: 1 line
+: 2 line
+: 
+: 3 line
+: 4 line

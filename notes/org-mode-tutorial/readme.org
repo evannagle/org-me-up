@@ -120,3 +120,4 @@
 ** C-c C-q => select predefined tags                    :ONE:TWO:THREE:ZEBRA:
 ** C-c C-q TAB => custom tag                                     :ONE:CUSTOM:
 ** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
+ 
