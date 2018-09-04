@@ -3,11 +3,10 @@
 #+DATE: 2017
 #+EMAIL: evan@mantle.co
 #+CREATOR: Evan Nagle
-#+TAGS: @emacs @org
 
-* Episode 1: Headlines in Outline Mode
+* Episode 1, Snippet 1: Headlines in Outline Mode
   :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1, Snippet 1]]
   :END:
 
 ** Outline Mode
@@ -32,9 +31,9 @@
 ***** Item i     
 ***** Item ii
 *** Item 4
-* Episode 2: TODO Keywords
+* Episode 1, Snippet 2: TODO Keywords
   :BEGIN:
-  :VIDEO: [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2]]
+  :VIDEO: [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
   :END:
 
 ** Create a task
@@ -57,9 +56,9 @@
     CLOSED: [2018-09-02 Sun 16:06]
 
 *** You can also type C-c C-t to select from menu.
-* Episode 3: Schedule, Deadlines, and Agenda Views
+* Episode 1, Snippet 3: Schedule, Deadlines, and Agenda Views
   :BEGIN:
-  :VIDEO: [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 3]]
+  :VIDEO: [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
   :END:
 
   |---------+---------------------+--------------|
@@ -78,9 +77,9 @@
    DEADLINE: <2018-09-21 Fri> SCHEDULED: <2018-09-02 Sun>
 ** You can also schedule a specific time
    SCHEDULED: <2018-09-02 Sun 01:00>
-* Episode 4: Repeating Tasks
+* Episode 1, Snippet 4: Repeating Tasks
   :BEGIN:
-  :VIDEO: [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 4]]
+  :VIDEO: [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
   :END:
 
 ** TODO +1w = Completing task slides deadline to SCHEDULED + 7 days
@@ -98,9 +97,9 @@
    :END:
    - State "DONE"       from "NEXT"       [2018-09-03 Mon 14:16]
 
-* Episode 5: Checklists
+* Episode 1, Snippet 5: Checklists
   :BEGIN:
-  :VIDEO: [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 5]]
+  :VIDEO: [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
   :END:
 
 ** Checklist 1 [2/5]
@@ -112,8 +111,12 @@
 ** Checklist 2 [100%]
    - [X] Item 1
 
-* Episode 6: Tags
+* Episode 2, Snippet 1: Tags
   :BEGIN:
-  :VIDEO: [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 6]]
+  :VIDEO: [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
   :END:
 
+  #+TAGS: ONE(1) TWO(2) THREE(3) ZEBRA(z)
+** C-c C-q => select predefined tags                    :ONE:TWO:THREE:ZEBRA:
+** C-c C-q TAB => custom tag                                     :ONE:CUSTOM:
+** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
