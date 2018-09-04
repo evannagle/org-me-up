@@ -1,7 +1,9 @@
-#+Author: Evan Nagle
-#+Email: evan@mantle.co
-#+Title: Org Me Up!
+#+TITLE: Org Me Up!
+#+AUTHOR: Evan Nagle
+#+EMAIL: evan@mantle.co
 #+STARTUP: content
+#+SEQ_TODO: READING(r) | NOTATED(n) ABANDONED(a) 
+#+TAGS: AWK(a) BAB(b) C(c) BASH(h) EMACS(e) LINUX(l) PDF(p) PERL(r) SHORT(s) VIM(v) VIDEO(y) ESO(z) 
 
 * Where am I?
 
@@ -46,11 +48,11 @@ Interested in contributing? Why, you kind traveller! Here's how:
 |---------+-----------------------------------------------------------------|
 | Tag     | Meaning                                                         |
 |---------+-----------------------------------------------------------------|
-| *bab*   | Executable code snippets are included in the notes.             |
-| *eso*   | Esoteric books that might interest the self-afflicted.          |
-| *pdf*   | A free PDF version of the book is included in the books/ folder |
-| *short* | A short essay or chapbook-sized document.                       |
-| *video* | These are notes on a video series.                              |
+| *BAB*   | Executable code snippets are included in the notes.             |
+| *ESO*   | Esoteric books that might interest the self-afflicted.          |
+| *PDF*   | A free PDF version of the book is included in the books/ folder |
+| *SHORT* | A short essay or chapbook-sized document.                       |
+| *VIDEO* | These are notes on a video series.                              |
 |---------+-----------------------------------------------------------------|
 
 * Pritories
@@ -68,8 +70,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
 |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
 
 * The Library
-
-** TODO [#C] The AWK Programming Language. 		          :pdf:bab:awk:
+** READING TODO [#C] The AWK Programming Language.              :AWK:BAB:PDF:
     Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
     :AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
     :PUBLISHER: Addison-Wesley
@@ -80,8 +81,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
     :BOOK: [[file:books/the-awk-programming-language.pdf][The AWK Programming Language: PDF]]
     :BUY: [[https://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref%3Dsr_1_3?s%3Dbooks&ie%3DUTF8&qid%3D1527199200&sr%3D1-3&keywords%3Dawk%2Bprogramming%2Blanguage][The AWK Programming Language: Amazon]]
     :END:
-** DONE [#D] Ed Mastery. 					  :ed:bab:text:
-    CLOSED: [2018-06-06 Wed 00:20]
+** NOTATED DONE [#D] Ed Mastery.                                :BAB:ESO:VIM:
+   CLOSED: [2018-09-03 Mon 14:42]
     Ed is a bare-bones text editor that ships with every line printer and/or linux box.
     :AUTHOR: Michael W Lucas
     :PUBLISHER: Tilted Windmill Press
@@ -90,8 +91,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
     :NOTES: [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
     :BUY: [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
     :END:
-** DONE [#D] Ex Reference Manual.			          :pdf:bab:short:
-   CLOSED: [2018-08-12 Sun 11:49]
+** NOTATED DONE [#D] Ex Reference Manual.                 :BAB:VIM:PDF:SHORT:
+   CLOSED: [2018-09-03 Mon 14:42]
    Ex is an extended version of the Ed editor and a precursor to Vi.
    :AUTHOR: William Joy, Mark Horton
    :PUBLISHER: University of California, Berkeley
@@ -99,48 +100,45 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :ESSAY: [[file:books/ex-reference-manual.pdf][Ex Reference Manual]]
    :NOTES: [[file+emacs:notes/ex-reference-manual/readme.org][Ex Reference Manual]]
    :END:
-** DONE [#D] Exploiting the m4 Macro Language 		          :pdf:m4:bab:short:
+** NOTATED DONE [#D] Exploiting the m4 Macro Language   :BAB:LINUX:PDF:SHORT:
+   CLOSED: [2018-09-03 Mon 14:43]
    M4 is a macro processor available on Unix. This short paper discusses creative approaches to applying m4 templating.
    :AUTHOR: Kenneth J. Turner
    :PUBLISHER: University of Stirling
    :DATE: 1994
    :ESSAY: [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
    :NOTES: [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Exploiting the m4 Macro Language]]
-
-** DONE [#C] Evil - Extensible vi Layer for Emacs	          :pdf:emacs:vi:short:
-   CLOSED: [2018-08-12 Sun 11:49]
+** NOTATED DONE [#C] Evil - Extensible vi Layer for Emacs :BAB:EMACS:VIM:PDF:SHORT:
+   CLOSED: [2018-09-03 Mon 14:43]
    Documentation on the Evil mode for Emacs
    :AUTHOR: Frank Fischer and Vergard Oye
    :PUBLISHER: Frank Fischer and Vergard Oye
    :DATE: 2011
    :ESSAY: [[file:books/evil-extensible-vi-layer-for-emacs.pdf][Evil - Extensible vi Layer for Emacs]]
    :NOTES: [[file+emacs:notes/evil-extensible-vi-layer-for-emacs/readme.org][Evil - Extensible vi Layer for Emacs]]
-
-** DONE [#B] Grep Pocket Reference                                 :bab:short:
-   CLOSED: [2018-09-02 Sun 11:20]
+** NOTATED DONE [#B] Grep Pocket Reference                  :BAB:LINUX:SHORT:
+   CLOSED: [2018-09-03 Mon 14:43]
    The grep commands let users find text in a given file or output quickly and easily.
    :AUTHOR: John Bambenek, Agnieszka Klus
    :PUBLISHER: O'Reilly Media
    :DATE: 2009
    :BUY: [[https://www.amazon.com/grep-Pocket-Reference-Utility-OReilly/dp/0596153600/ref=sr_1_1?ie=UTF8&qid=1535761943&sr=8-1&keywords=grep+pocket+reference][Grep Pocket Reference]]
    :NOTES: [[file+emacs:notes/grep-pocket-reference/readme.org][Grep Pocket Reference]]
-
-** TODO [#C] Org Mode Tutorial                                     :video:
+** READING TODO [#C] Org Mode Tutorial                          :VIDEO:EMACS:
    A YouTube video series detailing Emacs org mode.
    :AUTHOR: Rainer König
    :DATE: 2017
    :VIDEO: [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Org Mode Tutorial - Episode 1]]
    :NOTES: [[file+emacs:notes/org-mode-tutorial/readme.org][Org Mode Tutorial]]
-
-** TODO [#B] Perl One-Liners                                       :perl:bab: 
+** READING TODO [#B] Perl One-Liners                               :BAB:PERL:
    130 single-line programs that "get things done."
    :AUTHOR: Peteris Krumins
    :PUBLISHER: No Starch Press
    :DATE: 2014
    :BUY: [[https://www.amazon.com/Perl-One-Liners-Programs-That-Things/dp/159327520X][Perl One-Liners]]
    :NOTES: [[file+emacs:notes/perl-one-liners/readme.org][Perl One-Liners]]
-** DONE [#C] The M4 Macro Processor                                :pdf:m4:bab:short:
-   CLOSED: [2018-06-14 Thu 20:55]
+** NOTATED DONE [#C] The M4 Macro Processor             :BAB:LINUX:PDF:SHORT:
+   CLOSED: [2018-09-03 Mon 14:43]
    M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
    :AUTHOR: Brian W. Kernigan, Dennis M. Richie
    :PUBLISHER: Bell Laboratories
@@ -148,7 +146,7 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :ESSAY: [[file:books/the-m4-macro-processor.pdf][The M4 Macro Processor]]
    :NOTES: [[file+emacs:notes/the-m4-macro-processor/readme.org][The M4 Macro Processor]]
    :END:
-** TODO [#D] The Snobol4 Programming Langage.                      :pdf:bab:eso:
+** READING TODO [#D] The Snobol4 Programming Langage.           :BAB:ESO:PDF:
    Snobol is a text-oriented programming language used primarily in the 1960's for text manipulation tasks.
    :AUTHOR: R. E. Griswold, J. F. Poage, I. P. Polonsky
    :PUBLISHER: Prentice Hall, Inc.

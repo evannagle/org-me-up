@@ -7,21 +7,21 @@
 
 * Episode 1: Headlines in Outline Mode
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1]]
   :END:
 
 ** Outline Mode
 
-|-----------+---------------+------------------------------------------|
-| Key       | Function      | Description                              |
-|-----------+---------------+------------------------------------------|
-| TAB       | org-cycle     | show/hide current subtree                |
-| SHIFT+TAB | org-shifttab  | show/hide entire org tree                |
-| M-RIGHT   | org-metaright | Increase node level                      |
-| M-LEFT    | org-metaleft  | Decrease node level                      |
-| M-UP      | org-metaup    | Increase node level                      |
-| C-c C-w   | org-refile    | Move (refile) node to a different parent |
-|-----------+---------------+------------------------------------------|
+   |-----------+---------------+------------------------------------------|
+   | Key       | Function      | Description                              |
+   |-----------+---------------+------------------------------------------|
+   | TAB       | org-cycle     | show/hide current subtree                |
+   | SHIFT+TAB | org-shifttab  | show/hide entire org tree                |
+   | M-RIGHT   | org-metaright | Increase node level                      |
+   | M-LEFT    | org-metaleft  | Decrease node level                      |
+   | M-UP      | org-metaup    | Increase node level                      |
+   | C-c C-w   | org-refile    | Move (refile) node to a different parent |
+   |-----------+---------------+------------------------------------------|
 
 *** Item 1
 **** Item A
@@ -46,7 +46,7 @@
 *** Tip: on any new line, you can type "#+" then M-RIGHT to see what properties can be specified.
 
 ** On the line below, you can type C-c C-c to update the todo sequence:
-#+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
+   #+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
 
 *** SOMEDAY I'll do this.
 *** NEXT I'll do another thing
@@ -58,14 +58,17 @@
 
 *** You can also type C-c C-t to select from menu.
 * Episode 3: Schedule, Deadlines, and Agenda Views
+  :BEGIN:
+  :VIDEO: [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 3]]
+  :END:
 
-|---------+---------------------+--------------|
-| Key     | Description         | Function     |
-|---------+---------------------+--------------|
-| C-c C-s | Schedule a task     | org-schedule |
-| C-c C-d | Schedule a deadline | org-deadline |
-| C-c a a | Show agenda view    | org-agenda   |
-|---------+---------------------+--------------|
+  |---------+---------------------+--------------|
+  | Key     | Description         | Function     |
+  |---------+---------------------+--------------|
+  | C-c C-s | Schedule a task     | org-schedule |
+  | C-c C-d | Schedule a deadline | org-deadline |
+  | C-c a a | Show agenda view    | org-agenda   |
+  |---------+---------------------+--------------|
 
 ** C-c C-s = schedules a task
    SCHEDULED: <2020-01-01 Wed>
@@ -75,3 +78,42 @@
    DEADLINE: <2018-09-21 Fri> SCHEDULED: <2018-09-02 Sun>
 ** You can also schedule a specific time
    SCHEDULED: <2018-09-02 Sun 01:00>
+* Episode 4: Repeating Tasks
+  :BEGIN:
+  :VIDEO: [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 4]]
+  :END:
+
+** TODO +1w = Completing task slides deadline to SCHEDULED + 7 days
+   SCHEDULED: <2018-09-07 Fri 13:00 +1w>
+** NEXT ++1w = Completing task slides deadline to first *future* date of SCHEDULED + 7 days
+   SCHEDULED: <2018-09-05 Wed ++1w>
+   :PROPERTIES:
+   :LAST_REPEAT: [2018-09-03 Mon 14:13]
+   :END:
+   - State "DONE"       from "TODO"       [2018-09-03 Mon 14:13]
+** NEXT .+1w = Completing task slides deadline to COMPLETED + 7 days
+   SCHEDULED: <2018-09-10 Mon .+1w>
+   :PROPERTIES:
+   :LAST_REPEAT: [2018-09-03 Mon 14:16]
+   :END:
+   - State "DONE"       from "NEXT"       [2018-09-03 Mon 14:16]
+
+* Episode 5: Checklists
+  :BEGIN:
+  :VIDEO: [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 5]]
+  :END:
+
+** Checklist 1 [2/5]
+   1) [X] Task 1 - Mark as complete with C-c C-c
+   2) [X] Task 2 - Change format with SHIFT-LEFT or SHIFT-RIGHT
+   3) [ ] Task 3 - Add another task with M-SHIFT-ENTER
+   4) [ ] Task 4
+
+** Checklist 2 [100%]
+   - [X] Item 1
+
+* Episode 6: Tags
+  :BEGIN:
+  :VIDEO: [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 6]]
+  :END:
+
