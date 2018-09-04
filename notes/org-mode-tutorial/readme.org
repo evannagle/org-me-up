@@ -120,4 +120,13 @@
 ** C-c C-q => select predefined tags                    :ONE:TWO:THREE:ZEBRA:
 ** C-c C-q TAB => custom tag                                     :ONE:CUSTOM:
 ** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
- 
+* Episode 2, Snippet 2: Agenda View
+  :BEGIN:
+  :VIDEO: [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode, Snippet 2]]
+  :END:
+
+** C-c a T = show items with a certain TODO value
+*** Type N r from TODO view to change TODO value
+** C-c a m = match by tag
+*** You can type <TAG>/<TODO> to filter by TODO
+** C-c a s = search by string
