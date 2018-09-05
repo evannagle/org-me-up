@@ -32,7 +32,7 @@
 ***** Item ii
 *** Item 4
 * Episode 1, Snippet 2: TODO Keywords
-  :BEGIN:
+  :PROPERTIES:
   :VIDEO: [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
   :END:
 
@@ -57,7 +57,7 @@
 
 *** You can also type C-c C-t to select from menu.
 * Episode 1, Snippet 3: Schedule, Deadlines, and Agenda Views
-  :BEGIN:
+  :PROPERTIES:
   :VIDEO: [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
   :END:
 
@@ -78,7 +78,7 @@
 ** You can also schedule a specific time
    SCHEDULED: <2018-09-02 Sun 01:00>
 * Episode 1, Snippet 4: Repeating Tasks
-  :BEGIN:
+  :PROPERTIES:
   :VIDEO: [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
   :END:
 
@@ -98,7 +98,7 @@
    - State "DONE"       from "NEXT"       [2018-09-03 Mon 14:16]
 
 * Episode 1, Snippet 5: Checklists
-  :BEGIN:
+  :PROPERTIES:
   :VIDEO: [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
   :END:
 
@@ -112,7 +112,7 @@
    - [X] Item 1
 
 * Episode 2, Snippet 1: Tags
-  :BEGIN:
+  :PROPERTIES:
   :VIDEO: [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
   :END:
 
@@ -121,7 +121,7 @@
 ** C-c C-q TAB => custom tag                                     :ONE:CUSTOM:
 ** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
 * Episode 2, Snippet 2: Agenda View
-  :BEGIN:
+  :PROPERTIES:
   :VIDEO: [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode, Snippet 2]]
   :END:
 
