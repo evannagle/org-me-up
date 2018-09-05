@@ -130,3 +130,8 @@
 ** C-c a m = match by tag
 *** You can type <TAG>/<TODO> to filter by TODO
 ** C-c a s = search by string
+* Episode 2, Snippet 3: Customized Agenda Views 
+  
+** C-c a C = configure custom agenda commands
+** Change settings, press Apply and Save
+** Type C-a <shortcut> => shows your custom agenda

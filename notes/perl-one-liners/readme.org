@@ -2041,3 +2041,205 @@ O frabjous day! Callooh! Callay!”
       He chortled in his joy. 
       And the mome raths outgrabe.
 #+end_example
+* Useful Regular Expressions
+** Match something that looks like an IP address 
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '/^(\d{1,3}\.){3}\d{1,3}$/ && print' <<<'
+Here are some IP address-like things:
+127.0.0.1
+50.43.43.12'
+#+END_SRC
+
+#+RESULTS:
+: 127.0.0.1
+: 50.43.43.12
+
+** Test whether a number is in the range 0 to 255
+
+#+BEGIN_SRC sh
+perl -le '
+  map { $n++ if /^([0-9]|[0-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$/ } 0..1000;
+  END { print $n }
+'
+#+END_SRC
+
+#+RESULTS:
+: 256
+
+** Match an IP address
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '
+
+$ip_part = qr/([0-9]|[0-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])/;
+
+print if /^($ip_part\.){3}$ip_part$/
+' <<<'
+127.0.0.1
+81.98.240.140
+5.5
+444.444.444.444
+127.256.0.1
+255.255.255.255
+'
+#+END_SRC
+
+#+RESULTS:
+: 127.0.0.1
+: 81.98.240.140
+: 255.255.255.255
+** Check whether a string looks like an email address 
+
+#+BEGIN_SRC sh
+perl -ne 'print if /\S+@\S+\.\S+/' <<<'
+Leroy Nagle
+leroy.nagle@gmail.com'
+#+END_SRC
+
+#+RESULTS:
+: leroy.nagle@gmail.com
+
+** Check for an e-mail using Email::Valid
+
+#+BEGIN_SRC sh
+perl -MEmail::Valid -ne 'print if Email::Valid->address($_)' <<<'
+leroy.nagle@gmail.com'
+#+END_SRC
+
+#+RESULTS:
+: leroy.nagle@gmail.com
+
+** Check whether a string is a number
+
+#+BEGIN_SRC sh
+perl -MRegexp::Common -ne 'print if /$RE{num}{real}/' <<<'
+1
+2
+blue
+3'
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+| 2 |
+| 3 |
+** Check whether a word appears in a string twice
+
+#+BEGIN_SRC sh
+perl -ne 'print if /(silly).*\1/' <<<'
+silly things are boring
+silly things are silly'
+#+END_SRC
+
+#+RESULTS:
+: silly things are silly
+
+** Increase all integers in a string by one
+
+#+BEGIN_SRC sh :results scalar
+perl -pe 's/(\d+)/$1+1/ge' <<<'
+there are 5 apples in 2 bins'
+#+END_SRC
+
+#+RESULTS:
+: 
+: there are 6 apples in 3 bins
+
+** Extract the HTTP User-Agend string from HTTP headers
+
+#+BEGIN_SRC sh
+perl -ne 'print $1 if /^User-Agent: (.+)$/' <<<'
+Host: www.catonmat.net
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_0_0; en-US)
+Accept: application/xml,application/xhtml+xml,text/html
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: en-US,en;q=0.8
+Accept-Charset: ISO-8859-1,utf-8,q=0.7,*;q=0.3'
+#+END_SRC
+
+#+RESULTS:
+: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_0_0; en-US)
+
+** Extract text between two HTML tags
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'print $1 if m|<strong>(.*?)</strong>|' <<<'
+
+<strong><em>Hello, HTML</em></strong>'
+#+END_SRC
+
+#+RESULTS:
+: <em>Hello, HTML</em>
+
+** Extract HTML using HTML::TreeBuilder
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '
+
+print "checking: $_";
+
+use HTML::TreeBuilder;
+
+my $tree = HTML::TreeBuilder->new_from_content( $_ );
+my $strong = $tree->look_down(_tag => "strong");
+if( $strong ) {
+  print " match: " . $_->as_HTML for $strong->content_list;
+} else {
+  print " no match\n";
+}
+
+$tree->delete;
+' <<< '
+
+<strong><em>Hello, Tree HTML</em></strong>'
+#+END_SRC
+
+#+RESULTS:
+: checking: 
+:  no match
+: checking: 
+:  no match
+: checking: <strong><em>Hello, Tree HTML</em></strong>
+:  match: <em>Hello, Tree HTML</em>
+
+** Replace all <b> tags with <strong>
+
+#+BEGIN_SRC sh
+perl -pe 's|<(/)?b>|<$1strong>|g' <<< 'Why <b>Hello</b> there'
+#+END_SRC
+
+#+RESULTS:
+: Why <strong>Hello</strong> there
+
+** Extract all matches from a Regex
+
+#+BEGIN_SRC sh
+perl -le '
+
+my @matches = "42 little kids in 5 buses on HI 21" =~ /\d+/g;
+
+print join ",", @matches;'
+#+END_SRC
+
+#+RESULTS:
+| 42 | 5 | 21 |
+
+
+* Perl's special variables
+
+|-------------+------------------------------------------------|
+| Variable    | Description                                    |
+|-------------+------------------------------------------------|
+| $_          | Default var, or "it", the implicit variable    |
+| $.          | Line number of the current line being read     |
+| $/          | Input record separator                         |
+| $\          | Appended after every print operatorion         |
+| $1, $2, etc | Matches from relative regex                    |
+| $,          | Field separator                                |
+| $"          | A single whitespace, array delim               |
+| @F          | Auto-split fields. auto-generated with -a flag |
+| @ARGV       | CL arguments                                   |
+| %ENV        | Environment variables                          |
+|-------------+------------------------------------------------|
