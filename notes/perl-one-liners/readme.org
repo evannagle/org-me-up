@@ -1715,3 +1715,329 @@ perl -alne '
 : 
 : 3 line
 : 4 line
+* Selectively Printing and Deleting Lines
+
+** Print the first line of a file (emulate head -1)
+
+#+BEGIN_SRC sh :results scalar
+# head -1 data/lines.txt
+perl -ne 'print; exit' data/lines.txt
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 1
+: line 2
+
+** Print the first 10 lines of a file (emulate head -10)
+
+#+BEGIN_SRC sh :results scalar
+#head -10 data/jabberwocky.poem
+perl -ne 'print if $. <= 10' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+
+#+end_example
+
+** Another way to print 10 lines using 1..10
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'print if 1..10' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+
+#+end_example
+
+** Print the last line of a file (emulate tail -1)
+
+#+BEGIN_SRC sh
+# tail -1 data/jabberwocky.poem
+perl -ne 'print if eof' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: And the mome raths outgrabe.
+
+** Print the last 10 lines of a file (emulate tail -10)
+
+#+BEGIN_SRC sh :results scalar
+# tail -10 data/jabberwocky.poem
+perl -ne '
+  push @a, $_; #add the current line
+  @a = @a[@a-10..$#a] if @a > 10; #slice a if > 10
+  END { print @a }' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+“And hast thou slain the Jabberwock? 
+      Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!” 
+      He chortled in his joy. 
+
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe.
+#+end_example
+
+** Print only lines that match a regex
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '/vorpal/ && print' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: He took his vorpal sword in hand; 
+:       The vorpal blade went snicker-snack! 
+
+** Print only lines that do not match a regex
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '!/vorpal/ && print' data/jabberwocky.poem | head -10
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+
+#+end_example
+
+** Print every line preceding a line that matches a regex
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '/vorpal/ && $last && print $last; $last = $_' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: 
+: One, two! One, two! And through and through 
+
+** Print every line following a line that matches a regex
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'if ($p) { print; $p = 0 } $p++ if /vorpal/' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+:       Long time the manxome foe he sought— 
+: He left it dead, and with its head 
+
+** Print lines that match two regexes
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '/vorpal/ && /snicker/ && print' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+:       The vorpal blade went snicker-snack! 
+ 
+** Print lines that are at least 40 chars long
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'print if length >= 40' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+      Did gyre and gimble in the wabe: 
+      The jaws that bite, the claws that catch! 
+      Long time the manxome foe he sought— 
+      The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood, 
+One, two! One, two! And through and through 
+      The vorpal blade went snicker-snack! 
+“And hast thou slain the Jabberwock? 
+      Come to my arms, my beamish boy! 
+      Did gyre and gimble in the wabe: 
+#+end_example
+
+** Print only line line 13
+
+#+BEGIN_SRC sh
+perl -ne '$. == 13 && print' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: So rested he by the Tumtum tree
+
+** Print all lines from 17 to 30
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'print if 17..30' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+      The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood, 
+      And burbled as it came! 
+
+One, two! One, two! And through and through 
+      The vorpal blade went snicker-snack! 
+He left it dead, and with its head 
+      He went galumphing back. 
+
+“And hast thou slain the Jabberwock? 
+      Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!” 
+      He chortled in his joy. 
+
+#+end_example
+
+** Print the longest line
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '
+  $l = $_ if length($_) > length($l);
+  END { print $l }' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+:       The jaws that bite, the claws that catch! 
+
+** Print the shortest line
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '
+  $l = $_ if $. == 1;
+  $nl = length($_);
+  $l = $_ if $nl > 1 && $nl < length($l);
+  END { print $l }
+' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: All mimsy were the borogoves, 
+
+** Print all lines containing only digits
+
+#+BEGIN_SRC sh
+perl -ne 'print if /^\d+$/' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+
+** Print all lines containing only alphabetic chars
+
+#+BEGIN_SRC sh
+# Add space char if you want some results!
+perl -ne 'print if /^[[:alpha:]]+$/' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+
+** Print every second line, beginning with the first
+
+#+BEGIN_SRC sh :results scalar
+perl -ne '$. % 2 || print' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+      Did gyre and gimble in the wabe: 
+      And the mome raths outgrabe. 
+“Beware the Jabberwock, my son! 
+Beware the Jubjub bird, and shun 
+
+      Long time the manxome foe he sought— 
+      And stood awhile in thought. 
+And, as in uffish thought he stood, 
+Came whiffling through the tulgey wood, 
+
+      The vorpal blade went snicker-snack! 
+      He went galumphing back. 
+“And hast thou slain the Jabberwock? 
+O frabjous day! Callooh! Callay!” 
+
+      Did gyre and gimble in the wabe: 
+      And the mome raths outgrabe.
+#+end_example
+
+** Print all repeated lines only once
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'print if length($_) > 1 && ++$a{$_} ==2' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+: ’Twas brillig, and the slithy toves 
+:       Did gyre and gimble in the wabe: 
+: All mimsy were the borogoves, 
+
+** Print all unique lines
+
+#+BEGIN_SRC sh :results scalar
+perl -ne 'print unless $a{$_}++' data/jabberwocky.poem
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+’Twas brillig, and the slithy toves 
+      Did gyre and gimble in the wabe: 
+All mimsy were the borogoves, 
+      And the mome raths outgrabe. 
+
+“Beware the Jabberwock, my son! 
+      The jaws that bite, the claws that catch! 
+Beware the Jubjub bird, and shun 
+      The frumious Bandersnatch!” 
+He took his vorpal sword in hand; 
+      Long time the manxome foe he sought— 
+So rested he by the Tumtum tree 
+      And stood awhile in thought. 
+And, as in uffish thought he stood, 
+      The Jabberwock, with eyes of flame, 
+Came whiffling through the tulgey wood, 
+      And burbled as it came! 
+One, two! One, two! And through and through 
+      The vorpal blade went snicker-snack! 
+He left it dead, and with its head 
+      He went galumphing back. 
+“And hast thou slain the Jabberwock? 
+      Come to my arms, my beamish boy! 
+O frabjous day! Callooh! Callay!” 
+      He chortled in his joy. 
+      And the mome raths outgrabe.
+#+end_example
