@@ -33,7 +33,7 @@
 *** Item 4
 * Episode 1, Snippet 2: TODO Keywords
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
   :END:
 
 ** Create a task
@@ -58,7 +58,7 @@
 *** You can also type C-c C-t to select from menu.
 * Episode 1, Snippet 3: Schedule, Deadlines, and Agenda Views
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
   :END:
 
   |---------+---------------------+--------------|
@@ -79,7 +79,7 @@
    SCHEDULED: <2018-09-02 Sun 01:00>
 * Episode 1, Snippet 4: Repeating Tasks
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
   :END:
 
 ** TODO +1w = Completing task slides deadline to SCHEDULED + 7 days
@@ -99,7 +99,7 @@
 
 * Episode 1, Snippet 5: Checklists
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
   :END:
 
 ** Checklist 1 [2/5]
@@ -113,7 +113,7 @@
 
 * Episode 2, Snippet 1: Tags
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
   :END:
 
   #+TAGS: ONE(1) TWO(2) THREE(3) ZEBRA(z)
@@ -122,7 +122,7 @@
 ** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
 * Episode 2, Snippet 2: Agenda View
   :PROPERTIES:
-  :VIDEO: [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode, Snippet 2]]
+  :VIDEO:    [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode 2, Snippet 2]]
   :END:
 
 ** C-c a T = show items with a certain TODO value
@@ -131,7 +131,52 @@
 *** You can type <TAG>/<TODO> to filter by TODO
 ** C-c a s = search by string
 * Episode 2, Snippet 3: Customized Agenda Views 
+  :PROPERTIES:
+  :VIDEO:    [[https://www.youtube.com/watch?v=PJ3qHIl-eOM&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=8][Episode 2, Snippet 3]]
+  :END:
   
+  Some more context: [[https://orgmode.org/manual/Custom-agenda-views.html]]
 ** C-c a C = configure custom agenda commands
 ** Change settings, press Apply and Save
 ** Type C-a <shortcut> => shows your custom agenda
+
+* Episode 2, Snippet 4: Drawers, Logging, and Quick Notes 
+  This task will show you how drawers work.
+  :DRAWER:
+  - This is usually hidden content of a drawer.
+  - The drawer ends with the line that says :END:
+  :END:
+
+** Setting up the LOGBOOK
+
+   #+BEGIN_SRC elisp
+(setq org-log-into-drawer "logbook")
+   #+END_SRC
+
+   #+RESULTS:
+   : logbook
+
+** Some standard tasks [1/5]
+   - [X] Task 1
+   - [ ] Task 2
+   - [ ] Task 3 
+   - [ ] Task 4
+   - [ ] Task 5 
+     :PEOPLE:
+     - Person 1
+     - Person 2
+     - Person 3
+     - Person 4
+     :END:
+     :LOGBOOK:
+     - Note taken on [2018-09-05 Wed 11:06] \\
+       Thank God the first day is done. Nice people, but the PHB obviously needs some coaching.
+     :END:
+
+** Typing C-c C-z allows you to insert a note.     
+* Episode 2, Snippet 5: Archiving
+
+** Set archive file with #+ARCHIVE: myarchive.org::
+** C-c C-x C-a => archive item (org-archive-subtree-default)
+** C-c C-x C-s => archive entire subtree (org-archive-subtree)
+** C-u C-c C-x C-s => prompt to archive all completed items
