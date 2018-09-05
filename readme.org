@@ -137,7 +137,8 @@ From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Fee
    :DATE: 2017
    :VIDEO: [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Org Mode Tutorial - Episode 1]]
    :NOTES: [[file+emacs:notes/org-mode-tutorial/readme.org][Org Mode Tutorial]]
-** READING TODO [#B] Perl One-Liners                               :BAB:PERL:
+** NOTATED TODO [#B] Perl One-Liners                               :BAB:PERL:
+   CLOSED: [2018-09-05 Wed 10:03]
    130 single-line programs that "get things done."
    :AUTHOR: Peteris Krumins
    :PUBLISHER: No Starch Press
