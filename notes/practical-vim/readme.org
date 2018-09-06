@@ -1,0 +1,53 @@
+#+TITLE: Practical Vim
+#+AUTHOR: Drew Neil
+#+PUBLISHER: Pragmatic Bookshelf
+#+DATE: 2012
+#+CREATOR: Evan Nagle
+#+EMAIL: evan@mantle.co
+
+* The Vim Way
+** Basic commands
+*** . = repeat last command
+*** x = delete char
+*** x.. = delete three chars
+*** 3x = delete three 
+*** 3x. = delete six chars
+*** dd = delete line   
+*** >G = increase indentation from current line to EOF 
+*** a = append, A = append at end of line
+
+** Some compound commands
+
+   |----------+-------+-----------------------------|
+   | Compound | Long  | Description                 |
+   |----------+-------+-----------------------------|
+   | C        | c$    | Change to EOL               |
+   | s        | cl    | Substitute letter           |
+   | S        | ^C    | Substitue CL                |
+   | I        | ^i    | Insert at SOL               |
+   | A        | $a    | Append at EOL               |
+   | o        | A<CR> | Append on new line          |
+   | O        | ko    | Append on new line above CL |
+   |----------+-------+-----------------------------|
+
+** Scanning
+*** f = scan line for next instance of char
+*** F = scan line for previous instance of char
+*** t = scan line until next instance of char 
+*** T = scane line until previous instance of char
+*** / = scan document for pattern
+*** ? = scan document backwards for pattern   
+*** s/foo/bar/g = sed-like substitution
+*** qx{changes}q = create a macro
+
+** Make commands repeatable
+*** ; = repeat the last f/F/t/T command
+*** , = repeat the last f/F/t/T command backwards
+
+    #+BEGIN_SRC javascript
+var foo = "method("+argument1+","+argument2+")";
+//f+s" + "<ESC>;.;.;.
+//or with ex: s/\+/ \+ /g
+var foo = "method(" + argument1 + "," + argument2 + ")";
+    #+END_SRC
+
