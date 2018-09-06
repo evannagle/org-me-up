@@ -7,11 +7,11 @@
 
 * Where am I?
 
-Hi, there. Welcome to Org-Me-Up. These are cliffnotes on org-roids. Learn about anything. Mostly nerdy anythings. Then, forget about everything, and refer back to your notes.
+  Hi, there. Welcome to Org-Me-Up. These are cliffnotes on org-roids. Learn about anything. Mostly nerdy anythings. Then, forget about everything, and refer back to your notes.
 
 *** Installing Org-Me-Up
 
-#+BEGIN_SRC sh
+    #+BEGIN_SRC sh
 # step 1: clone me
 git clone git@github.com:evannagle/org-me-up.git
 
@@ -22,144 +22,166 @@ open "https://orgmode.org/"
 ls org-me-up/notes | grep awk 
 
 emacs org-me-up/the-awk-programming-language/readme.org
-#+END_SRC
+    #+END_SRC
 
 *** How Do I Contribute?
 
-Interested in contributing? Why, you kind traveller! Here's how:
+    Interested in contributing? Why, you kind traveller! Here's how:
 
-1. Fork this repo.
-2. Run this script:
+    1. Fork this repo.
+    2. Run this script:
 
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
 ;; if you add this file to your config,
 ;; you can call M-x org-me-up/make-book
 ;; until the cows come home
 (load-file "./scripts/make-book.el")
-#+END_SRC
+    #+END_SRC
 
-3. Start taking notes.
-4. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
-5. Update this main readme once you're at least partially finished.
-6. Submit a pull request to get your book added to the main branch. Or, horde your learnings like a lemming.
+    3. Start taking notes.
+    4. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
+    5. Update this main readme once you're at least partially finished.
+    6. Submit a pull request to get your book added to the main branch. Or, horde your learnings like a lemming.
 
 * Tags
 
-|---------+-------------+-----------------------------------------------------------------|
-| Tag     | C-c C-q Key | Meaning                                                         |
-|---------+-------------+-----------------------------------------------------------------|
-| *AWK*   | a           | The AWK Programming language                                    |
-| *BAB*   | b           | Executable code snippets are included in the notes.             |
-| *C*     | c           | The C Programming Language                                      |
-| *EMACS* | e           | Books related to the Emacs operating system                     |
-| *BASH*  | h           | Books related to shells sans turtles                            |
-| *LINUX* | l           | Linux-related books                                             |
-| *PDF*   | p           | A free PDF version of the book is included in the books/ folder |
-| *PERL*  | r           | The Perl Programming Language                                   |
-| *SHORT* | s           | A short essay or chapbook-sized document.                       |
-| *VIM*   | v           | Books related to Ed, Ex, Vi, Vim, Elvis, &c                     |
-| *VIDEO* | y           | These are notes on a video series.                              |
-| *ESO*   | z           | Esoteric books that might interest the self-afflicted.          |
-|---------+-------------+-----------------------------------------------------------------|
+  |---------+-------------+-----------------------------------------------------------------|
+  | Tag     | C-c C-q Key | Meaning                                                         |
+  |---------+-------------+-----------------------------------------------------------------|
+  | *AWK*   | a           | The AWK Programming language                                    |
+  | *BAB*   | b           | Executable code snippets are included in the notes.             |
+  | *C*     | c           | The C Programming Language                                      |
+  | *EMACS* | e           | Books related to the Emacs operating system                     |
+  | *BASH*  | h           | Books related to shells sans turtles                            |
+  | *LINUX* | l           | Linux-related books                                             |
+  | *PDF*   | p           | A free PDF version of the book is included in the books/ folder |
+  | *PERL*  | r           | The Perl Programming Language                                   |
+  | *SHORT* | s           | A short essay or chapbook-sized document.                       |
+  | *VIM*   | v           | Books related to Ed, Ex, Vi, Vim, Elvis, &c                     |
+  | *VIDEO* | y           | These are notes on a video series.                              |
+  | *ESO*   | z           | Esoteric books that might interest the self-afflicted.          |
+  |---------+-------------+-----------------------------------------------------------------|
 
 * Pritories
 
-From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Feel free to ignore or reset these priorities to meet your own esoteric predilections.
+  From wanderer to wanderer, priorities vary vastly. Ask my wife, for example. Feel free to ignore or reset these priorities to meet your own esoteric predilections.
 
-|----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
-| Priority | Meaning                                                                                                                                         |
-|----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
-| *#A*     | This book is a must-read. Donald Knuth probably wrote it.                                                                                       |
-| *#B*     | These are books that provide fundamental information on a given topic.                                                                          |
-| *#C*     | These are books that are interesting and will provide some tangentially powerful tools. Read these if you need some time away from your family. |
-| *#D*     | These are somewhat esoteric books that are fun to read.                                                                                         |
-| *#E*     | These are somewhat esoteric books that have hemorrhaged all of their value. Read these if you hate yourself.                                    |
-|----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
+  |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
+  | Priority | Meaning                                                                                                                                         |
+  |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
+  | *#A*     | This book is a must-read. Donald Knuth probably wrote it.                                                                                       |
+  | *#B*     | These are books that provide fundamental information on a given topic.                                                                          |
+  | *#C*     | These are books that are interesting and will provide some tangentially powerful tools. Read these if you need some time away from your family. |
+  | *#D*     | These are somewhat esoteric books that are fun to read.                                                                                         |
+  | *#E*     | These are somewhat esoteric books that have hemorrhaged all of their value. Read these if you hate yourself.                                    |
+  |----------+-------------------------------------------------------------------------------------------------------------------------------------------------|
 
 * The Library
-** READING TODO [#C] The AWK Programming Language.              :AWK:BAB:PDF:
-    Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
-    :AUTHOR: Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
-    :PUBLISHER: Addison-Wesley
-    :DATE: 1988
-    :LANGUAGE: awk
-    :CREATOR: Evan Nagle
-    :NOTES: [[file+emacs:notes/the-awk-programming-language/readme.org][The AWK Programming Language: Notes]]
-    :BOOK: [[file:books/the-awk-programming-language.pdf][The AWK Programming Language: PDF]]
-    :BUY: [[https://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref%3Dsr_1_3?s%3Dbooks&ie%3DUTF8&qid%3D1527199200&sr%3D1-3&keywords%3Dawk%2Bprogramming%2Blanguage][The AWK Programming Language: Amazon]]
-    :END:
-** NOTATED DONE [#D] Ed Mastery.                                :BAB:ESO:VIM:
+** READING [#C] The AWK Programming Language.              :AWK:BAB:PDF:
+   :PROPERTIES:
+   :AUTHOR:   Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.
+   :PUB:      Addison-Wesley
+   :DATE:     1988
+   :LANGUAGE: awk
+   :NOTES:    [[file+emacs:notes/the-awk-programming-language/readme.org][The AWK Programming Language: Notes]]
+   :BOOK:     [[file:books/the-awk-programming-language.pdf][The AWK Programming Language: PDF]]
+   :BUY:      [[https://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref%3Dsr_1_3?s%3Dbooks&ie%3DUTF8&qid%3D1527199200&sr%3D1-3&keywords%3Dawk%2Bprogramming%2Blanguage][The AWK Programming Language: Amazon]]
+   :END:
+   Awk is a programming language that makes it possible to handle simple, mechanical data manipulation with very short programs, often two lines long.
+** NOTATED [#D] Ed Mastery.                                :BAB:ESO:VIM:
    CLOSED: [2018-09-03 Mon 14:42]
-    Ed is a bare-bones text editor that ships with every line printer and/or linux box.
-    :AUTHOR: Michael W Lucas
-    :PUBLISHER: Tilted Windmill Press
-    :DATE: 2018
-    :CREATOR: Evan Nagle
-    :NOTES: [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
-    :BUY: [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
-    :END:
-** NOTATED DONE [#D] Ex Reference Manual.                 :BAB:VIM:PDF:SHORT:
+   :PROPERTIES:
+   :AUTHOR:   Michael W Lucas
+   :PUB:      Tilted Windmill Press
+   :DATE:     2018
+   :NOTES:    [[file+emacs:notes/ed-mastery/readme.org][Ed Mastery: Notes]]
+   :BUY:      [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Ed Mastery: Amazon]]
+   :END:
+   Ed is a bare-bones text editor that ships with every line printer and/or linux box.
+** NOTATED [#D] Ex Reference Manual.                 :BAB:VIM:PDF:SHORT:
    CLOSED: [2018-09-03 Mon 14:42]
+   :PROPERTIES:
+   :AUTHOR:   William Joy, Mark Horton
+   :PUB:      University of California, Berkeley
+   :DATE:     1978
+   :ESSAY:    [[file:books/ex-reference-manual.pdf][Ex Reference Manual]]
+   :NOTES:    [[file+emacs:notes/ex-reference-manual/readme.org][Ex Reference Manual]]
+   :END:
    Ex is an extended version of the Ed editor and a precursor to Vi.
-   :AUTHOR: William Joy, Mark Horton
-   :PUBLISHER: University of California, Berkeley
-   :DATE: 1978
-   :ESSAY: [[file:books/ex-reference-manual.pdf][Ex Reference Manual]]
-   :NOTES: [[file+emacs:notes/ex-reference-manual/readme.org][Ex Reference Manual]]
-   :END:
-** NOTATED DONE [#D] Exploiting the m4 Macro Language   :BAB:LINUX:PDF:SHORT:
+** NOTATED [#D] Exploiting the m4 Macro Language   :BAB:LINUX:PDF:SHORT:
    CLOSED: [2018-09-03 Mon 14:43]
+   :PROPERTIES:
+   :AUTHOR:   Kenneth J. Turner
+   :PUB:      University of Stirling
+   :DATE:     1994
+   :ESSAY:    [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
+   :NOTES:    [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Exploiting the m4 Macro Language]]
+   :END:
    M4 is a macro processor available on Unix. This short paper discusses creative approaches to applying m4 templating.
-   :AUTHOR: Kenneth J. Turner
-   :PUBLISHER: University of Stirling
-   :DATE: 1994
-   :ESSAY: [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
-   :NOTES: [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Exploiting the m4 Macro Language]]
-** NOTATED DONE [#C] Evil - Extensible vi Layer for Emacs :BAB:EMACS:VIM:PDF:SHORT:
+** NOTATED [#C] Evil - Extensible vi Layer for Emacs :BAB:EMACS:VIM:PDF:SHORT:
    CLOSED: [2018-09-03 Mon 14:43]
-   Documentation on the Evil mode for Emacs
-   :AUTHOR: Frank Fischer and Vergard Oye
-   :PUBLISHER: Frank Fischer and Vergard Oye
-   :DATE: 2011
-   :ESSAY: [[file:books/evil-extensible-vi-layer-for-emacs.pdf][Evil - Extensible vi Layer for Emacs]]
-   :NOTES: [[file+emacs:notes/evil-extensible-vi-layer-for-emacs/readme.org][Evil - Extensible vi Layer for Emacs]]
-** NOTATED DONE [#B] Grep Pocket Reference                  :BAB:LINUX:SHORT:
-   CLOSED: [2018-09-03 Mon 14:43]
-   The grep commands let users find text in a given file or output quickly and easily.
-   :AUTHOR: John Bambenek, Agnieszka Klus
-   :PUBLISHER: O'Reilly Media
-   :DATE: 2009
-   :BUY: [[https://www.amazon.com/grep-Pocket-Reference-Utility-OReilly/dp/0596153600/ref=sr_1_1?ie=UTF8&qid=1535761943&sr=8-1&keywords=grep+pocket+reference][Grep Pocket Reference]]
-   :NOTES: [[file+emacs:notes/grep-pocket-reference/readme.org][Grep Pocket Reference]]
-** READING TODO [#C] Org Mode Tutorial                          :VIDEO:EMACS:
-   A YouTube video series detailing Emacs org mode.
-   :AUTHOR: Rainer König
-   :DATE: 2017
-   :VIDEO: [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Org Mode Tutorial - Episode 1]]
-   :NOTES: [[file+emacs:notes/org-mode-tutorial/readme.org][Org Mode Tutorial]]
-** NOTATED TODO [#B] Perl One-Liners                               :BAB:PERL:
-   CLOSED: [2018-09-05 Wed 10:03]
-   130 single-line programs that "get things done."
-   :AUTHOR: Peteris Krumins
-   :PUBLISHER: No Starch Press
-   :DATE: 2014
-   :BUY: [[https://www.amazon.com/Perl-One-Liners-Programs-That-Things/dp/159327520X][Perl One-Liners]]
-   :NOTES: [[file+emacs:notes/perl-one-liners/readme.org][Perl One-Liners]]
-** NOTATED DONE [#C] The M4 Macro Processor             :BAB:LINUX:PDF:SHORT:
-   CLOSED: [2018-09-03 Mon 14:43]
-   M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
-   :AUTHOR: Brian W. Kernigan, Dennis M. Richie
-   :PUBLISHER: Bell Laboratories
-   :DATE: 1977
-   :ESSAY: [[file:books/the-m4-macro-processor.pdf][The M4 Macro Processor]]
-   :NOTES: [[file+emacs:notes/the-m4-macro-processor/readme.org][The M4 Macro Processor]]
+   :PROPERTIES:
+   :AUTHOR:   Frank Fischer and Vergard Oye
+   :PUB:      Frank Fischer and Vergard Oye
+   :DATE:     2011
+   :ESSAY:    [[file:books/evil-extensible-vi-layer-for-emacs.pdf][Evil - Extensible vi Layer for Emacs]]
+   :NOTES:    [[file+emacs:notes/evil-extensible-vi-layer-for-emacs/readme.org][Evil - Extensible vi Layer for Emacs]]
    :END:
-** READING TODO [#D] The Snobol4 Programming Langage.           :BAB:ESO:PDF:
-   Snobol is a text-oriented programming language used primarily in the 1960's for text manipulation tasks.
-   :AUTHOR: R. E. Griswold, J. F. Poage, I. P. Polonsky
-   :PUBLISHER: Prentice Hall, Inc.
-   :DATE: 1971
-   :BOOK: [[file:books/the-snobol4-programming-language.pdf][The Snobol4 Programming Language]]
-   :BUY: [[https://www.amazon.com/s/ref%3Dnb_sb_noss?url%3Dsearch-alias%253Dstripbooks&field-keywords%3Dthe%2Bsnobol4%2Bprogramming%2Blanguage][The Snobol4 Programming Language]]
-   :NOTES: [[file+emacs:notes/the-snobol4-programming-language/readme.org][The Snobol4 Programming Language]]
+   Documentation on the Evil mode for Emacs
+** NOTATED [#B] Grep Pocket Reference                  :BAB:LINUX:SHORT:
+   CLOSED: [2018-09-03 Mon 14:43]
+   :PROPERTIES:
+   :AUTHOR:   John Bambenek, Agnieszka Klus
+   :PUB:      O'Reilly Media
+   :DATE:     2009
+   :BUY:      [[https://www.amazon.com/grep-Pocket-Reference-Utility-OReilly/dp/0596153600/ref=sr_1_1?ie=UTF8&qid=1535761943&sr=8-1&keywords=grep+pocket+reference][Grep Pocket Reference]]
+   :NOTES:    [[file+emacs:notes/grep-pocket-reference/readme.org][Grep Pocket Reference]]
+   :END:
+   The grep commands let users find text in a given file or output quickly and easily.
+** READING [#C] Org Mode Tutorial                          :VIDEO:EMACS:
+   :PROPERTIES:
+   :AUTHOR:   Rainer König
+   :DATE:     2017
+   :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Org Mode Tutorial - Episode 1]]
+   :NOTES:    [[file+emacs:notes/org-mode-tutorial/readme.org][Org Mode Tutorial]]
+   :END:
+   A YouTube video series detailing Emacs org mode.
+** NOTATED [#B] Perl One-Liners                               :BAB:PERL:
+   CLOSED: [2018-09-05 Wed 10:03]
+   :PROPERTIES:
+   :AUTHOR:   Peteris Krumins
+   :PUB:      No Starch Press
+   :DATE:     2014
+   :BUY:      [[https://www.amazon.com/Perl-One-Liners-Programs-That-Things/dp/159327520X][Perl One-Liners]]
+   :NOTES:    [[file+emacs:notes/perl-one-liners/readme.org][Perl One-Liners]]
+   :END:
+   130 single-line programs that "get things done."
+** READING [#B] Practical Vim                                           :VIM:
+   :PROPERTIES:
+   :AUTHOR:   Drew Neil
+   :PUB:      Pragmatic Bookshelf
+   :DATE:     2012
+   :BUY:      [[https://www.amazon.com/Practical-Vim-Thought-Pragmatic-Programmers/dp/1934356980][Practical Vim]]
+   :NOTES:    [[file+emacs/notes/practical-vim/readme.org][Practical Vim]]
+   :END:
+   Practical Vim is a fast track to Vim mastery.
+** NOTATED [#C] The M4 Macro Processor                  :BAB:LINUX:PDF:SHORT:
+   CLOSED: [2018-09-05 Wed 14:42]
+   :PROPERTIES:
+   :AUTHOR:   Brian W. Kernigan, Dennis M. Richie
+   :PUB:      Bell Laboratories
+   :DATE:     1977
+   :ESSAY:    [[file:books/the-m4-macro-processor.pdf][The M4 Macro Processor]]
+   :NOTES:    [[file+emacs:notes/the-m4-macro-processor/readme.org][The M4 Macro Processor]]
+   :END:
+   M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
+** READING [#D] The Snobol4 Programming Langage.           :BAB:ESO:PDF:
+   :PROPERTIES:
+   :AUTHOR:   R. E. Griswold, J. F. Poage, I. P. Polonsky
+   :PUB:      Prentice Hall, Inc.
+   :DATE:     1971
+   :BOOK:     [[file:books/the-snobol4-programming-language.pdf][The Snobol4 Programming Language]]
+   :BUY:      [[https://www.amazon.com/s/ref%3Dnb_sb_noss?url%3Dsearch-alias%253Dstripbooks&field-keywords%3Dthe%2Bsnobol4%2Bprogramming%2Blanguage][The Snobol4 Programming Language]]
+   :NOTES:    [[file+emacs:notes/the-snobol4-programming-language/readme.org][The Snobol4 Programming Language]]
    :END: 
+   Snobol is a text-oriented programming language used primarily in the 1960's for text manipulation tasks.
