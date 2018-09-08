@@ -189,3 +189,54 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
     Line 1;
     Line 2 which is longer;
     Line 3;
+
+
+* Command/Ex Mode
+
+** Some range symbols (checkout Ex documentation for more)
+
+|--------+---------------------------------------|
+| Symbol | Address                               |
+|--------+---------------------------------------|
+| 1      | First line of file                    |
+| $      | Last line of file                     |
+| 0      | Virtual line above first line of file |
+| .      | Line where cursor is placed           |
+| 'm     | Line containing mark m                |
+| '<     | Start of visual selection             |
+| '>     | End of visual selection               |
+| %      | Entire file                           |
+|--------+---------------------------------------|
+
+
+|----------------------------+---------------------|
+| Command                    | Effect              |
+|----------------------------+---------------------|
+| :<r>d                      | delete              |
+| :<r>y                      | yank                |
+| :<r>copy                   | copy                |
+| :<r>c(hange)               | change              |
+| :<r>t                      | copy                |
+| :<r>m                      | move                |
+| :<r>j                      | join                |
+| :<r>n {commands}           | normal              |
+| :<r> s/<old>/<new>/[flags] | sed-like substitute |
+| :<r> g/<pattern/[cmd]      | grep-like command   |
+|----------------------------+---------------------|
+
+** Some handy commands
+*** :125t. => copy line 125 to the current line
+*** :t6 => copy the current line to below line 6    
+*** :t. => duplicate the current line 
+*** :t$ => copy the current line to the end of the file
+*** '<,'>t0 => copy the visually selected lines to the top of the file
+*** '<,'>m$ => move the visually selected lines to the end of the file
+*** :%normal A; => append a semicolon at the end of every line
+*** :%normal i// => insert a comment prefix at the start of every line
+*** @: => repeat the last ex command (similar to . for normal commands)
+*** :! <command> => run shell command
+*** :shell => interactive shell
+*** :read ! <command> => print command to buffer    
+*** :<r>write !cmd => execute command with range as input
+*** :<r>! filter => Filter the specified [range] through external program {filter}
+
