@@ -13,92 +13,92 @@
 
 ** Operators
 
-|-----+------------------------------------------------|
-| Key | Command                                        |
-|-----+------------------------------------------------|
-| c   | change                                         |
-| d   | delete                                         |
-| y   | yank (copy)                                    |
-| ~   | swap case                                      |
-| g~  | swap case                                      |
-| gu  | make lowercase                                 |
-| gU  | make uppercase                                 |
-| !   | filter through external program                |
-| =   | filter through equalprg                        |
-| gq  | text formatting                                |
-| g?  | ROT13 encoding                                 |
-| >   | shift right                                    |
-| <   | shift left                                     |
-| zf  | define a fold                                  |
-| g@  | call function set with the operatorfunc option |
-|-----+------------------------------------------------|
+   |-----+------------------------------------------------|
+   | Key | Command                                        |
+   |-----+------------------------------------------------|
+   | c   | change                                         |
+   | d   | delete                                         |
+   | y   | yank (copy)                                    |
+   | ~   | swap case                                      |
+   | g~  | swap case                                      |
+   | gu  | make lowercase                                 |
+   | gU  | make uppercase                                 |
+   | !   | filter through external program                |
+   | =   | filter through equalprg                        |
+   | gq  | text formatting                                |
+   | g?  | ROT13 encoding                                 |
+   | >   | shift right                                    |
+   | <   | shift left                                     |
+   | zf  | define a fold                                  |
+   | g@  | call function set with the operatorfunc option |
+   |-----+------------------------------------------------|
 
 ** Motions
 
    More info in the Vim docs here: http://vimdoc.sourceforge.net/htmldoc/motion.html
    Or by typing :h motion
 
-|--------------+----------------------------------------------------|
-| Key          | Motion                                             |
-|--------------+----------------------------------------------------|
-| LEFT/RIGHT   |                                                    |
-|--------------+----------------------------------------------------|
-| h            | Char to the left                                   |
-| l            | Char to the right                                  |
-| 0            | First char of the line                             |
-| ^            | First non-blank char of the line                   |
-| $            | Last char of the line                              |
-| g_           | Last non-blank char of the line                    |
-| g0           | First char of the screen line                      |
-| <n>f{char}   | To the nth next occurrence of char                 |
-| <n>F{char}   | To the nth previous occurrence of char             |
-| <n>t{char}   | Until the nth next occurrence of char              |
-| <nt>T{char}  | Until the nth previous occurrence of char          |
-| ;            | Previous f,t,F, or T command                       |
-| ,            | Previous f,t,F, or T command in opposite direction |
-|--------------+----------------------------------------------------|
-| UP/DOWN      |                                                    |
-|--------------+----------------------------------------------------|
-| k            | N lines upward                                     |
-| j            | N lines downward                                   |
-| gg           | First line                                         |
-| G            | Last line                                          |
-| :range       | Line range                                         |
-|--------------+----------------------------------------------------|
-| UP/DOWN      |                                                    |
-|--------------+----------------------------------------------------|
-| w            | words forwards                                     |
-| W            | Words forward                                      |
-| e            | Forward to end of word                             |
-| E            | Forward to End of word                             |
-| b            | words backwards                                    |
-| B            | Words backwards                                    |
-|--------------+----------------------------------------------------|
-| TEXT OBJECTS |                                                    |
-|--------------+----------------------------------------------------|
-| (            | sentence backwards                                 |
-| )            | sentence forwards                                  |
-| {            | paragraphs backwards                               |
-| }            | paragraphs forwards                                |
-| ]]           | sections forwards                                  |
-| [[           | sections backwards                                 |
-| []           | sections backwards or to the previous }            |
-|--------------+----------------------------------------------------|
-| TEXT OBJECTS |                                                    |
-|--------------+----------------------------------------------------|
-| aw           | a word                                             |
-| aW           | a Word                                             |
-| iw           | inner word                                         |
-| iW           | inner Word                                         |
-| as           | a sentence                                         |
-| is           | inner sentence                                     |
-| ap           | a paragraph                                        |
-| ip           | inner paragraph                                    |
-| at           | a tag                                              |
-| it           | inner tag                                          |
-| a"           | a double quote                                     |
-| a'           | a single quote                                     |
-|--------------+----------------------------------------------------|
+   |--------------+----------------------------------------------------|
+   | Key          | Motion                                             |
+   |--------------+----------------------------------------------------|
+   | LEFT/RIGHT   |                                                    |
+   |--------------+----------------------------------------------------|
+   | h            | Char to the left                                   |
+   | l            | Char to the right                                  |
+   | 0            | First char of the line                             |
+   | ^            | First non-blank char of the line                   |
+   | $            | Last char of the line                              |
+   | g_           | Last non-blank char of the line                    |
+   | g0           | First char of the screen line                      |
+   | <n>f{char}   | To the nth next occurrence of char                 |
+   | <n>F{char}   | To the nth previous occurrence of char             |
+   | <n>t{char}   | Until the nth next occurrence of char              |
+   | <nt>T{char}  | Until the nth previous occurrence of char          |
+   | ;            | Previous f,t,F, or T command                       |
+   | ,            | Previous f,t,F, or T command in opposite direction |
+   |--------------+----------------------------------------------------|
+   | UP/DOWN      |                                                    |
+   |--------------+----------------------------------------------------|
+   | k            | N lines upward                                     |
+   | j            | N lines downward                                   |
+   | gg           | First line                                         |
+   | G            | Last line                                          |
+   | :range       | Line range                                         |
+   |--------------+----------------------------------------------------|
+   | UP/DOWN      |                                                    |
+   |--------------+----------------------------------------------------|
+   | w            | words forwards                                     |
+   | W            | Words forward                                      |
+   | e            | Forward to end of word                             |
+   | E            | Forward to End of word                             |
+   | b            | words backwards                                    |
+   | B            | Words backwards                                    |
+   |--------------+----------------------------------------------------|
+   | TEXT OBJECTS |                                                    |
+   |--------------+----------------------------------------------------|
+   | (            | sentence backwards                                 |
+   | )            | sentence forwards                                  |
+   | {            | paragraphs backwards                               |
+   | }            | paragraphs forwards                                |
+   | ]]           | sections forwards                                  |
+   | [[           | sections backwards                                 |
+   | []           | sections backwards or to the previous }            |
+   |--------------+----------------------------------------------------|
+   | TEXT OBJECTS |                                                    |
+   |--------------+----------------------------------------------------|
+   | aw           | a word                                             |
+   | aW           | a Word                                             |
+   | iw           | inner word                                         |
+   | iW           | inner Word                                         |
+   | as           | a sentence                                         |
+   | is           | inner sentence                                     |
+   | ap           | a paragraph                                        |
+   | ip           | inner paragraph                                    |
+   | at           | a tag                                              |
+   | it           | inner tag                                          |
+   | a"           | a double quote                                     |
+   | a'           | a single quote                                     |
+   |--------------+----------------------------------------------------|
 
 ** Basic commands
 *** . = repeat last command
@@ -158,10 +158,10 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** C-a jumps to the first number in the line.
 *** C-x <N> subtract N from first number
 
-#+BEGIN_SRC css
+    #+BEGIN_SRC css
 .blog, .news { background-image: url(/sprite.png); }
 .blog { background-position: 0px 0px; }
-#+END_SRC
+    #+END_SRC
 
 
 * Insert Mode
@@ -176,3 +176,16 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 ** C-r = 5 * 5 => insert calculation   
 
 * Visual Mode
+
+** v = character-wise
+** V = line-wise
+** C-v = block-wise
+** gv = reselect last visual selection   
+** Change multiple columns of text
+*** C-v {motion}{operation} ESC
+*** Example: Type C-v 2jec "Brine" ESC
+*** Example: Type C-v 2j$A ";" ESC    
+
+    Line 1;
+    Line 2 which is longer;
+    Line 3;
