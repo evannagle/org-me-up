@@ -2,7 +2,7 @@
 #+AUTHOR: Evan Nagle
 #+EMAIL: evan@mantle.co
 #+STARTUP: content
-#+SEQ_TODO: READING(r) | NOTATED(n) ABANDONED(a) 
+#+SEQ_TODO: READING(r) | NOTATED(n@) ABANDONED(a@) 
 #+TAGS: AWK(a) BAB(b) C(c) BASH(h) EMACS(e) LINUX(l) PDF(p) PERL(r) SHORT(s) VIM(v) VIDEO(y) ESO(z) 
 
 * Where am I?
