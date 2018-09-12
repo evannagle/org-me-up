@@ -141,7 +141,9 @@
 ** Type C-a <shortcut> => shows your custom agenda
 
 * Episode 2, Snippet 4: Drawers, Logging, and Quick Notes 
-  This task will show you how drawers work.
+  :PROPERTIES:
+  :VIDEO:    [[https://www.youtube.com/watch?v=nUvdddKZQzs&index=9&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 4]]
+  :END:
   :DRAWER:
   - This is usually hidden content of a drawer.
   - The drawer ends with the line that says :END:
@@ -175,8 +177,37 @@
 
 ** Typing C-c C-z allows you to insert a note.     
 * Episode 2, Snippet 5: Archiving
+  :PROPERTIES:
+  :VIDEO:    [[https://www.youtube.com/watch?v=5M8L7vtWY1k&index=10&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 5]]
+  :END:
 
 ** Set archive file with #+ARCHIVE: myarchive.org::
 ** C-c C-x C-a => archive item (org-archive-subtree-default)
 ** C-c C-x C-s => archive entire subtree (org-archive-subtree)
 ** C-u C-c C-x C-s => prompt to archive all completed items
+* Episode 3, Snippet 1: Automatic Logging of Status Changing
+  :PROPERTIES:
+  :VIDEO:    [[https://www.youtube.com/watch?v=R4QSTDco_w8&index=11&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 3, Snippet 1]]
+  :END:
+
+** t = hotkey assigned to TODO state
+** @ = log a timestamp when entering this TODO state   
+*** State change also asks for a LOGBOOK note   
+** ! = log a timestamp whenever existing this TODO state
+
+   #+SEQ_TODO: TODO NEXT(n@/!) | DONE
+
+*** NEXT Item 1
+    :LOGBOOK:
+    - State "NEXT"       from "TODO"       [2018-09-11 Tue 15:02] \\
+      Here is my note for state change.
+    :END:
+*** DONE Item 2
+    CLOSED: [2018-09-11 Tue 15:03]
+    :LOGBOOK:
+    - State "DONE"       from "NEXT"       [2018-09-11 Tue 15:03]
+    - State "NEXT"       from "TODO"       [2018-09-11 Tue 15:03] \\
+      Moving from TODO to Next
+    :END:
+*** TODO Item 3
+

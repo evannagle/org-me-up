@@ -163,7 +163,6 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 .blog { background-position: 0px 0px; }
     #+END_SRC
 
-
 * Insert Mode
 
 ** C-h = delete back one char
@@ -189,7 +188,6 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
     Line 1;
     Line 2 which is longer;
     Line 3;
-
 
 * Command/Ex Mode
 
@@ -239,4 +237,8 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** :read ! <command> => print command to buffer    
 *** :<r>write !cmd => execute command with range as input
 *** :<r>! filter => Filter the specified [range] through external program {filter}
+* Files    
 
+** :ls => list of loaded buffer
+** :bnext => next buffer
+** :bdelete => delete buffer
