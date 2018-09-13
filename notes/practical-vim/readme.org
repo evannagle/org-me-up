@@ -237,8 +237,60 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** :read ! <command> => print command to buffer    
 *** :<r>write !cmd => execute command with range as input
 *** :<r>! filter => Filter the specified [range] through external program {filter}
-* Files    
+* Files
+** Buffers  
+*** :ls => list of loaded buffer
+*** :bn | :bnext => next buffer
+*** :bp | :bprev => previous buffer   
+*** :bd | :bdelete => delete buffer
+*** :w  | :write => write contents of the buffer to disk
+*** :e  | :edit => read file from disk into buffer
+*** :qa | :qall => close all windows
+*** :wa | :wall => write all modified buffers to disk
+*** :bufdo => iterate through buffer array and execute Ex command   
+** Args
+*** :args => array of args passed to vim form CLI
+*** :next => next file in args array
+*** :prev => prev file in args array
+*** :argdo => iterate through args array and execute Ex command
 
-** :ls => list of loaded buffer
-** :bnext => next buffer
-** :bdelete => delete buffer
+#+BEGIN_SRC
+:argdo %s/foo/bar/g
+#+END_SRC    
+
+*** You can prepend with :silent to suppress output
+
+#+BEGIN_SRC
+:silent argdo %s/foo/bar/g
+#+END_SRC
+
+*** You can prepend with :silent! to suppress output and errors
+
+#+BEGIN_SRC
+:silent! argdo %s/foo/bar/g
+#+END_SRC
+
+** :set hidden => run argdo and bufdo without req to write
+
+* Windows
+** C-w-s => split horizontally
+** C-w-v => split vertically
+** C-w-w => cycle open windows
+** C-w-h => focus on window to left
+** C-w-j => Focus on window below
+** C-w-k => Focus on window above
+** C-w-l => Focus on window to the right
+** C-w c => Close focused window 
+** C-w o => Close all BUT the focused window
+** C-w = => Equalize width and height of all windows
+** C-w _ => Maximize height of focused window
+** C-w | => Maximize width of focused window
+** C-w T => Move current window into a new tab   
+* Tabs
+** :tabedit => create empty tab
+** :tabedit <file> => open a new file in a tab
+** :tabc[lose] => close current tab
+** :tabo[nly] => close all BUT current tab 
+** :tabn[ext] <N> => switch to tab N
+** :tabp[revious] <N> => switch to previous tab N
+** :tabmove <N> => move current tab
