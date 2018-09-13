@@ -210,4 +210,33 @@
       Moving from TODO to Next
     :END:
 *** TODO Item 3
+* Episode 3, Snippet 2: Splitting your system up into several files
+  :PROPERTIES:
+  :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
+  :END:
+
+  Update these settings
+
+** add all files org-agenda-files
+   #+BEGIN_SRC emacs-lisp
+(add-to-list 'org-agenda-files (expand-file-name "agenda.org" my/org))
+   #+END_SRC
+
+** org-refile-targets
+   
+   #+BEGIN_SRC emacs-lisp
+(setq org-refile-targets '((nil :maxlevel . 9)
+                                (org-agenda-files :maxlevel . 9)))
+   #+END_SRC
+   
+** org-refile-use-outline-path
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-use-outline-path t)         
+#+END_SRC
+
+* Episode 3, Snippet 3: The first capture template
+  :PROPERTIES:
+  :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
+  :END:
 
