@@ -4,7 +4,8 @@
 #+EMAIL: evan@mantle.co
 #+CREATOR: Evan Nagle
 
-* Episode 1, Snippet 1: Headlines in Outline Mode
+* Episode 1
+** Snippet 1: Headlines in Outline Mode
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1, Snippet 1]]
   :END:
@@ -31,7 +32,7 @@
 ***** Item i     
 ***** Item ii
 *** Item 4
-* Episode 1, Snippet 2: TODO Keywords
+** Snippet 2: TODO Keywords
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
   :END:
@@ -56,7 +57,7 @@
     CLOSED: [2018-09-02 Sun 16:06]
 
 *** You can also type C-c C-t to select from menu.
-* Episode 1, Snippet 3: Schedule, Deadlines, and Agenda Views
+** Snippet 3: Schedule, Deadlines, and Agenda Views
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
   :END:
@@ -77,7 +78,7 @@
    DEADLINE: <2018-09-21 Fri> SCHEDULED: <2018-09-02 Sun>
 ** You can also schedule a specific time
    SCHEDULED: <2018-09-02 Sun 01:00>
-* Episode 1, Snippet 4: Repeating Tasks
+** Snippet 4: Repeating Tasks
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
   :END:
@@ -97,7 +98,7 @@
    :END:
    - State "DONE"       from "NEXT"       [2018-09-03 Mon 14:16]
 
-* Episode 1, Snippet 5: Checklists
+** Snippet 5: Checklists
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
   :END:
@@ -111,7 +112,8 @@
 ** Checklist 2 [100%]
    - [X] Item 1
 
-* Episode 2, Snippet 1: Tags
+* Episode 2     
+** Snippet 1: Tags
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
   :END:
@@ -120,7 +122,7 @@
 ** C-c C-q => select predefined tags                    :ONE:TWO:THREE:ZEBRA:
 ** C-c C-q TAB => custom tag                                     :ONE:CUSTOM:
 ** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
-* Episode 2, Snippet 2: Agenda View
+** Snippet 2: Agenda View
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode 2, Snippet 2]]
   :END:
@@ -130,7 +132,7 @@
 ** C-c a m = match by tag
 *** You can type <TAG>/<TODO> to filter by TODO
 ** C-c a s = search by string
-* Episode 2, Snippet 3: Customized Agenda Views 
+** Snippet 3: Customized Agenda Views 
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=PJ3qHIl-eOM&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=8][Episode 2, Snippet 3]]
   :END:
@@ -140,7 +142,7 @@
 ** Change settings, press Apply and Save
 ** Type C-a <shortcut> => shows your custom agenda
 
-* Episode 2, Snippet 4: Drawers, Logging, and Quick Notes 
+** Snippet 4: Drawers, Logging, and Quick Notes 
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=nUvdddKZQzs&index=9&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 4]]
   :END:
@@ -176,7 +178,7 @@
      :END:
 
 ** Typing C-c C-z allows you to insert a note.     
-* Episode 2, Snippet 5: Archiving
+** Snippet 5: Archiving
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=5M8L7vtWY1k&index=10&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 5]]
   :END:
@@ -185,7 +187,8 @@
 ** C-c C-x C-a => archive item (org-archive-subtree-default)
 ** C-c C-x C-s => archive entire subtree (org-archive-subtree)
 ** C-u C-c C-x C-s => prompt to archive all completed items
-* Episode 3, Snippet 1: Automatic Logging of Status Changing
+* Episode 3   
+** Snippet 1: Automatic Logging of Status Changing
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=R4QSTDco_w8&index=11&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 3, Snippet 1]]
   :END:
@@ -210,7 +213,7 @@
       Moving from TODO to Next
     :END:
 *** TODO Item 3
-* Episode 3, Snippet 2: Splitting your system up into several files
+** Snippet 2: Splitting your system up into several files
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
   :END:
@@ -235,7 +238,7 @@
 (setq org-refile-use-outline-path t)         
 #+END_SRC
 
-* Episode 3, Snippet 3: The first capture template
+** Snippet 3: The first capture template
   :PROPERTIES:
   :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
   :END:
