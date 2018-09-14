@@ -2,9 +2,7 @@
 #+AUTHOR: Drew Neil
 #+PUBLISHER: Pragmatic Bookshelf
 #+DATE: 2012
-#+CREATOR: Evan Nagle
-#+EMAIL: evan@mantle.co
-
+#+CREATOR: Eva
 * The Vim Way
 ** Vim commands are composed of operators and motions.  
 *** daw = delete a word
