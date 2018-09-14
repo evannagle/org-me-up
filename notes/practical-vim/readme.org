@@ -238,7 +238,14 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** :<r>write !cmd => execute command with range as input
 *** :<r>! filter => Filter the specified [range] through external program {filter}
 * Files
-** Buffers  
+** :pwd => current working directory
+** :edit <file> => edit a file in the pwd 
+** :edit . | :e . => explorer (similar to Emacs' dired mode) open at pwd
+** :Explore | :E => explorer from active buffer's dir
+** :set path+=<pattern> => add paths that will be searched when using :find   
+*** :set path+=** => :find will search all child dirs   
+** :find => find files looking in :path dirs
+** Buffers
 *** :ls => list of loaded buffer
 *** :bn | :bnext => next buffer
 *** :bp | :bprev => previous buffer   
