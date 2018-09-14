@@ -278,9 +278,9 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** Type v/me on the following line => highlights through "jai"
 *** Type d/me => deletes through "jai"   
     
-#+BEGIN_SRC javascript
+    #+BEGIN_SRC javascript
 var x = "jaime fonus";
-#+END_SRC
+    #+END_SRC
 * Files
 ** :pwd => current working directory
 ** :edit <file> => edit a file in the pwd 
@@ -345,5 +345,61 @@ var x = "jaime fonus";
 ** :tabn[ext] <N> => switch to tab N
 ** :tabp[revious] <N> => switch to previous tab N
 ** :tabmove <N> => move current tab
-* Marks
+* Marks and Jumps
+** m<a-zA-Z> => marks current location
+** '<a-zA-Z> => back to start of marked line   
+** `<a-zA-Z> => back to marked line AND column
+   
+** Automatic marks
 
+   |------+--------------------------------|
+   | Mark | Buffer Contents                |
+   |------+--------------------------------|
+   | '.   | Location of last change        |
+   | ''   | Position before last jump      |
+   | '^   | Location of last insertion     |
+   | '[   | Start of last change or yank   |
+   | ']   | End of last change or yank     |
+   | '<   | Start of last visual selection |
+   | '>   | End of last visual selection   |
+   |------+--------------------------------|
+
+** * => jump between instances of current word
+** % => jump from opening to closing mark (like this)
+** %% r] `` r[ => use `` to return to last jump
+*** %% => set automatic marks on both parens   
+*** r] replace end paren with ]
+*** `` jump back to first paren
+*** r[ replace first paren with [
+* Jump Between Files
+** :jumps => show list of jumps
+** :changes => traverse list of changes
+** :vimgrep | :grep => search for patterns in files
+** gf => leap to file under cursor   
+*** data/lilypad.txt
+
+** :set suffixesadd+=.txt to allow for implicit extensions    
+*** data/lilypad
+
+* Registers
+** "<a-zA-Z><command> => saves yank into specified register
+** "<a-zA-Z>p => pastes content from register
+** "" => the unnamed register
+** "0 => secondary register used ONLY by yank   
+*** This is nice if you want to recall a yank after you've also deleted something. 
+** "+ => the standard clipboard    
+** :reg => show contents of all 
+** "% => name of the current file 
+*** "# => name of alternate file   
+** ". => last inserted text
+** "/ => last search pattern
+** use v<motion> p to avoid registers
+*** y2W => yank two words
+*** jjj => move somewhere
+*** v$  => highlight area
+*** p   => past two words yanked, no need for a register
+* Pasting
+** p => paste after cursor
+** P => paste before cursor
+** gp => paste after cursor and move cursor forward    
+** gP => past before cursor and move cursor forward
