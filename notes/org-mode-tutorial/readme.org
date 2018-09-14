@@ -6,22 +6,22 @@
 
 * Episode 1
 ** Snippet 1: Headlines in Outline Mode
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1, Snippet 1]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=sQS06Qjnkcc&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&t=0s][Episode 1, Snippet 1]]
+   :END:
 
-** Outline Mode
+*** Outline Mode
 
-   |-----------+---------------+------------------------------------------|
-   | Key       | Function      | Description                              |
-   |-----------+---------------+------------------------------------------|
-   | TAB       | org-cycle     | show/hide current subtree                |
-   | SHIFT+TAB | org-shifttab  | show/hide entire org tree                |
-   | M-RIGHT   | org-metaright | Increase node level                      |
-   | M-LEFT    | org-metaleft  | Decrease node level                      |
-   | M-UP      | org-metaup    | Increase node level                      |
-   | C-c C-w   | org-refile    | Move (refile) node to a different parent |
-   |-----------+---------------+------------------------------------------|
+    |-----------+---------------+------------------------------------------|
+    | Key       | Function      | Description                              |
+    |-----------+---------------+------------------------------------------|
+    | TAB       | org-cycle     | show/hide current subtree                |
+    | SHIFT+TAB | org-shifttab  | show/hide entire org tree                |
+    | M-RIGHT   | org-metaright | Increase node level                      |
+    | M-LEFT    | org-metaleft  | Decrease node level                      |
+    | M-UP      | org-metaup    | Increase node level                      |
+    | C-c C-w   | org-refile    | Move (refile) node to a different parent |
+    |-----------+---------------+------------------------------------------|
 
 *** Item 1
 **** Item A
@@ -33,213 +33,235 @@
 ***** Item ii
 *** Item 4
 ** Snippet 2: TODO Keywords
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=15w3I6MwCfs&index=2&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 2]]
+   :END:
 
-** Create a task
-** TODO Type SHIFT + RIGHT to mark as TODO
-** DONE Type SHIFT + LEFT to mark TODO as DONE
-   CLOSED: [2018-09-02 Sun 15:58]
-** Change default TODO/DONE sequence with #+TODO: <TODO> | <DONE>
-*** Instructions from the [[https://orgmode.org/manual/Per_002dfile-keywords.html][Org Manual]]
-*** Tip: on any new line, you can type "#+" then M-RIGHT to see what properties can be specified.
+*** Create a task
+*** TODO Type SHIFT + RIGHT to mark as TODO
+*** DONE Type SHIFT + LEFT to mark TODO as DONE
+    **CLOSED: [2018-09-02 Sun 15:58]
+*** Change default TODO/DONE sequence with #+TODO: <TODO> | <DONE>
+**** Instructions from the [[https://orgmode.org/manual/Per_002dfile-keywords.html][Org Manual]]
+***** Tip: on any new line, you can type "#+" then M-RIGHT to see what properties can be specified.
 
-** On the line below, you can type C-c C-c to update the todo sequence:
-   #+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
-
-*** SOMEDAY I'll do this.
-*** NEXT I'll do another thing
-*** WAITING One this other thing
-*** DONE With this smaller thing
-    CLOSED: [2018-09-02 Sun 16:05]
-*** CANCELLED This dumb thing
-    CLOSED: [2018-09-02 Sun 16:06]
-
-*** You can also type C-c C-t to select from menu.
+*** On the line below, you can type C-c C-c to update the todo sequence:
+    **#+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
+    *
+**** SOMEDAY I'll do this.
+**** NEXT I'll do another thing
+**** WAITING One this other thing
+**** DONE With this smaller thing
+     **CLOSED: [2018-09-02 Sun 16:05]
+**** CANCELLED This dumb thing
+     **CLOSED: [2018-09-02 Sun 16:06]
+     *
+**** You can also type C-c C-t to select from menu.
 ** Snippet 3: Schedule, Deadlines, and Agenda Views
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=IofHvutUWV0&index=3&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 1, Snippet 3]]
+   :END:
 
-  |---------+---------------------+--------------|
-  | Key     | Description         | Function     |
-  |---------+---------------------+--------------|
-  | C-c C-s | Schedule a task     | org-schedule |
-  | C-c C-d | Schedule a deadline | org-deadline |
-  | C-c a a | Show agenda view    | org-agenda   |
-  |---------+---------------------+--------------|
+   |---------+---------------------+--------------|
+   | Key     | Description         | Function     |
+   |---------+---------------------+--------------|
+   | C-c C-s | Schedule a task     | org-schedule |
+   | C-c C-d | Schedule a deadline | org-deadline |
+   | C-c a a | Show agenda view    | org-agenda   |
+   |---------+---------------------+--------------|
 
-** C-c C-s = schedules a task
-   SCHEDULED: <2020-01-01 Wed>
-** C-c C-d = set a deadline   
-   DEADLINE: <2020-01-01 Wed>
-** You can schedule and set deadline.
-   DEADLINE: <2018-09-21 Fri> SCHEDULED: <2018-09-02 Sun>
-** You can also schedule a specific time
-   SCHEDULED: <2018-09-02 Sun 01:00>
+*** C-c C-s = schedules a task
+    **SCHEDULED: <2020-01-01 Wed>
+*** C-c C-d = set a deadline   
+    **DEADLINE: <2020-01-01 Wed>
+*** You can schedule and set deadline.
+    **DEADLINE: <2018-09-21 Fri> SCHEDULED: <2018-09-02 Sun>
+*** You can also schedule a specific time
+    **SCHEDULED: <2018-09-02 Sun 01:00>
 ** Snippet 4: Repeating Tasks
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=nbC-gL5wcf4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=4][Episode 1, Snippet 4]]
+   :END:
 
-** TODO +1w = Completing task slides deadline to SCHEDULED + 7 days
-   SCHEDULED: <2018-09-07 Fri 13:00 +1w>
-** NEXT ++1w = Completing task slides deadline to first *future* date of SCHEDULED + 7 days
-   SCHEDULED: <2018-09-05 Wed ++1w>
-   :PROPERTIES:
-   :LAST_REPEAT: [2018-09-03 Mon 14:13]
-   :END:
-   - State "DONE"       from "TODO"       [2018-09-03 Mon 14:13]
-** NEXT .+1w = Completing task slides deadline to COMPLETED + 7 days
-   SCHEDULED: <2018-09-10 Mon .+1w>
-   :PROPERTIES:
-   :LAST_REPEAT: [2018-09-03 Mon 14:16]
-   :END:
-   - State "DONE"       from "NEXT"       [2018-09-03 Mon 14:16]
+*** TODO +1w = Completing task slides deadline to SCHEDULED + 7 days
+    **SCHEDULED: <2018-09-07 Fri 13:00 +1w>
+*** NEXT ++1w = Completing task slides deadline to first *future* date of SCHEDULED + 7 days
+    **SCHEDULED: <2018-09-05 Wed ++1w>
+    **:PROPERTIES:
+    **:LAST_REPEAT: [2018-09-03 Mon 14:13]
+    **:END:
+    **- State "DONE"       from "TODO"       [2018-09-03 Mon 14:13]
+*** NEXT .+1w = Completing task slides deadline to COMPLETED + 7 days
+    **SCHEDULED: <2018-09-10 Mon .+1w>
+    **:PROPERTIES:
+    **:LAST_REPEAT: [2018-09-03 Mon 14:16]
+    **:END:
+    ****- State "DONE"       from "NEXT"       [2018-09-03 Mon 14:16]
 
 ** Snippet 5: Checklists
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=gvgfmED8RD4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=5][Episode 1, Snippet 5]]
+   :END:
 
-** Checklist 1 [2/5]
-   1) [X] Task 1 - Mark as complete with C-c C-c
-   2) [X] Task 2 - Change format with SHIFT-LEFT or SHIFT-RIGHT
-   3) [ ] Task 3 - Add another task with M-SHIFT-ENTER
-   4) [ ] Task 4
+*** Checklist 1 [2/5]
+    **1) [X] Task 1 - Mark as complete with C-c C-c
+    **2) [X] Task 2 - Change format with SHIFT-LEFT or SHIFT-RIGHT
+    **3) [ ] Task 3 - Add another task with M-SHIFT-ENTER
+    ****4) [ ] Task 4
 
-** Checklist 2 [100%]
-   - [X] Item 1
+*** Checklist 2 [100%]
+    ****- [X] Item 1
 
-* Episode 2     
+* Episode 2
 ** Snippet 1: Tags
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=GcUVvlClo9k&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=6][Episode 2, Snippet 1]]
+   :END:
 
-  #+TAGS: ONE(1) TWO(2) THREE(3) ZEBRA(z)
-** C-c C-q => select predefined tags                    :ONE:TWO:THREE:ZEBRA:
-** C-c C-q TAB => custom tag                                     :ONE:CUSTOM:
-** C-c C-q SPACE = clear all tags                             :ONE:TWO:THREE:
+   #+TAGS: ONE(1) TWO(2) THREE(3) ZEBRA(z)
+*** C-c C-q => select predefined tags                   :ONE:TWO:THREE:ZEBRA:
+*** C-c C-q TAB => custom tag                                    :ONE:CUSTOM:
+*** C-c C-q SPACE = clear all tags                            :ONE:TWO:THREE:
 ** Snippet 2: Agenda View
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode 2, Snippet 2]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=u00pglDfgX4&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=7][Episode 2, Snippet 2]]
+   :END:
 
-** C-c a T = show items with a certain TODO value
+*** C-c a T = show items with a certain TODO value
 *** Type N r from TODO view to change TODO value
-** C-c a m = match by tag
-*** You can type <TAG>/<TODO> to filter by TODO
-** C-c a s = search by string
+*** C-c a m = match by tag
+**** You can type <TAG>/<TODO> to filter by TODO
+*** C-c a s = search by string
 ** Snippet 3: Customized Agenda Views 
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=PJ3qHIl-eOM&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=8][Episode 2, Snippet 3]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=PJ3qHIl-eOM&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=8][Episode 2, Snippet 3]]
+   :END:
   
-  Some more context: [[https://orgmode.org/manual/Custom-agenda-views.html]]
-** C-c a C = configure custom agenda commands
-** Change settings, press Apply and Save
-** Type C-a <shortcut> => shows your custom agenda
+   Some more context: [[https://orgmode.org/manual/Custom-agenda-views.html]]
+*** C-c a C = configure custom agenda commands
+*** Change settings, press Apply and Save
+*** Type C-a <shortcut> => shows your custom agenda
 
 ** Snippet 4: Drawers, Logging, and Quick Notes 
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=nUvdddKZQzs&index=9&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 4]]
-  :END:
-  :DRAWER:
-  - This is usually hidden content of a drawer.
-  - The drawer ends with the line that says :END:
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=nUvdddKZQzs&index=9&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 4]]
+   :END:
+   :DRAWER:
+   - This is usually hidden content of a drawer.
+   - The drawer ends with the line that says :END:
+   :END:
 
-** Setting up the LOGBOOK
+*** Setting up the LOGBOOK
+    *
+    **#+BEGIN_SRC elisp
+    *(setq org-log-into-drawer "logbook")
+    **#+END_SRC
+    *
+    **#+RESULTS:
+    ****: logbook
 
-   #+BEGIN_SRC elisp
-(setq org-log-into-drawer "logbook")
-   #+END_SRC
+*** Some standard tasks [1/5]
+    **- [X] Task 1
+    **- [ ] Task 2
+    **- [ ] Task 3 
+    **- [ ] Task 4
+    **- [ ] Task 5 
+    **:PEOPLE:
+    **- Person 1
+    **- Person 2
+    **- Person 3
+    **- Person 4
+    **:END:
+    **:LOGBOOK:
+    **- Note taken on [2018-09-05 Wed 11:06] \\
+    **Thank God the first day is done. Nice people, but the PHB obviously needs some coaching.
+    ****:END:
 
-   #+RESULTS:
-   : logbook
-
-** Some standard tasks [1/5]
-   - [X] Task 1
-   - [ ] Task 2
-   - [ ] Task 3 
-   - [ ] Task 4
-   - [ ] Task 5 
-     :PEOPLE:
-     - Person 1
-     - Person 2
-     - Person 3
-     - Person 4
-     :END:
-     :LOGBOOK:
-     - Note taken on [2018-09-05 Wed 11:06] \\
-       Thank God the first day is done. Nice people, but the PHB obviously needs some coaching.
-     :END:
-
-** Typing C-c C-z allows you to insert a note.     
+*** Typing C-c C-z allows you to insert a note.     
 ** Snippet 5: Archiving
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=5M8L7vtWY1k&index=10&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 5]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=5M8L7vtWY1k&index=10&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 2, Snippet 5]]
+   :END:
 
-** Set archive file with #+ARCHIVE: myarchive.org::
-** C-c C-x C-a => archive item (org-archive-subtree-default)
-** C-c C-x C-s => archive entire subtree (org-archive-subtree)
-** C-u C-c C-x C-s => prompt to archive all completed items
-* Episode 3   
+*** Set archive file with #+ARCHIVE: myarchive.org::
+*** C-c C-x C-a => archive item (org-archive-subtree-default)
+*** C-c C-x C-s => archive entire subtree (org-archive-subtree)
+*** C-u C-c C-x C-s => prompt to archive all completed items
+* Episode 3
 ** Snippet 1: Automatic Logging of Status Changing
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=R4QSTDco_w8&index=11&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 3, Snippet 1]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=R4QSTDco_w8&index=11&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Episode 3, Snippet 1]]
+   :END:
 
-** t = hotkey assigned to TODO state
-** @ = log a timestamp when entering this TODO state   
-*** State change also asks for a LOGBOOK note   
-** ! = log a timestamp whenever existing this TODO state
-
-   #+SEQ_TODO: TODO NEXT(n@/!) | DONE
-
-*** NEXT Item 1
-    :LOGBOOK:
-    - State "NEXT"       from "TODO"       [2018-09-11 Tue 15:02] \\
-      Here is my note for state change.
-    :END:
-*** DONE Item 2
-    CLOSED: [2018-09-11 Tue 15:03]
-    :LOGBOOK:
-    - State "DONE"       from "NEXT"       [2018-09-11 Tue 15:03]
-    - State "NEXT"       from "TODO"       [2018-09-11 Tue 15:03] \\
-      Moving from TODO to Next
-    :END:
-*** TODO Item 3
+*** t = hotkey assigned to TODO state
+*** @ = log a timestamp when entering this TODO state   
+**** State change also asks for a LOGBOOK note   
+*** ! = log a timestamp whenever existing this TODO state
+    *
+    **#+SEQ_TODO: TODO NEXT(n@/!) | DONE
+    *
+**** NEXT Item 1
+     **:LOGBOOK:
+     **- State "NEXT"       from "TODO"       [2018-09-11 Tue 15:02] \\
+     **Here is my note for state change.
+     **:END:
+**** DONE Item 2
+     **CLOSED: [2018-09-11 Tue 15:03]
+     **:LOGBOOK:
+     **- State "DONE"       from "NEXT"       [2018-09-11 Tue 15:03]
+     **- State "NEXT"       from "TODO"       [2018-09-11 Tue 15:03] \\
+     **Moving from TODO to Next
+     **:END:
+**** TODO Item 3
 ** Snippet 2: Splitting your system up into several files
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
+   :END:
 
-  Update these settings
+   Update these settings
 
-** add all files org-agenda-files
-   #+BEGIN_SRC emacs-lisp
-(add-to-list 'org-agenda-files (expand-file-name "agenda.org" my/org))
-   #+END_SRC
+*** add all files org-agenda-files
+    **#+BEGIN_SRC emacs-lisp
+    *(add-to-list 'org-agenda-files (expand-file-name "agenda.org" my/org))
+    ****#+END_SRC
 
-** org-refile-targets
-   
-   #+BEGIN_SRC emacs-lisp
-(setq org-refile-targets '((nil :maxlevel . 9)
-                                (org-agenda-files :maxlevel . 9)))
-   #+END_SRC
-   
-** org-refile-use-outline-path
-
-#+BEGIN_SRC emacs-lisp
-(setq org-refile-use-outline-path t)         
-#+END_SRC
+*** org-refile-targets
+    **
+    **#+BEGIN_SRC emacs-lisp
+    *(setq org-refile-targets '((nil :maxlevel . 9)
+    **(org-agenda-files :maxlevel . 9)))
+    **#+END_SRC
+    ** 
+*** org-refile-use-outline-path
+    *
+    *#+BEGIN_SRC emacs-lisp
+    *(setq org-refile-use-outline-path t)         
+    **#+END_SRC
 
 ** Snippet 3: The first capture template
-  :PROPERTIES:
-  :VIDEO:    [[https://www.youtube.com/watch?v=ECWtf6mAi9k][Episode 3, Snippet 2]]
-  :END:
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=Af4NVJbNAB4][Episode 3, Snippet 3]]
+   :END:
 
+   Add capture template to org-capture-templates.
+
+   [[https://orgmode.org/manual/Capture-templates.html][See documentation for Capture Templates.]] 
+  
+   #+BEGIN_SRC emacs-lisp
+(add-to-list
+ 'org-capture-templates
+ '("h" "Hours" entry (file my/hours/find-client-file)
+   "* %? \n  CLOCK:  => %^{Hours}\n  :DATE:  %T\n  :INFO: "))
+   #+END_SRC
+
+** Snippet 4: The Properties drawer
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=ABrv_vnVbkk][Episode 3, Snippet 4]]
+   :END:
+   
+*** Properties drawer must come directly after the headline.
+*** Starts with :PROPERTIES: and ends with :END:
+*** You can add any :CUSTOM: meta properties into the drawer.
+*** C-c a m => match tasks by custom properties
+**** C-c a m "GENRE=FICTION"
+**** C-c a m "PAGES>200"
