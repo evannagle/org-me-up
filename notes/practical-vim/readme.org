@@ -193,34 +193,34 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 
 ** Some range symbols (checkout Ex documentation for more)
 
-|--------+---------------------------------------|
-| Symbol | Address                               |
-|--------+---------------------------------------|
-| 1      | First line of file                    |
-| $      | Last line of file                     |
-| 0      | Virtual line above first line of file |
-| .      | Line where cursor is placed           |
-| 'm     | Line containing mark m                |
-| '<     | Start of visual selection             |
-| '>     | End of visual selection               |
-| %      | Entire file                           |
-|--------+---------------------------------------|
+   |--------+---------------------------------------|
+   | Symbol | Address                               |
+   |--------+---------------------------------------|
+   | 1      | First line of file                    |
+   | $      | Last line of file                     |
+   | 0      | Virtual line above first line of file |
+   | .      | Line where cursor is placed           |
+   | 'm     | Line containing mark m                |
+   | '<     | Start of visual selection             |
+   | '>     | End of visual selection               |
+   | %      | Entire file                           |
+   |--------+---------------------------------------|
 
 
-|----------------------------+---------------------|
-| Command                    | Effect              |
-|----------------------------+---------------------|
-| :<r>d                      | delete              |
-| :<r>y                      | yank                |
-| :<r>copy                   | copy                |
-| :<r>c(hange)               | change              |
-| :<r>t                      | copy                |
-| :<r>m                      | move                |
-| :<r>j                      | join                |
-| :<r>n {commands}           | normal              |
-| :<r> s/<old>/<new>/[flags] | sed-like substitute |
-| :<r> g/<pattern/[cmd]      | grep-like command   |
-|----------------------------+---------------------|
+   |----------------------------+---------------------|
+   | Command                    | Effect              |
+   |----------------------------+---------------------|
+   | :<r>d                      | delete              |
+   | :<r>y                      | yank                |
+   | :<r>copy                   | copy                |
+   | :<r>c(hange)               | change              |
+   | :<r>t                      | copy                |
+   | :<r>m                      | move                |
+   | :<r>j                      | join                |
+   | :<r>n {commands}           | normal              |
+   | :<r> s/<old>/<new>/[flags] | sed-like substitute |
+   | :<r> g/<pattern/[cmd]      | grep-like command   |
+   |----------------------------+---------------------|
 
 ** Some handy commands
 *** :125t. => copy line 125 to the current line
@@ -237,6 +237,50 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** :read ! <command> => print command to buffer    
 *** :<r>write !cmd => execute command with range as input
 *** :<r>! filter => Filter the specified [range] through external program {filter}
+* Motions
+** By line
+
+   Display motions and real-line motions.
+
+   |---------+-------------------------------------|
+   | Command | Description                         |
+   |---------+-------------------------------------|
+   | j       | down one line                       |
+   | gj      | down one display line               |
+   | k       | up one line                         |
+   | gk      | up one display line                 |
+   | 0       | first char in line                  |
+   | g0      | first char in display line          |
+   | ^       | first nonblank char in line         |
+   | g^      | first nonblank char in display line |
+   | $       | end of real line                    |
+   | g$      | end of real display line            |
+   |---------+-------------------------------------|
+
+** By word
+
+   |---------+-------------------------------------------|
+   | Command | Description                               |
+   |---------+-------------------------------------------|
+   | w       | start of next word                        |
+   | e       | end of current word                       |
+   | ge      | end of previous word                      |
+   | b       | back to start of current word             |
+   | f<c>    | find character forwards on line           |
+   | F<c>    | find character backwards on line          |
+   | t<c>    | like f, but finds character just before c |
+   | T<c>    | like F, but find character just before c  |
+   | ;       | repeat fFtT command                       |
+   | ,       | reverse the last fFtT command             |
+   |---------+-------------------------------------------|
+
+** Advanced search
+*** Type v/me on the following line => highlights through "jai"
+*** Type d/me => deletes through "jai"   
+    
+#+BEGIN_SRC javascript
+var x = "jaime fonus";
+#+END_SRC
 * Files
 ** :pwd => current working directory
 ** :edit <file> => edit a file in the pwd 
@@ -261,21 +305,21 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 *** :prev => prev file in args array
 *** :argdo => iterate through args array and execute Ex command
 
-#+BEGIN_SRC
+    #+BEGIN_SRC
 :argdo %s/foo/bar/g
-#+END_SRC    
+    #+END_SRC    
 
 *** You can prepend with :silent to suppress output
 
-#+BEGIN_SRC
+    #+BEGIN_SRC
 :silent argdo %s/foo/bar/g
-#+END_SRC
+    #+END_SRC
 
 *** You can prepend with :silent! to suppress output and errors
 
-#+BEGIN_SRC
+    #+BEGIN_SRC
 :silent! argdo %s/foo/bar/g
-#+END_SRC
+    #+END_SRC
 
 ** :set hidden => run argdo and bufdo without req to write
 
@@ -301,3 +345,5 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 ** :tabn[ext] <N> => switch to tab N
 ** :tabp[revious] <N> => switch to previous tab N
 ** :tabmove <N> => move current tab
+* Marks
+
