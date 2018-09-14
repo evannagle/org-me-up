@@ -265,3 +265,5 @@
 *** C-c a m => match tasks by custom properties
 **** C-c a m "GENRE=FICTION"
 **** C-c a m "PAGES>200"
+** Snippet 5: Archiving to different files
+
