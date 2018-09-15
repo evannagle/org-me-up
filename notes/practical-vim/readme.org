@@ -345,6 +345,11 @@ var x = "jaime fonus";
 ** :tabn[ext] <N> => switch to tab N
 ** :tabp[revious] <N> => switch to previous tab N
 ** :tabmove <N> => move current tab
+* Pasting
+** p => paste after cursor
+** P => paste before cursor
+** gp => paste after cursor and move cursor forward    
+** gP => past before cursor and move cursor forward
 * Marks and Jumps
 ** m<a-zA-Z> => marks current location
 ** '<a-zA-Z> => back to start of marked line   
@@ -380,7 +385,6 @@ var x = "jaime fonus";
 
 ** :set suffixesadd+=.txt to allow for implicit extensions    
 *** data/lilypad
-
 * Registers
 ** "<a-zA-Z><command> => saves yank into specified register
 ** "<a-zA-Z>p => pastes content from register
@@ -398,8 +402,48 @@ var x = "jaime fonus";
 *** jjj => move somewhere
 *** v$  => highlight area
 *** p   => past two words yanked, no need for a register
-* Pasting
-** p => paste after cursor
-** P => paste before cursor
-** gp => paste after cursor and move cursor forward    
-** gP => past before cursor and move cursor forward
+* Macros
+** q<a-z> => start macro, save in register
+** q<A-Z> => append to end of macro a-z   
+** q => end macro
+** :reg <a-z> => review macro stored in register
+** @<a-zA-Z> => rerun macro
+** general steps for a single file
+*** Zero out the line with 0, _, $, A, I or the likes
+*** Use word wise motions or find patterns to move, avoid hjkl motions
+*** If you want to operate on multiple lines in *sequence*, make sure to suffix your macro with a j command to move to the next line.
+*** If you want to operate on multiple lines in *parallel*, don't suffix your command, and run the command on a v selection 
+** general steps for multiple files 
+*** Zero out the file with gg or G
+*** Use a find pattern to move
+*** Once recorded, type :edit! to allow hidden files
+*** Run :argdo normal @a
+
+    
+
+
+
+
+* Patterns
+** \c => case insensitive
+** \C => case sensitive
+** \v => PERL regex style
+** \V => verbatim search
+** () => subpatterns
+** \<n> => retrieve matched subpattern 
+*** s/\cfoo([a-z])/bar\1/g
+** <> => word boundaries 
+** \zs and \ze => "zoom" similar to lookahead and lookbehind
+
+* Search
+** /<pattern> => search forwards
+** ?<pattern> => search backwards
+** n => next result
+** N => previous result
+** q/ => list of previous searches
+** /<UP> | /<DOWN> => recall search history   
+** s/<pattern>//gn => returns count of matches
+
+* Substitution
+
+
