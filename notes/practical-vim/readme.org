@@ -423,7 +423,6 @@ var x = "jaime fonus";
 
 
 
-
 * Patterns
 ** \c => case insensitive
 ** \C => case sensitive
@@ -445,5 +444,25 @@ var x = "jaime fonus";
 ** s/<pattern>//gn => returns count of matches
 
 * Substitution
+** :[range]s[ubstitute]/{pattern}/{string}/[flags]
+** Flags
+*** g = globally (not just on current line)
+*** c = confirm before substituting
+*** n = no subs, just reports the count
+** Special Chars
 
-
+|------------+-------------------------------------|
+| Symbol     | Represents                          |
+|------------+-------------------------------------|
+| \r         | Character return                    |
+| \t         | Tab                                 |
+| \\         | Single backslash                    |
+| \1         | First submatch                      |
+| \2         | Second submatch                     |
+| \0         | Entire match                        |
+| &          | Entire match                        |
+| ~          | Use string from previous invocation |
+| \={script} | Run vim script                      |
+| <C-r>0     | Contents of register 0              |
+|------------+-------------------------------------|
+** g& => rerun the previous sub but globally
