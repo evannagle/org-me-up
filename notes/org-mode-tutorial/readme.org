@@ -267,3 +267,19 @@
 **** C-c a m "PAGES>200"
 ** Snippet 5: Archiving to different files
 
+
+* Episode 4   
+** Snippet 1: Ordered Tasks
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=9hxEEbUWJYA][Episode 4, Snippet 1]]
+   :END:
+
+*** C-c C-x o => set a given task to be ordered
+    :PROPERTIES:
+    :ORDERED:  t
+    :END:
+**** Subtask 1    
+**** Subtask 2    
+**** Subtask 3
+
+*** org-track-ordered-property-with-tag => include Ordered tab on task     
