@@ -6,7 +6,7 @@
 #+CREATOR: Evan Nagle <evan@mantle.co>
 
 * The Vim Way
-** Vim commands are composed of operators and motions.  
+** Vim commands are composed of operators and motions
 *** daw = delete a word
 *** c3w = change three words
 *** ci" = change in quotes
@@ -147,14 +147,12 @@ var foo = "method(" + argument1 + "," + argument2 + ")";
 
 
 ** Delete a word
-
 *** dw => delete word from cursor forwards   
 *** db => delete from cursor backwards
 *** daw => delete word cursor is touching
 *** daW => delete space-delimited word cursor is touching
 
 ** Counts
-
 *** C-a jumps to the first number in the line.
 *** C-x <N> subtract N from first number
 
