@@ -419,8 +419,6 @@ var x = "jaime fonus";
 
     
 
-
-
 * Patterns
 ** \c => case insensitive
 ** \C => case sensitive
@@ -464,3 +462,19 @@ var x = "jaime fonus";
 | <C-r>0     | Contents of register 0              |
 |------------+-------------------------------------|
 ** g& => rerun the previous sub but globally
+** :<range>&& => rerun last substitution on visual selection
+** :%&& => same as g&
+** incrementing numbers
+*** s/\v\<\/?h\zs\d/submatch(0)+1/g
+
+
+** using variables
+
+#+BEGIN_SRC vim
+let dict = { "man": "dog", "dog", "man" }
+echo dict["man"]
+echo dict["dog"]
+:%s/\v(dog|man)/\=dict[submatch(0)]/g
+#+END_SRC
+
+* Global Commands
