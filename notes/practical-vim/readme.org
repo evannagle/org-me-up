@@ -411,14 +411,11 @@ var x = "jaime fonus";
 *** Use word wise motions or find patterns to move, avoid hjkl motions
 *** If you want to operate on multiple lines in *sequence*, make sure to suffix your macro with a j command to move to the next line.
 *** If you want to operate on multiple lines in *parallel*, don't suffix your command, and run the command on a v selection 
-** general steps for multiple files 
+** general steps for multiple files
 *** Zero out the file with gg or G
 *** Use a find pattern to move
 *** Once recorded, type :edit! to allow hidden files
 *** Run :argdo normal @a
-
-    
-
 * Patterns
 ** \c => case insensitive
 ** \C => case sensitive
@@ -439,6 +436,11 @@ var x = "jaime fonus";
 ** /<UP> | /<DOWN> => recall search history   
 ** s/<pattern>//gn => returns count of matches
 
+* Multi-File Search
+** :grep <args> => runs grep from cl 
+** :vim[grep] /pattern/ {file} => search files using vim's search engine
+*** /{pattern}/ => search file for pattern
+*** :vim /<C-r>// ** => search entire directory for same pattern
 * Substitution
 ** :[range]s[ubstitute]/{pattern}/{string}/[flags]
 ** Flags
@@ -478,3 +480,65 @@ echo dict["dog"]
 #+END_SRC
 
 * Global Commands
+** :<range> global[!] /{pattern}/ [cmd]
+** :g => shorthand
+** :g/re/p => print lines that match re
+** :g/re/d => delete lines that match re
+** :g/re/yank => yanks the first line that matches
+** :g/re/yank A => append all matches to register a
+*** :g/re/yank B "bp => paste all results
+*** :g/re/t$ => paste all results to end of file
+** :g /{/+1 /}/-1 sort => sort inside CSS blocks
+* Other Tools
+** ctags
+*** [[http://ctags.sourceforge.net/]]
+*** :!ctags -R => invoke ctags directly in vim
+*** C-] => jump to tag definition
+*** gC-] => show list of matching tags
+*** :tag <name> = C-]
+*** :tjump <name> = gC-]
+** quickfix
+*** :make => run make
+*** :cnext => jump to next compilation error
+*** :cprev => jump to previous compilation error
+*** :cfirst, :clast => jump to first or last comp error
+*** :cnfile => jump to first item in next file
+*** :cpfile => jump to first item in previous file
+*** :cc N => jump to Nth item
+*** :copen => open quickfix
+*** :cclose => close quickfix
+*** :h quickfix => view documentation
+* Autocompletion
+** C-n => next autocomplete
+** C-p => previous autocomplete
+** C-y => accept autocomplete suggestion
+** C-e => revert to original text, end autocompletion
+** C-h => delete one character from current match
+** C-l => add one character to current match
+** C-x C-i => file keywords
+** C-x C-n => buffer keywords
+** C-x C-] => tag keywords
+** C-x C-l => whole line completion
+** C-x C-f => filename completion
+** C-x C-k => dictionary lookup
+** C-x C-o => omni-completion
+* Spell Checking
+** :set spell => enable spell checking
+** [s => previous flagged word
+** ]s => next flagged word   
+** z= => review autosuggestions   
+** zg => add current word to spell file
+** zw => remove current word from spell file
+** zug => revert zg or zw command for current word
+** C-x s => scans backwards for misspelled words when in insert mode
+* Some vimrc suggestions
+** :set ignorecase  
+** :set noignorecase
+** :set ignorecase! => toggle ignorecase
+** :set ignorecase? => tell me the current state
+** :set ignorecase& => set to default value
+** :set tabstop=2
+** :set ts=2 sts=2 sw=2 et => softtabstop, shiftwidth, expandtab settings all on one line
+** :source <file> => load vimrc config file
+** :edit $MYVIMRC => edit .vimrc file
+

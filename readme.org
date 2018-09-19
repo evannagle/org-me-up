@@ -167,7 +167,8 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :NOTES:    [[file+emacs:notes/perl-one-liners/readme.org][Notes: Perl One-Liners]]
    :END:
    130 single-line programs that "get things done."
-** READING [#B] Practical Vim                                           :VIM:
+** NOTATED [#B] Practical Vim                                           :VIM:
+   CLOSED: [2018-09-18 Tue 20:39]
    :PROPERTIES:
    :AUTHOR:   Drew Neil
    :PUB:      Pragmatic Bookshelf
@@ -175,6 +176,10 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :PAGES:    329
    :BUY:      [[https://www.amazon.com/Practical-Vim-Thought-Pragmatic-Programmers/dp/1934356980][Amazon.com: Practical Vim]]
    :NOTES:    [[file+emacs:notes/practical-vim/readme.org][Notes: Practical Vim]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-18 Tue 20:39] \\
+     Looking forward to reviewing Modern Vim next, once the book ships.
    :END:
    Practical Vim is a fast track to Vim mastery.
 ** NOTATED [#C] The M4 Macro Processor                        :BAB:LINUX:PDF:
