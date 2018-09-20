@@ -267,8 +267,7 @@
 **** C-c a m "PAGES>200"
 ** Snippet 5: Archiving to different files
 
-
-* Episode 4   
+* Episode 4
 ** Snippet 1: Ordered Tasks
    :PROPERTIES:
    :VIDEO:    [[https://www.youtube.com/watch?v=9hxEEbUWJYA][Episode 4, Snippet 1]]
@@ -283,3 +282,33 @@
 **** Subtask 3
 
 *** org-track-ordered-property-with-tag => include Ordered tab on task     
+** Snippet 2: Timers
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=lxkPeJS6keY][Episode 4, Snippet 2]]
+   :END:
+*** C-c C-x ; => start countdown timer
+*** C-c C-x , => pause/unpause timer
+*** C-u C-c C-x , => cancel timer
+*** C-c C-x 0 => start timer
+*** C-c C-x . => output timer value
+*** Add timber values with M-SHIFT-RET
+    - 0:00:24 :: Here is the time now. 
+    - 0:01:56 :: Here is the time now
+    - 0:02:24 :: And I hit M-SHIFT-RET!
+
+** Snippet 3: Clocking (aka Time Tracking)
+   :PROPERTIES:
+   :VIDEO:    [[https://www.youtube.com/watch?v=uVv49htxuS8][Episode 4, Snippet 3]]
+   :END:
+*** C-c C-x C-i => clock in
+    :LOGBOOK:
+    CLOCK: [2018-09-19 Wed 14:39]--[2018-09-19 Wed 14:39] =>  0:00
+    CLOCK: [2018-09-19 Wed 14:38]--[2018-09-19 Wed 14:38] =>  0:00
+    CLOCK: [2018-09-19 Wed 14:37]--[2018-09-19 Wed 14:37] =>  0:00
+    CLOCK: [2018-09-19 Wed 14:34]--[2018-09-19 Wed 14:35] =>  0:01
+    :END:
+*** C-c C-x C-o => clock out
+*** C-c C-x C-j => jump to clocked task
+*** C-c C-x C-q => cancel clock
+*** C-c C-x C-x => restart previous clock    
+*** C-u C-c C-x C-x => restart with menu
