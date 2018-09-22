@@ -206,3 +206,13 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :NOTES:    [[file+emacs:notes/the-snobol4-programming-language/readme.org][Notes: The Snobol4 Programming Language]]
    :END: 
    Snobol is a text-oriented programming language used primarily in the 1960's for text manipulation tasks.
+** READING [#C] Writing GNU Emacs Extensions                          :EMACS:
+   :PROPERTIES:
+   :AUTHOR:   Bob Glickstein
+   :PUB:      O'Reillly
+   :DATE:     1997
+   :PAGES:    206
+   :BUY:      [[https://www.amazon.com/Writing-GNU-Emacs-Extensions-Customizations-ebook/dp/B0043M56SW/ref=sr_1_1?ie=UTF8&qid=1537571935&sr=8-1&keywords=Writing+GNU+Emacs+Extensions][Amazon: Writing GNU Emacs Extensions]]
+   :NOTES:    [[file+emacs:notes/writing-gnu-emacs-extensions/readme.org][Notes: Writing GNU Emacs Extensions]]
+   :END:
+   Glickstein delves deep into the features that permit far-reaching Emacs customization, with a focus on how to create minor and major modes.

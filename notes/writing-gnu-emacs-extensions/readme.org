@@ -1,0 +1,163 @@
+#+TITLE: Writing GNU Emacs Extensions
+#+AUTHOR: Bob Clickstein
+#+DATE: 1997
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: Emacs Babel
+
+* Customizing Emacs
+** (global-set-key (kbd <key>) '<command>') => custom binding
+
+   #+BEGIN_SRC emacs-lisp
+(defun say-hello ()
+  "Say hello to your beautiful friends."
+  (interactive)
+  (message "Hello, friends."))
+
+(global-set-key (kbd "C-c C-x h") 'say-hello)
+   #+END_SRC
+
+   #+RESULTS:
+   : say-hello
+
+
+** (setq <var> <value) => set a variable   
+** eval-last-sexp => evaluate sexp before point, print value in echo area
+** eval-expression => type expression to be evaluated
+** apropos <search> => search documentation   
+** describe-key, describe-function, describe-mode   
+* Interactive Codes
+** [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Interactive-Codes.html#Interactive-Codes][Interactive Codes]] from GNU docs
+** Some highlights:
+*** p => the prefix passed by C-u <N>
+*** P => the raw prefix, returns 1 if null
+*** * => throw error if current buffer is read-only
+** The whole table:
+
+   |---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | Command | Meaning                                                                                                                                                                                                                                                                                                                      |
+   |---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | *       | Signal an error if the current buffer is read-only. Special.                                                                                                                                                                                                                                                                 |
+   | @       | Select the window mentioned in the first mouse event in the key sequence that invoked this command. Special.                                                                                                                                                                                                                 |
+   | ^       | If the command was invoked through shift-translation, set the mark and activate the region temporarily, or extend an already active region, before the command is run. If the command was invoked without shift-translation, and the region is temporarily active, deactivate the region before the command is run. Special. |
+   | a       | A function name (i.e., a symbol satisfying fboundp). Existing, Completion, Prompt.                                                                                                                                                                                                                                           |
+   | b       | The name of an existing buffer. By default, uses the name of the current buffer (see Buffers). Existing, Completion, Default, Prompt.                                                                                                                                                                                        |
+   | B       | A buffer name. The buffer need not exist. By default, uses the name of a recently used buffer other than the current buffer. Completion, Default, Prompt.                                                                                                                                                                    |
+   | c       | A character. The cursor does not move into the echo area. Prompt.                                                                                                                                                                                                                                                            |
+   | C       | A command name (i.e., a symbol satisfying commandp). Existing, Completion, Prompt.                                                                                                                                                                                                                                           |
+   | d       | The position of point, as an integer (see Point). No I/O.                                                                                                                                                                                                                                                                    |
+   | D       | A directory. The default is the current default directory of the current buffer, default-directory (see File Name Expansion). Existing, Completion, Default, Prompt.                                                                                                                                                         |
+   | e       | The first or next non-keyboard event in the key sequence that invoked the command.                                                                                                                                                                                                                                           |
+   | f       | A file name of an existing file                                                                                                                                                                                                                                                                                              |
+   | F       | A file name. The file need not exist. Completion, Default, Prompt.                                                                                                                                                                                                                                                           |
+   | G       | A file name. The file need not exist. If the user enters just a directory name, then the value is just that directory name, with no file name within the directory added. Completion, Default, Prompt.                                                                                                                       |
+   | i       | An irrelevant argument. This code always supplies nil as the argument's value. No I/O.                                                                                                                                                                                                                                       |
+   | k       | A key sequence                                                                                                                                                                                                                                                                                                               |
+   | K       | A key sequence, whose definition you intend to change.                                                                                                                                                                                                                                                                       |
+   | m       | The position of the mark, as an integer. No I/O.                                                                                                                                                                                                                                                                             |
+   | M       | Arbitrary text, read in the minibuffer using the current buffer's input method, and returned as a string (see Input Methods). Prompt.                                                                                                                                                                                        |
+   | n       | A number, read with the minibuffer. If the input is not a number, the user has to try again. ‘n’ never uses the prefix argument. Prompt.                                                                                                                                                                                     |
+   | N       | The numeric prefix argument; but if there is no prefix argument, read a number as with n. The value is always a number. See Prefix Command Arguments. Prompt.                                                                                                                                                                |
+   | p       | The numeric prefix argument. (Note that this ‘p’ is lower case.) No I/O.                                                                                                                                                                                                                                                     |
+   | P       | The raw prefix argument. (Note that this ‘P’ is upper case.) No I/O.                                                                                                                                                                                                                                                         |
+   | r       | Point and mark, as two numeric arguments, smallest first                                                                                                                                                                                                                                                                     |
+   | s       | Arbitrary text, read in the minibuffer and returned as a string                                                                                                                                                                                                                                                              |
+   | S       | An interned symbol whose name is read in the minibuffer. Terminate the input with either C-j or <RET>. Other characters that normally terminate a symbol (e.g., whitespace, parentheses and brackets) do not do so here. Prompt.                                                                                             |
+   | U       | A key sequence or nil. Can be used after a ‘k’ or ‘K’ argument to get the up-event that was discarded (if any) after ‘k’ or ‘K’ read a down-event. If no up-event has been discarded, ‘U’ provides nil as the argument. No I/O.                                                                                              |
+   | v       | A variable declared to be a user option (i.e., satisfying the predicate custom-variable-p). This reads the variable using read-variable. See Definition of read-variable. Existing, Completion, Prompt.                                                                                                                      |
+   | x       | A Lisp object, specified with its read syntax, terminated with a C-j or <RET>. The object is not evaluated. See Object from Minibuffer. Prompt.                                                                                                                                                                              |
+   | X       | A Lisp form's value. ‘X’ reads as ‘x’ does, then evaluates the form so that its value becomes the argument for the command. Prompt.                                                                                                                                                                                          |
+   | z       | A coding system name (a symbol). If the user enters null input, the argument value is nil. See Coding Systems. Completion, Existing, Prompt.                                                                                                                                                                                 |
+   | Z       | A coding system name (a symbol)—but only if this command has a prefix argument. With no prefix argument, ‘Z’ provides nil as the argument value. Completion, Existing, Prompt.                                                                                                                                                                                                                                                                                                                             |
+   |---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+* Simple New Commands
+** other-window-backward
+
+#+BEGIN_SRC emacs-lisp
+(defun other-window-backward (&optional n)
+  "Select Nth previous window"
+  (interactive "P")
+  (other-window (prefix-numeric-value n)))
+#+END_SRC
+
+#+RESULTS:
+: other-window-backward
+
+** point-to-top
+
+#+BEGIN_SRC emacs-lisp
+(defun point-to-top ()
+  "Put point at top of window"
+  (interactive)
+  (move-to-window-line 0))
+#+END_SRC
+
+#+RESULTS:
+: point-to-top
+
+
+** point-to-bottom
+
+#+BEGIN_SRC emacs-lisp
+(defun point-to-bottom ()
+  "Move current line to last visible line"
+  (interactive)
+  (move-to-window-line -1))
+#+END_SRC
+
+#+RESULTS:
+: point-to-bottom
+
+** line-to-top
+
+#+BEGIN_SRC emacs-lisp
+(defun line-to-top ()
+  "Move current line to top of window"
+  (interactive)
+  (recenter 0))
+#+END_SRC
+
+#+RESULTS:
+: line-to-top
+
+** find-file-hooks
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'find-file-hooks
+  '(lambda ()
+    (if (file-symlink p buffer-file-name)
+      (progn
+        (setq buffer-read-only t)
+        (messae "File is a simlink")))))
+
+"find-file-hooks"
+#+END_SRC
+
+#+RESULTS:
+: find-file-hooks
+
+* Advice => Wrap Functions, Override Interactive Arg
+  
+#+BEGIN_SRC emacs-lisp :results output
+(defun my-advised-function ()
+  (print "functionA called"))
+
+(defadvice my-advised-function (before existing-buffer activate)
+  (print "functionA BEFORE"))
+
+(defadvice my-advised-function (after existing-buffer activate)
+  (print "functionA AFTER"))
+  
+(my-advised-function)
+#+END_SRC
+
+#+RESULTS:
+: 
+: "functionA BEFORE"
+: 
+: "functionA called"
+: 
+: "functionA AFTER"
+
+
