@@ -98,6 +98,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :BUY:      [[https://www.amazon.com/Ed-Mastery-Standard-Unix-Editor/dp/1642350036][Amazon.com: Ed Mastery]]
    :NOTES:    [[file+emacs:notes/ed-mastery/readme.org][Notes: Ed Mastery]]
    :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
+   :END:
    Ed is a bare-bones text editor that ships with every line printer and/or linux box.
 ** NOTATED [#D] Ex Reference Manual.                            :BAB:PDF:VIM:
    CLOSED: [2018-09-03 Mon 14:42]
@@ -109,6 +112,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :BOOK:     [[file:books/ex-reference-manual.pdf][Ex Reference Manual]]
    :NOTES:    [[file+emacs:notes/ex-reference-manual/readme.org][Notes: Ex Reference Manual]]
    :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
+   :END:
    Ex is an extended version of the Ed editor and a precursor to Vi.
 ** NOTATED [#D] Exploiting the m4 Macro Language              :BAB:LINUX:PDF:
    CLOSED: [2018-09-03 Mon 14:43]
@@ -119,6 +125,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :PAGES:    17
    :BOOK:     [[file:books/exploiting-the-m4-macro-language.pdf][Exploiting the m4 Macro Language]]
    :NOTES:    [[file+emacs:notes/exploiting-the-m4-macro-language/readme.org][Notes: Exploiting the m4 Macro Language]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    M4 is a macro processor available on Unix. This short paper discusses creative approaches to applying m4 templating.
 ** NOTATED [#C] Evil - Extensible vi Layer for Emacs          :BAB:EMACS:PDF:
@@ -132,6 +141,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :BOOK:     [[file:books/evil-extensible-vi-layer-for-emacs.pdf][Evil - Extensible vi Layer for Emacs]]
    :NOTES:    [[file+emacs:notes/evil-extensible-vi-layer-for-emacs/readme.org][Notes: Evil - Extensible vi Layer for Emacs]]
    :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
+   :END:
    Documentation on the Evil mode for Emacs
 ** NOTATED [#B] Grep Pocket Reference                             :BAB:LINUX:
    CLOSED: [2018-09-03 Mon 14:43]
@@ -143,6 +155,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :LANGUAGE: grep
    :BUY:      [[https://www.amazon.com/grep-Pocket-Reference-Utility-OReilly/dp/0596153600/ref=sr_1_1?ie=UTF8&qid=1535761943&sr=8-1&keywords=grep+pocket+reference][Amazon.com: Grep Pocket Reference]]
    :NOTES:    [[file+emacs:notes/grep-pocket-reference/readme.org][Notes: Grep Pocket Reference]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    The grep commands let users find text in a given file or output quickly and easily.
 ** READING [#C] Org Mode Tutorial                               :VIDEO:EMACS:
@@ -156,7 +171,7 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :END:
    A YouTube video series detailing Emacs org mode.
 ** NOTATED [#B] Perl One-Liners                                    :BAB:PERL:
-   CLOSED: [2018-09-05 Wed 10:03]
+   CLOSED: [2018-09-21 Fri 14:27]
    :PROPERTIES:
    :AUTHOR:   Peteris Krumins
    :PUB:      No Starch Press
@@ -165,6 +180,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :LANGUAGE: perl
    :BUY:      [[https://www.amazon.com/Perl-One-Liners-Programs-That-Things/dp/159327520X][Amazon.com: Perl One-Liners]]
    :NOTES:    [[file+emacs:notes/perl-one-liners/readme.org][Notes: Perl One-Liners]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    130 single-line programs that "get things done."
 ** NOTATED [#B] Practical Vim                                           :VIM:
@@ -178,8 +196,7 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :NOTES:    [[file+emacs:notes/practical-vim/readme.org][Notes: Practical Vim]]
    :END:
    :LOGBOOK:
-   - State "NOTATED"    from "READING"    [2018-09-18 Tue 20:39] \\
-     Looking forward to reviewing Modern Vim next, once the book ships.
+   - State "NOTATED"    from "READING"    [2018-09-18 Tue 20:39]
    :END:
    Practical Vim is a fast track to Vim mastery.
 ** NOTATED [#C] The M4 Macro Processor                        :BAB:LINUX:PDF:
@@ -192,6 +209,9 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :LANGUAGE: m4
    :BOOK:     [[file:books/the-m4-macro-processor.pdf][The M4 Macro Processor]]
    :NOTES:    [[file+emacs:notes/the-m4-macro-processor/readme.org][Notes: The M4 Macro Processor]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    M4 is a macro processor available on Unix and used by Fortran and autoconf as a templating engine.
 ** READING [#D] The Snobol4 Programming Langage.                :BAB:ESO:PDF:
