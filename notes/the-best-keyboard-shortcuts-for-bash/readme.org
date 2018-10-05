@@ -79,3 +79,52 @@
   | C-o     | Run command found with C-r               |
   | C-g     | Cancel C-r command                       |
   |---------+------------------------------------------|
+* Command Sequences
+  :PROPERTIES:
+  This is actually pulled from The Underground Guide to Unix, but seems worthy of inclusion here.
+  :END:
+
+  |--------------+---------------------------------------------|
+  | Sequence     | What it does                                |
+  |--------------+---------------------------------------------|
+  | !!           | Recalls last command typed                  |
+  | !<n>         | Recalls command n from history              |
+  | !$           | Recalls last arg of last command            |
+  | !<n>$        | Recalls last arg of command n from history  |
+  | !:<n1-n2>    | Recalls arg n1 through n2 from last command |
+  | !:0          | Recalls command name from last command      |
+  | !:n*         | Recalls args n through $ from last command  |
+  | !:-n         | Recalls args 0 through n from last command  |
+  | ^x^y         | Replaces x from prevoius command with y     |
+  | !x           | Recall last command that started with x     |
+  | !?x?         | Recall that last command that contained x   |
+  | !! &         | Recalls last command and runs in background |
+  | !! x         | Recalls last command and appends x          |
+  |--------------+---------------------------------------------|
+  | Sequence     | What it does to file arg                    |
+  |--------------+---------------------------------------------|
+  | :e           | Returns extension                           |
+  | :h           | Lops of last part of path                   |
+  | :p           | Recalls command but doesn't print it        |
+  | :r           | Filename without ext                        |
+  | :t           | Gives just the last part of a path name     |
+  |--------------+---------------------------------------------|
+  | ZSH Sequence | What it does                                |
+  |--------------+---------------------------------------------|
+  | :&           | Repeat sub                                  |
+  | :A           | Get absolute path, resolve symlinks         |
+  | :P           | Realpath, resolve ..                        |
+  | :Q           | Stripe quotes                               |
+  | :a           | Absolute path, resolve ..                   |
+  | :c           | PATH search for command                     |
+  | :e           | Leave only extension                        |
+  | :g           | Globally apply s or &                       |
+  | :h           | Head -- strip trailing path element         |
+  | :l           | Lower case all words                        |
+  | :q           | Quote to escape further subs                |
+  | :r           | Strip suffix                                |
+  | :s           | Substitute string                           |
+  | :t           | Tail -- strip directories                   |
+  | :u           | Upper case all words                        |
+  |--------------+---------------------------------------------|
+  
