@@ -32,11 +32,12 @@ emacs org-me-up/the-awk-programming-language/readme.org
     2. Run this script:
 
     #+BEGIN_SRC emacs-lisp
-;; if you add this file to your config,
-;; you can call M-x org-me-up/make-book
-;; until the cows come home
-(load-file "./scripts/make-book.el")
+(load-file "./.scripts/make-book.el")
+(omu/make-book)
     #+END_SRC
+
+    #+RESULTS:
+    : Sorry. This isn’t really working yet.
 
     3. Start taking notes.
     4. Make sure to follow the hackneyed citation style, and tag your books for easy lookup.
