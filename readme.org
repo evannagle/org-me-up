@@ -3,7 +3,7 @@
 #+EMAIL: evan@mantle.co
 #+STARTUP: content
 #+SEQ_TODO: READING(r) | NOTATED(n@) ABANDONED(a@) 
-#+TAGS: AWK(a) BAB(b) C(c) BASH(h) EMACS(e) LINUX(l) PDF(p) PERL(r) VIM(v) VIDEO(y) ESO(z) 
+#+TAGS: AWK(a) BAB(b) C(c) BASH(h) EMACS(e) LINUX(l) PDF(p) PERL(r) VIM(v) WEB(w) VIDEO(y) ESO(z) 
 
 * Where am I?
 
@@ -199,6 +199,19 @@ emacs org-me-up/the-awk-programming-language/readme.org
    - State "NOTATED"    from "READING"    [2018-09-18 Tue 20:39]
    :END:
    Practical Vim is a fast track to Vim mastery.
+** NOTATED [#C] The Best Keyboard Shortcuts for Bash           :BASH:PDF:WEB:
+   CLOSED: [2018-10-04 Thu 16:17]
+   :PROPERTIES:
+   :AUTHOR:   Lowell Heddings
+   :PUB:      HowToGeek.com
+   :DATE:     2017
+   :LINK:     [[https://www.howtogeek.com/howto/ubuntu/keyboard-shortcuts-for-bash-command-shell-for-ubuntu-debian-suse-redhat-linux-etc/][Link: The Best Keyboard Shortcuts for Bash]]
+   :NOTES:    [[file+emacs:notes/the-best-keyboard-shortcuts-for-bash/readme.org][Notes: The Best Keyboard Shortcuts for Bash]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-10-04 Thu 16:17]
+   :END:
+   The bash shell features a wide variety of keyboard shortcuts you can use.
 ** NOTATED [#C] The M4 Macro Processor                        :BAB:LINUX:PDF:
    CLOSED: [2018-09-05 Wed 14:42]
    :PROPERTIES:
