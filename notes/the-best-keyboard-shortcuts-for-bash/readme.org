@@ -1,0 +1,81 @@
+#+TITLE: The Best Keyboard Shortcuts for Bash
+#+AUTHOR: Lowell Heddings
+#+DATE: 2017
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @bash @short @web
+
+* Controlling the Screen
+  |---------+---------------------------|
+  | Command | Description               |
+  |---------+---------------------------|
+  | C-c     | Kill current job          |
+  | C-z     | Suspend current job       |
+  | C-d     | Close shell               |
+  | C-l     | Clear screen              |
+  | C-s     | Stop all output to screen |
+  | C-q     | Resume output after C-s   |
+  |---------+---------------------------|
+
+* Controlling the Cursor
+  |---------+---------------------------------------------------|
+  | Command | Description                                       |
+  |---------+---------------------------------------------------|
+  | C-a     | Beginning of line                                 |
+  | C-e     | End of line                                       |
+  | M-b     | Back one word                                     |
+  | C-b     | Back one char                                     |
+  | M-f     | Forward one word                                  |
+  | C-f     | Forward one char                                  |
+  | C-xx    | Toggle between current location and start of line |
+  |---------+---------------------------------------------------|
+
+* Deleting Text
+  |---------+---------------------------------------|
+  | Command | Description                           |
+  |---------+---------------------------------------|
+  | C-d     | Delete char under cursor              |
+  | M-d     | Delete all chars after cursor on line |
+  | C-h     | Delete character before the cursor    |
+  |---------+---------------------------------------|
+
+* Fixing Typos
+  |---------+--------------------------------------|
+  | Command | Description                          |
+  |---------+--------------------------------------|
+  | M-t     | Swap current word with previous word |
+  | C-t     | Swap last two chars                  |
+  | C-_     | Undo last keypress                   |
+  |---------+--------------------------------------|
+
+* Cutting and Pasting
+  |---------+------------------------------------------|
+  | Command | Description                              |
+  |---------+------------------------------------------|
+  | C-w     | Cut word before cursor                   |
+  | C-k     | Cut line after cursor, add to clipboard  |
+  | C-u     | Cut line before cursor, add to clipboard |
+  | C-y     | Paste last cut                           |
+  |---------+------------------------------------------|
+
+* Capitalizing Letters
+  |---------+----------------------------------------------------------|
+  | Command | Description                                              |
+  |---------+----------------------------------------------------------|
+  | M-u     | Capitalize every char from cursor through current word   |
+  | M-l     | Uncapitalize every char from cursor through current word |
+  | M-c     | Capitalize the char under the cursor                     |
+  |---------+----------------------------------------------------------|
+
+* Command History
+
+  |---------+------------------------------------------|
+  | Command | Description                              |
+  |---------+------------------------------------------|
+  | C-p     | Previous command                         |
+  | C-n     | Next command                             |
+  | M-r     | Revert any change to command if edited   |
+  | C-r     | Recall the last command matching pattern |
+  | C-o     | Run command found with C-r               |
+  | C-g     | Cancel C-r command                       |
+  |---------+------------------------------------------|
