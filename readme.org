@@ -172,6 +172,22 @@ emacs org-me-up/the-awk-programming-language/readme.org
    - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    The grep commands let users find text in a given file or output quickly and easily.
+** NOTATED [#C] Modern Vim                                              :VIM:
+   CLOSED: [2018-10-06 Sat 13:48]
+   :PROPERTIES:
+   :AUTHOR:   Drew Neil
+   :PUB:      Pragmatic Bookshelf
+   :DATE:     2018
+   :PAGES:    143
+   :LANGUAGE: Vim 8, Neovim
+   :BUY:      [[https://www.amazon.com/Modern-Vim-Development-Environment-Neovim/dp/168050262X][Buy: Modern Vim]]
+   :NOTES:    [[file+emacs:notes/modern-vim/readme.org][Notes: Modern Vim]]
+   :END:   
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-10-06 Sat 13:48] \\
+     Practical Vim is far more informative. This book primarily contains details on useful NeoVim and Vim 8 plugins.
+   :END:
+   Craft your development environment with Vim 8 and Neovim.
 ** READING [#C] Org Mode Tutorial                               :VIDEO:EMACS:
    :PROPERTIES:
    :AUTHOR:   Rainer König
