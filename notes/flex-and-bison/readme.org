@@ -30,6 +30,28 @@ int main(int argc, char **argv) {
   return 0;
 }
 
+** Simple Flex Makefile
+
+#+BEGIN_SRC Makefile
+APP       = app
+APP_L     = $(APP).l
+LC        = flex
+LFLAGS    = 
+CC        = gcc
+CFLAGS    =
+
+all: $(APP)
+
+# lex.yy.c is the file outputted by Flex
+# running flex app.l
+lex.yy.c: $(APP_L)
+    $(LC) $(LFLAGS) $(APP_L)
+
+# running gcc -o app lex.yy.c
+$(APP): lex.yy.c
+    $(CC) $(CFLAGS) -o $(APP) lex.yy.c
+
+#+END_SRC
 ** Sample: wc
 
 #+BEGIN_SRC sh
