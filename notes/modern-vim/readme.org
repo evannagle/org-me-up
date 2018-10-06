@@ -1,0 +1,56 @@
+#+TITLE: Modern Vim
+#+AUTHOR: Drew Neil
+#+DATE: 2018
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @vim
+
+* Config
+** Neovim config = ~/.config/neovim/init.vim
+** Neovim themes = ~/.config/neovim/colors/
+** Vim 8 config = ~/.vimrc
+** Vim 8 themes = ~/.vim/colors/   
+* Installing Plugins
+** Vim 8
+   [[https://shapeshed.com/vim-packages/]]
+*** mkdir -p ~/.vim/pack/plugs/start => autoloaded plugs
+*** mkdir -p ~/.vim/pack/plugs/opt => optional plugs 
+*** :packageadd packagename    
+** Neovim
+*** Install [[https://github.com/junegunn/vim-plug][vim-plug]]      
+*** Specify Plugs in vimrc
+*** Reload vimrc and run :PluginInstall 
+* Useful Plugins
+** Ale = async linting
+*** [[https://github.com/w0rp/ale]]
+** fzf.vim = search for files
+*** [[https://github.com/junegunn/fzf.vim]]
+** Neovim Remote = control nvim procs from the shell
+*** [[https://github.com/mhinz/neovim-remote]]
+** Vim Dispatch = build and test dispatcher 
+*** [[https://github.com/tpope/vim-dispatch]]
+** Vim Grepper = search through files
+*** [[https://github.com/mhinz/vim-grepper]]
+** Vim Minpac = manage plugins
+*** [[https://github.com/k-takata/minpac]]
+** Vim Projectionist = project templating
+*** [[https://github.com/tpope/vim-projectionist]]
+** Vim Surround = wrap text with quotes or parens
+*** [[https://github.com/tpope/vim-surround]]
+** Vim Unimpared = use [] prefix to toggle complementary commands
+*** [[https://github.com/tpope/vim-unimpaired]]
+* People to Watch
+** Tim Pope
+*** [[https://github.com/tpope]]
+** Junegunn Choi
+*** [[https://github.com/junegunn]]
+** Marco Heinz
+*** [[https://github.com/mhinz]]
+* Enable Python and :py3
+
+  #+BEGIN_SRC sh
+pip3 install --user --upgrade neovim
+  #+END_SRC
+
+** :py3 print('hello')
+
