@@ -5,5 +5,65 @@
 #+CREATOR: Evan Nagle
 #+TAGS: @c @linux @flex @bison
 
+* Introduction
+** Lexing = scanning = parsing text into tokens
+** Parsing = determines relationship amongst tokens
+** Structure of a Lex/Bison file:   
+
+%{
+//PROLOGUE in C
+#include <stdio.h>
+#define BRITNEY "spears"
+%}
+
+%%
+
+Grammar Rules
+
+%%
+
+Epilogue
+
+int main(int argc, char **argv) {
+  printf("%s\n", "here we go!");
+  yylex(); ==> runs the lexer
+  return 0;
+}
+
+** Sample: wc
+
+#+BEGIN_SRC sh
+echo "here I am" | ./data/wc/wc
+#+END_SRC
+
+#+RESULTS:
+| chars: | 10 |
+| words: |  3 |
+| lines: |  1 |
 
 
+** Sample: colour
+
+#+BEGIN_SRC sh
+echo "What colour is this?" | ./data/colour/colour
+#+END_SRC
+
+#+RESULTS:
+: What color is this?
+
+** Sample: dumber
+
+#+BEGIN_SRC sh :results scalar
+echo "1 + 2 * 10 / 5x" | ./data/dumbers/dumbers
+#+END_SRC
+
+#+RESULTS:
+: NUMBER 1
+: PLUS
+: NUMBER 2
+: TIMES
+: NUMBER 10
+: DIVIDE
+: NUMBER 5
+: MYSTERY CHAR x
+: NEWLINE
