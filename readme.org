@@ -146,6 +146,17 @@ emacs org-me-up/the-awk-programming-language/readme.org
    - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    Documentation on the Evil mode for Emacs
+** READING [#B] Flex & Bison                                        :C:LINUX:
+   :PROPERTIES:
+   :AUTHOR:   John Levine
+   :PUB:      O'Reilly Media
+   :DATE:     2009
+   :PAGES:    271
+   :LANGUAGE: flex, bison, C
+   :BUY:      [[https://www.amazon.com/flex-bison-Text-Processing-Tools/dp/0596155972][Amazon: Flex & Bison]]
+   :NOTES:    [[file+emacs:notes/flex-and-bison/readme.org][Notes: Flex & Bison]]
+   :END:
+   Flex and bison are tools designed for writers of compilers and interpreters.
 ** NOTATED [#B] Grep Pocket Reference                             :BAB:LINUX:
    CLOSED: [2018-09-03 Mon 14:43]
    :PROPERTIES:
