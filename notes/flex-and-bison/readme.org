@@ -126,3 +126,11 @@ echo "15 / 3 * 2" | ./data/calculator/calculator
 | = | 25 |
 | = | 10 |
 
+** Sample: calculator with parens and comments
+
+#+BEGIN_SRC sh
+./data/calculator-p/calculator <<<'5 * (5 + 1) //should be thirty'
+#+END_SRC
+
+#+RESULTS:
+: = 30
