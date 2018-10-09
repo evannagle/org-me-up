@@ -186,3 +186,62 @@ echo "15 / 3 * 2" | ./data/calculator/calculator
 :    5. 
 :    6. And a fourth line.
 :    7. And a fifth line.
+* Symbol Tables
+
+#+BEGIN_SRC sh :results scalar
+./data/concordance/concordance ./data/concordance/*.poem | head -n 50
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+"All"
+- ./data/concordance/love.poem           :70   
+                                         :73   
+
+"Already"
+- ./data/concordance/love.poem           :133  
+
+"America"
+- ./data/concordance/love.poem           :199  
+
+"Angel"
+- ./data/concordance/love.poem           :67   
+
+"Another"
+- ./data/concordance/love.poem           :49   
+
+"Antarctic"
+- ./data/concordance/love.poem           :142  
+
+"Ask"
+- ./data/concordance/love.poem           :181  
+
+"Barbie"
+- ./data/concordance/love.poem           :190  
+
+"Becoming"
+- ./data/concordance/love.poem           :46   
+
+"Befriend"
+- ./data/concordance/love.poem           :160  
+
+"Bird"
+- ./data/concordance/redbird.poem        :8    
+
+"Careless"
+- ./data/concordance/love.poem           :178  
+
+"Carrie"
+- ./data/concordance/love.poem           :175  
+
+"Change"
+- ./data/concordance/love.poem           :166  
+
+"Chocolates"
+- ./data/concordance/love.poem           :13   
+
+"Demons"
+- ./data/concordance/love.poem           :202  
+
+#+end_example
