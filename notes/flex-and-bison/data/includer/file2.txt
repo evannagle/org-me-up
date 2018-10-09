@@ -1,0 +1,2 @@
+First line in second file.
+Second line in second file.

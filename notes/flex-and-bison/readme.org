@@ -116,6 +116,29 @@ echo "1 * 24 - 14" | ./data/number-scanner/number-scanner
    | 260 |    |
    | 258 | 14 |
    | 264 |    |
+* Flex Regexes
+
+  |---------+------------------------------------------------------------------------------------------|
+  | pattern | matches                                                                                  |
+  |---------+------------------------------------------------------------------------------------------|
+  | .       | Any single char except \n                                                                |
+  | []      | Character class                                                                          |
+  | ^       | Beginning of line                                                                        |
+  | $       | End of line                                                                              |
+  | {}      | Min and max occurrences                                                                  |
+  | \       | Escape                                                                                   |
+  | **      | Zero or more occurrences                                                                 |
+  | +       | One or more occurrences                                                                  |
+  | ?       | Zero or one occurrences                                                                  |
+  | \vert   | Or operator                                                                              |
+  | "..."   | Literal expression                                                                       |
+  | ()      | Group                                                                                    |
+  | /       | Trailing context. Match regex preceding slash only if followed by regex proceeding slash |
+  |---------+------------------------------------------------------------------------------------------|
+
+** Ambiguous Patterns
+*** It's hungry. Matches the longest possible string every pass.
+*** If there's a tie, use the pattern that appears first in the expressions list.
 
 * Bison and Flex Together
 ** In flex.l file  
@@ -148,27 +171,18 @@ echo "15 / 3 * 2" | ./data/calculator/calculator
    : = 30
 
 ** Sample: calculator with hand-written lexer
+* Start States, Nested Require Statments
 
-* Flex Regexes
+#+BEGIN_SRC sh :results scalar
+./data/includer/includer ./data/includer/file1.txt
+#+END_SRC
 
-  |---------+------------------------------------------------------------------------------------------|
-  | pattern | matches                                                                                  |
-  |---------+------------------------------------------------------------------------------------------|
-  | .       | Any single char except \n                                                                |
-  | []      | Character class                                                                          |
-  | ^       | Beginning of line                                                                        |
-  | $       | End of line                                                                              |
-  | {}      | Min and max occurrences                                                                  |
-  | \       | Escape                                                                                   |
-  | **      | Zero or more occurrences                                                                 |
-  | +       | One or more occurrences                                                                  |
-  | ?       | Zero or one occurrences                                                                  |
-  | \vert   | Or operator                                                                              |
-  | "..."   | Literal expression                                                                       |
-  | ()      | Group                                                                                    |
-  | /       | Trailing context. Match regex preceding slash only if followed by regex proceeding slash |
-  |---------+------------------------------------------------------------------------------------------|
-
-** Ambiguous Patterns
-*** It's hungry. Matches the longest possible string every pass.
-*** If there's a tie, use the pattern that appears first in the expressions list.
+#+RESULTS:
+:    1. Here is a line.
+:    2. Here is another line.
+:    3. 
+:    1. First line in second file.
+:    2. Second line in second file.
+:    5. 
+:    6. And a fourth line.
+:    7. And a fifth line.

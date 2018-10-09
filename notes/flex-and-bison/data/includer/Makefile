@@ -1,4 +1,4 @@
-APP	=	wc
+APP	=	includer
 LC	=	flex
 LFLAGS	=
 GC	=	gcc

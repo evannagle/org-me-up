@@ -128,3 +128,24 @@
   | :u           | Upper case all words                           |
   |--------------+------------------------------------------------|
   
+
+* Bracket Expansions  
+
+  Snagged from [[https://www.regular-expressions.info/posixbrackets.html]]
+
+  |--------+-----------------------------------------|
+  | POSIX  | Description                             |
+  |--------+-----------------------------------------|
+  | alnum  | Alphanumeric chars                      |
+  | alpha  | Alpha chars                             |
+  | ascii  | Ascii chars                             |
+  | blank  | Space and tab                           |
+  | cntrl  | Control chars                           |
+  | digit  | 0-9                                     |
+  | graph  | Visible chars                           |
+  | lower  | Lower case letters                      |
+  | punct  | Punctuation chars                       |
+  | upper  | Upper case letters                      |
+  | word   | Word chars, included numbers and dashes |
+  | xdigit | Hex chars                               |
+  |--------+-----------------------------------------|
