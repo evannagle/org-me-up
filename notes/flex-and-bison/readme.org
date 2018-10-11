@@ -245,3 +245,41 @@ echo "15 / 3 * 2" | ./data/calculator/calculator
 - ./data/concordance/love.poem           :202  
 
 #+end_example
+
+* Creating a C cross-referencer
+
+#+BEGIN_SRC sh
+./data/cross-ref/cross-ref ./data/cross-ref/cross-ref.l | head -n 30
+#+END_SRC
+
+#+RESULTS:
+| BEGIN             | :49   |   50 |      |      |     |     |
+| COMMENT           | :3    |   49 |   50 |   51 |  52 |     |
+| EOF               | :52   |      |      |      |     |     |
+| EXP               | :7    |  104 |      |      |     |     |
+| Ee                | :7    |      |      |      |     |     |
+| F                 | :6    |  102 |  106 |      |     |     |
+| FILE              | :23   |  253 |      |      |     |     |
+| IFILE             | :4    |      |      |      |     |     |
+| ILEN              | :8    |  100 |  101 |  102 |     |     |
+| INITIAL           | :50   |      |      |      |     |     |
+| L                 | :8    |      |      |      |     |     |
+| LL                | :8    |      |      |      |     |     |
+| Mystery           | :145  |      |      |      |     |     |
+| NHASH             | :39*  | 175* | 176* |  185 | 223 | 224 |
+| NULL              | :225* |      |      |      |     |     |
+| Pp                | :106  |      |      |      |     |     |
+| U                 | :6    |      |      |      |     |     |
+| UCN               | :6    |   57 |      |      |     |     |
+| Uu                | :8    |      |      |      |     |     |
+| Xx                | :102  |  106 |      |      |     |     |
+| YY_BUFFER_STATE   | :20   |      |      |      |     |     |
+| YY_BUF_SIZE       | :261  |      |      |      |     |     |
+| a                 | :6    |  102 |  106 | 211* | 213 | 218 |
+| abort             | :188  |  201 |      |      |     |     |
+| add_file_to_stack | :41*  |      |      |      |     |     |
+| addref            | :15*  | 191* |      |      |     |     |
+| argc              | :151* |  154 |  159 |      |     |     |
+| argv              | :151* |  160 |      |      |     |     |
+| b                 | :212* |  214 |  217 |  218 |     |     |
+| bad               | :138  |      |      |      |     |     |
