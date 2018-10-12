@@ -1,0 +1,7 @@
+#+TITLE: Managing Projects with GNU Make
+#+AUTHOR: Robert Mecklenberg
+#+DATE: 2005
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @linux
+
