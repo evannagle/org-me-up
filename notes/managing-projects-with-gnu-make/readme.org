@@ -5,3 +5,87 @@
 #+CREATOR: Evan Nagle
 #+TAGS: @linux
 
+* A simple makefile
+
+  #+BEGIN_SRC sh :results scalar
+make task3 -f data/simple/Makefile
+  #+END_SRC
+
+  #+RESULTS:
+  : echo "Task 1"
+  : Task 1
+  : echo "Task 2"
+  : Task 2
+  : echo "Task 3"
+  : Task 3
+
+* Multiple Targets
+
+#+BEGIN_SRC sh :results scalar
+make target2 -f data/multi-target/Makefile
+#+END_SRC
+
+#+RESULTS:
+: You picked target2.
+: And I'm impressed.
+
+* Wildcards
+
+|---------+--------------------------------------------------|
+| Pattern | Matches                                          |
+|---------+--------------------------------------------------|
+| *.c     | All files with a c extension                     |
+| ~       | Home directory                                   |
+| .docx?  | .doc or .docx files                              |
+| [a-z]+  | A lower-case string containing only alpha values |
+| [^a-z]+ | A string containing no lower case alpha values   |
+| %       | Similar to *, Any number of any characters       |
+|---------+--------------------------------------------------|
+
+* Special Targets
+
+** Table of Targets  
+|------------------+-------------------------------------------------------------------------|
+| Target           | Purpose                                                                 |
+|------------------+-------------------------------------------------------------------------|
+| .INTERMEDIATE    | Intermediate file deleted after make is completed                       |
+| .SECONDARY       | Similar to intermediate, but not deleted                                |
+| .PRECIOUS        | Never leave a partially completed/corrupt file. File is *never* deleted |
+| .PHONY           | The target doesn't actually represent a real file. Always runs.         |
+| .DELETE_ON_ERROR | Opposite of .PRECIOUS                                                   |
+|------------------+-------------------------------------------------------------------------|
+
+** Standard phony targets
+
+|-----------+------------------------------------------------------------------|
+| Target    | Purpose                                                          |
+|-----------+------------------------------------------------------------------|
+| all       | Perform all tasks to build the application                       |
+| install   | Create an installation of the application from compiled binaries |
+| clean     | Delete binary files                                              |
+| distclean | Delete generated files not in origin source distro               |
+| TAGS      | Create a tags table                                              |
+| info      | Create GNU info files from the Texinfo sources                   |
+| check     | Run any unit tests                                               |
+|-----------+------------------------------------------------------------------|
+
+* Automatic Variables
+
+|----------+------------------------------------------------------------------------------|
+| Variable | Meaning                                                                      |
+|----------+------------------------------------------------------------------------------|
+| $@       | Filename representing the target                                             |
+| $%       | The filename element of an archive member specification                      |
+| $<       | The filename of the first prereq                                             |
+| $?       | The names of all prereqs that are newer than the target, separated by spaces |
+| $^       | The filenames of all prereqs, separated by spaces                            |
+| $+       | Same as $^ but includes duplicates                                           |
+| $*       | Stem of the target filename                                                  |
+|----------+------------------------------------------------------------------------------|
+
+
+#+BEGIN_SRC sh
+make help -f data/help/Makefile
+#+END_SRC
+
+#+RESULTS:
