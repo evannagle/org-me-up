@@ -43,7 +43,6 @@ make target2 -f data/multi-target/Makefile
 |---------+--------------------------------------------------|
 
 * Special Targets
-
 ** Table of Targets  
 |------------------+-------------------------------------------------------------------------|
 | Target           | Purpose                                                                 |
@@ -89,3 +88,118 @@ make help -f data/help/Makefile
 #+END_SRC
 
 #+RESULTS:
+* Double Colon Targets
+** Command runs if dependencies are newer than the target.
+#+BEGIN_SRC sh :results scalar
+  touch data/double-colon/file-a.txt
+
+  make data/double-colon/file-c.txt -f data/double-colon/Makefile
+#+END_SRC
+
+#+RESULTS:
+: echo "file-a was updated"
+: file-a was updated
+
+* Variables
+** Constants defined with := 
+** Assignment only if var is null (ala defvar) ?=
+#+BEGIN_SRC sh :results scalar
+make whats-foo -f data/vars/Makefile
+#+END_SRC   
+
+#+RESULTS:
+: bar
+
+** Append to var with +=
+
+#+BEGIN_SRC sh :results scalar
+make whats-glue -f data/vars/Makefile
+make whats-glue2 -f data/vars/Makefile
+#+END_SRC
+
+#+RESULTS:
+: a b
+: a b c
+
+** Variable definition ancestry
+
+|--------------+----------------|
+| Location     | Example        |
+|--------------+----------------|
+| Makefile     | FOO := bar     |
+| Command line | make FOO=bar   |
+| Envrionment  | export FOO=bar |
+|--------------+----------------|
+
+** Standard Variables
+
+|---------------+---------------------------------------|
+| Name          | Value                                 |
+|---------------+---------------------------------------|
+| MAKE_VERSION  | Version of Make                       |
+| CURDIR        | Current working directory             |
+| MAKEFILE_LIST | List of all files make has read       |
+| MAKECMDGOALS  | All targets specified on command line |
+| .VARIABLES    | All variales defined so far           |
+|---------------+---------------------------------------|
+
+* Macros
+** define <macro> ... endef => defines macro
+** $(macro) => executes macro   
+** define <function> ... endef => defines function
+** $(call <function>,<arg1,...,argN>) = executes function with args
+
+#+BEGIN_SRC sh :results scalar
+make -f data/macros/Makefile
+#+END_SRC
+
+#+RESULTS:
+: running 'simple_function' on all...
+: running 'function_with_args' on all...
+: -- variable: foo
+
+* Functions
+** Built-In Functions
+
+Make treats a string like an array of words delimited by spaces. This can be tricky. Remember:
+
+- $(join "a" "b") returns "ab"
+- $(join "a b" "c d") return "ac bd"
+
+|------------+------------------------------+-----------------------------------------------------|
+| Name       | Example                      | Purpose                                             |
+|------------+------------------------------+-----------------------------------------------------|
+| filter     | $(filter ui/%.o,$(OBJECTS))  | Returns words in string matching pattern            |
+| filter-out |                              | Opposite of filter                                  |
+| findstring | $(findstring /test/, $(PWD)) | Returns the search string if found, nothing if not  |
+| subst      | $(subst .c,.o,$(sources))    | Non-wildcard search and replace                     |
+| patsubst   |                              | Like subst, but with wildcards                      |
+| words      |                              | Returns count of words in text                      |
+| firstword  | $(firstword "a b c")         | Returns first word                                  |
+| wordlist   | $(wordlist 1, 2, "a b c")    | Returns sublist of words in text                    |
+| sort       |                              | Sorts a list                                        |
+| shell      | $(shell date)                | Execute a shell command                             |
+|------------+------------------------------+-----------------------------------------------------|
+| FILES      |                              |                                                     |
+|------------+------------------------------+-----------------------------------------------------|
+| wildcard   |                              | Returns list of files that match pattern            |
+| dir        | $(dir /dir/file.txt)         | Returns dir portion of string                       |
+| notdir     |                              | Opposite of dir, returns filename                   |
+| suffix     |                              | Get extension                                       |
+| basename   |                              | Opposite of suffix, returns filename without suffix |
+| addsuffix  |                              | Appends suffix to each item in list                 |
+| addprefix  |                              | Prepends a prefix to each item in list              |
+| join       |                              | Joins prefix list and suffix list                   |
+|------------+------------------------------+-----------------------------------------------------|
+| FLOW       |                              |                                                     |
+|------------+------------------------------+-----------------------------------------------------|
+| if         |                              | Checks conditional                                  |
+| error      |                              | Print a fatal error                                 |
+| warning    |                              | Print a warning                                     |
+| foreach    |                              |                                                     |
+|------------+------------------------------+-----------------------------------------------------|
+| OTHER      |                              |                                                     |
+|------------+------------------------------+-----------------------------------------------------|
+| strip      | $(strip " abcd ")            | Trims text                                          |
+| origin     | $(origin foo)                | Origin of a variable                                |
+|------------+------------------------------+-----------------------------------------------------|
