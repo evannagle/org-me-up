@@ -128,8 +128,7 @@
   | :u           | Upper case all words                           |
   |--------------+------------------------------------------------|
   
-
-* Bracket Expansions  
+* Bracket Expansions
 
   Snagged from [[https://www.regular-expressions.info/posixbrackets.html]]
 
@@ -149,3 +148,88 @@
   | word   | Word chars, included numbers and dashes |
   | xdigit | Hex chars                               |
   |--------+-----------------------------------------|
+
+* Common Commands
+
+|--------------------+---------------------------------------------------|
+| Command            | Description                                       |
+|--------------------+---------------------------------------------------|
+| ETC                |                                                   |
+|--------------------+---------------------------------------------------|
+| c1 ; c2            | Run c1, then c2                                   |
+| @                  | Kill line                                         |
+| c1 <bar> c2        | Run c1, pass output of c1 to c2                   |
+| cc                 | C compiler                                        |
+|--------------------+---------------------------------------------------|
+| USER COMMUNICATION |                                                   |
+|--------------------+---------------------------------------------------|
+| mail               | Read / edit mail                                  |
+| mail l             | Send mail                                         |
+| write l            | Write to another user's CL                        |
+|--------------------+---------------------------------------------------|
+| PROCESS CONTROL    |                                                   |
+|--------------------+---------------------------------------------------|
+| C-Q                | Resume output                                     |
+| C-S                | Stop output                                       |
+| DEL                | Kill current proc                                 |
+| kill n             | Kill process from bg                              |
+| fg n               | Bring process to foreground                       |
+| c &                | Run c in background                               |
+| bg                 | Put suspended process in background               |
+| C-Z                | Suspend current process                           |
+| pr f               | Print contents of file with simple formatting     |
+|--------------------+---------------------------------------------------|
+| FORGROUND OUTPUT   |                                                   |
+|--------------------+---------------------------------------------------|
+| nroff              | Format file for typewriter-like output            |
+| troff              | Format file for typesetter output                 |
+| tbl                | Preprocess file for tabular ouput                 |
+| eqn                | Preprocess file for math symbols                  |
+|--------------------+---------------------------------------------------|
+| ENV CONTROL        |                                                   |
+|--------------------+---------------------------------------------------|
+| cd d               | Change directory                                  |
+| mkdir d            | Make directory                                    |
+| rmdir d            | Remove directory                                  |
+| mv f d             | Move file f to dir d                              |
+| mv d1 d2           | Rename d1 as d2                                   |
+| passwd             | Change password                                   |
+| login l            | Login to an account                               |
+| alias s1 s2        | Let s1 stand for s2                               |
+| logout             | Logout of current account                         |
+| C-D                | Same as logout                                    |
+|--------------------+---------------------------------------------------|
+| FILE MANIPULATION  |                                                   |
+|--------------------+---------------------------------------------------|
+| vi f               | Edit file with Vi/Vim                             |
+| ex f               | Edit file with ed/ex                              |
+| edit f             | Edit file with ex                                 |
+| cat f              | Print contents of f                               |
+| more f             | Print f in screen-sized blocks                    |
+| cat f1 f2 > f3     | Cat f1 and f2 into f3                             |
+| lpr f              | Print contents of file f on line-printer          |
+| chmod              | Change protection modes                           |
+| cp f1 f2           | Copy file f1 to f2                                |
+| mv f1 f2           | Rename file f1 to f2                              |
+| rm f               | Remove file f                                     |
+|--------------------+---------------------------------------------------|
+| ENV STATUS         |                                                   |
+|--------------------+---------------------------------------------------|
+| ls                 | List files in current dir                         |
+| ls -l              | List files with protection modes                  |
+| ls d               | List files in directory d                         |
+| who                | List users logged in                              |
+| w                  | List system status, users logged in and processes |
+| pwd                | Print working directory                           |
+| date               | Print date and time                               |
+| ps                 | List bg procs                                     |
+| du                 | Give disk usage                                   |
+| charges            | Print charges for current account                 |
+| alias              | List aliases                                      |
+| jobno              | Give job number for current account               |
+| help               | Give list of help topics                          |
+| man c              | Give UNIX manual entry for command c              |
+| uptime             | Give system uptime                                |
+| printenv           | Give values for environment vars                  |
+| history            | List command history                              |
+|--------------------+---------------------------------------------------|
