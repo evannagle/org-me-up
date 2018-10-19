@@ -8,7 +8,7 @@
 * A simple makefile
 
   #+BEGIN_SRC sh :results scalar
-make task3 -f data/simple/Makefile
+    make task3 -f data/simple/Makefile
   #+END_SRC
 
   #+RESULTS:
@@ -21,127 +21,127 @@ make task3 -f data/simple/Makefile
 
 * Multiple Targets
 
-#+BEGIN_SRC sh :results scalar
-make target2 -f data/multi-target/Makefile
-#+END_SRC
+  #+BEGIN_SRC sh :results scalar
+    make target2 -f data/multi-target/Makefile
+  #+END_SRC
 
-#+RESULTS:
-: You picked target2.
-: And I'm impressed.
+  #+RESULTS:
+  : You picked target2.
+  : And I'm impressed.
 
 * Wildcards
 
-|---------+--------------------------------------------------|
-| Pattern | Matches                                          |
-|---------+--------------------------------------------------|
-| *.c     | All files with a c extension                     |
-| ~       | Home directory                                   |
-| .docx?  | .doc or .docx files                              |
-| [a-z]+  | A lower-case string containing only alpha values |
-| [^a-z]+ | A string containing no lower case alpha values   |
-| %       | Similar to *, Any number of any characters       |
-|---------+--------------------------------------------------|
+  |---------+--------------------------------------------------|
+  | Pattern | Matches                                          |
+  |---------+--------------------------------------------------|
+  | *.c     | All files with a c extension                     |
+  | ~       | Home directory                                   |
+  | .docx?  | .doc or .docx files                              |
+  | [a-z]+  | A lower-case string containing only alpha values |
+  | [^a-z]+ | A string containing no lower case alpha values   |
+  | %       | Similar to *, Any number of any characters       |
+  |---------+--------------------------------------------------|
 
 * Special Targets
 ** Table of Targets  
-|------------------+-------------------------------------------------------------------------|
-| Target           | Purpose                                                                 |
-|------------------+-------------------------------------------------------------------------|
-| .INTERMEDIATE    | Intermediate file deleted after make is completed                       |
-| .SECONDARY       | Similar to intermediate, but not deleted                                |
-| .PRECIOUS        | Never leave a partially completed/corrupt file. File is *never* deleted |
-| .PHONY           | The target doesn't actually represent a real file. Always runs.         |
-| .DELETE_ON_ERROR | Opposite of .PRECIOUS                                                   |
-|------------------+-------------------------------------------------------------------------|
+   |------------------+-------------------------------------------------------------------------|
+   | Target           | Purpose                                                                 |
+   |------------------+-------------------------------------------------------------------------|
+   | .INTERMEDIATE    | Intermediate file deleted after make is completed                       |
+   | .SECONDARY       | Similar to intermediate, but not deleted                                |
+   | .PRECIOUS        | Never leave a partially completed/corrupt file. File is *never* deleted |
+   | .PHONY           | The target doesn't actually represent a real file. Always runs.         |
+   | .DELETE_ON_ERROR | Opposite of .PRECIOUS                                                   |
+   |------------------+-------------------------------------------------------------------------|
 
 ** Standard phony targets
 
-|-----------+------------------------------------------------------------------|
-| Target    | Purpose                                                          |
-|-----------+------------------------------------------------------------------|
-| all       | Perform all tasks to build the application                       |
-| install   | Create an installation of the application from compiled binaries |
-| clean     | Delete binary files                                              |
-| distclean | Delete generated files not in origin source distro               |
-| TAGS      | Create a tags table                                              |
-| info      | Create GNU info files from the Texinfo sources                   |
-| check     | Run any unit tests                                               |
-|-----------+------------------------------------------------------------------|
+   |-----------+------------------------------------------------------------------|
+   | Target    | Purpose                                                          |
+   |-----------+------------------------------------------------------------------|
+   | all       | Perform all tasks to build the application                       |
+   | install   | Create an installation of the application from compiled binaries |
+   | clean     | Delete binary files                                              |
+   | distclean | Delete generated files not in origin source distro               |
+   | TAGS      | Create a tags table                                              |
+   | info      | Create GNU info files from the Texinfo sources                   |
+   | check     | Run any unit tests                                               |
+   |-----------+------------------------------------------------------------------|
 
 * Automatic Variables
 
-|----------+------------------------------------------------------------------------------|
-| Variable | Meaning                                                                      |
-|----------+------------------------------------------------------------------------------|
-| $@       | Filename representing the target                                             |
-| $%       | The filename element of an archive member specification                      |
-| $<       | The filename of the first prereq                                             |
-| $?       | The names of all prereqs that are newer than the target, separated by spaces |
-| $^       | The filenames of all prereqs, separated by spaces                            |
-| $+       | Same as $^ but includes duplicates                                           |
-| $*       | Stem of the target filename                                                  |
-|----------+------------------------------------------------------------------------------|
+  |----------+------------------------------------------------------------------------------|
+  | Variable | Meaning                                                                      |
+  |----------+------------------------------------------------------------------------------|
+  | $@       | Filename representing the target                                             |
+  | $%       | The filename element of an archive member specification                      |
+  | $<       | The filename of the first prereq                                             |
+  | $?       | The names of all prereqs that are newer than the target, separated by spaces |
+  | $^       | The filenames of all prereqs, separated by spaces                            |
+  | $+       | Same as $^ but includes duplicates                                           |
+  | $*       | Stem of the target filename                                                  |
+  |----------+------------------------------------------------------------------------------|
 
 
-#+BEGIN_SRC sh
-make help -f data/help/Makefile
-#+END_SRC
+  #+BEGIN_SRC sh
+    make help -f data/help/Makefile
+  #+END_SRC
 
-#+RESULTS:
+  #+RESULTS:
 * Double Colon Targets
 ** Command runs if dependencies are newer than the target.
-#+BEGIN_SRC sh :results scalar
-  touch data/double-colon/file-a.txt
+   #+BEGIN_SRC sh :results scalar
+     touch data/double-colon/file-a.txt
 
-  make data/double-colon/file-c.txt -f data/double-colon/Makefile
-#+END_SRC
+     make data/double-colon/file-c.txt -f data/double-colon/Makefile
+   #+END_SRC
 
-#+RESULTS:
-: echo "file-a was updated"
-: file-a was updated
+   #+RESULTS:
+   : echo "file-a was updated"
+   : file-a was updated
 
 * Variables
 ** Constants defined with := 
 ** Assignment only if var is null (ala defvar) ?=
-#+BEGIN_SRC sh :results scalar
-make whats-foo -f data/vars/Makefile
-#+END_SRC   
+   #+BEGIN_SRC sh :results scalar
+     make whats-foo -f data/vars/Makefile
+   #+END_SRC   
 
-#+RESULTS:
-: bar
+   #+RESULTS:
+   : bar
 
 ** Append to var with +=
 
-#+BEGIN_SRC sh :results scalar
-make whats-glue -f data/vars/Makefile
-make whats-glue2 -f data/vars/Makefile
-#+END_SRC
+   #+BEGIN_SRC sh :results scalar
+     make whats-glue -f data/vars/Makefile
+     make whats-glue2 -f data/vars/Makefile
+   #+END_SRC
 
-#+RESULTS:
-: a b
-: a b c
+   #+RESULTS:
+   : a b
+   : a b c
 
 ** Variable definition ancestry
 
-|--------------+----------------|
-| Location     | Example        |
-|--------------+----------------|
-| Makefile     | FOO := bar     |
-| Command line | make FOO=bar   |
-| Envrionment  | export FOO=bar |
-|--------------+----------------|
+   |--------------+----------------|
+   | Location     | Example        |
+   |--------------+----------------|
+   | Makefile     | FOO := bar     |
+   | Command line | make FOO=bar   |
+   | Envrionment  | export FOO=bar |
+   |--------------+----------------|
 
 ** Standard Variables
 
-|---------------+---------------------------------------|
-| Name          | Value                                 |
-|---------------+---------------------------------------|
-| MAKE_VERSION  | Version of Make                       |
-| CURDIR        | Current working directory             |
-| MAKEFILE_LIST | List of all files make has read       |
-| MAKECMDGOALS  | All targets specified on command line |
-| .VARIABLES    | All variales defined so far           |
-|---------------+---------------------------------------|
+   |---------------+---------------------------------------|
+   | Name          | Value                                 |
+   |---------------+---------------------------------------|
+   | MAKE_VERSION  | Version of Make                       |
+   | CURDIR        | Current working directory             |
+   | MAKEFILE_LIST | List of all files make has read       |
+   | MAKECMDGOALS  | All targets specified on command line |
+   | .VARIABLES    | All variales defined so far           |
+   |---------------+---------------------------------------|
 
 * Macros
 ** define <macro> ... endef => defines macro
@@ -149,57 +149,87 @@ make whats-glue2 -f data/vars/Makefile
 ** define <function> ... endef => defines function
 ** $(call <function>,<arg1,...,argN>) = executes function with args
 
-#+BEGIN_SRC sh :results scalar
-make -f data/macros/Makefile
-#+END_SRC
+   #+BEGIN_SRC sh :results scalar
+     make -f data/macros/Makefile
+   #+END_SRC
 
-#+RESULTS:
-: running 'simple_function' on all...
-: running 'function_with_args' on all...
-: -- variable: foo
+   #+RESULTS:
+   : running 'simple_function' on all...
+   : running 'function_with_args' on all...
+   : -- variable: foo
 
 * Functions
 ** Built-In Functions
 
-Make treats a string like an array of words delimited by spaces. This can be tricky. Remember:
+   Make treats a string like an array of words delimited by spaces. This can be tricky. Remember:
 
-- $(join "a" "b") returns "ab"
-- $(join "a b" "c d") return "ac bd"
+   - $(join "a" "b") returns "ab"
+   - $(join "a b" "c d") return "ac bd"
 
-|------------+------------------------------+-----------------------------------------------------|
-| Name       | Example                      | Purpose                                             |
-|------------+------------------------------+-----------------------------------------------------|
-| filter     | $(filter ui/%.o,$(OBJECTS))  | Returns words in string matching pattern            |
-| filter-out |                              | Opposite of filter                                  |
-| findstring | $(findstring /test/, $(PWD)) | Returns the search string if found, nothing if not  |
-| subst      | $(subst .c,.o,$(sources))    | Non-wildcard search and replace                     |
-| patsubst   |                              | Like subst, but with wildcards                      |
-| words      |                              | Returns count of words in text                      |
-| firstword  | $(firstword "a b c")         | Returns first word                                  |
-| wordlist   | $(wordlist 1, 2, "a b c")    | Returns sublist of words in text                    |
-| sort       |                              | Sorts a list                                        |
-| shell      | $(shell date)                | Execute a shell command                             |
-|------------+------------------------------+-----------------------------------------------------|
-| FILES      |                              |                                                     |
-|------------+------------------------------+-----------------------------------------------------|
-| wildcard   |                              | Returns list of files that match pattern            |
-| dir        | $(dir /dir/file.txt)         | Returns dir portion of string                       |
-| notdir     |                              | Opposite of dir, returns filename                   |
-| suffix     |                              | Get extension                                       |
-| basename   |                              | Opposite of suffix, returns filename without suffix |
-| addsuffix  |                              | Appends suffix to each item in list                 |
-| addprefix  |                              | Prepends a prefix to each item in list              |
-| join       |                              | Joins prefix list and suffix list                   |
-|------------+------------------------------+-----------------------------------------------------|
-| FLOW       |                              |                                                     |
-|------------+------------------------------+-----------------------------------------------------|
-| if         |                              | Checks conditional                                  |
-| error      |                              | Print a fatal error                                 |
-| warning    |                              | Print a warning                                     |
-| foreach    |                              |                                                     |
-|------------+------------------------------+-----------------------------------------------------|
-| OTHER      |                              |                                                     |
-|------------+------------------------------+-----------------------------------------------------|
-| strip      | $(strip " abcd ")            | Trims text                                          |
-| origin     | $(origin foo)                | Origin of a variable                                |
-|------------+------------------------------+-----------------------------------------------------|
+   |------------+------------------------------+-----------------------------------------------------|
+   | Name       | Example                      | Purpose                                             |
+   |------------+------------------------------+-----------------------------------------------------|
+   | filter     | $(filter ui/%.o,$(OBJECTS))  | Returns words in string matching pattern            |
+   | filter-out |                              | Opposite of filter                                  |
+   | findstring | $(findstring /test/, $(PWD)) | Returns the search string if found, nothing if not  |
+   | subst      | $(subst .c,.o,$(sources))    | Non-wildcard search and replace                     |
+   | patsubst   |                              | Like subst, but with wildcards                      |
+   | words      |                              | Returns count of words in text                      |
+   | firstword  | $(firstword "a b c")         | Returns first word                                  |
+   | wordlist   | $(wordlist 1, 2, "a b c")    | Returns sublist of words in text                    |
+   | sort       |                              | Sorts a list                                        |
+   | shell      | $(shell date)                | Execute a shell command                             |
+   |------------+------------------------------+-----------------------------------------------------|
+   | FILES      |                              |                                                     |
+   |------------+------------------------------+-----------------------------------------------------|
+   | wildcard   |                              | Returns list of files that match pattern            |
+   | dir        | $(dir /dir/file.txt)         | Returns dir portion of string                       |
+   | notdir     |                              | Opposite of dir, returns filename                   |
+   | suffix     |                              | Get extension                                       |
+   | basename   |                              | Opposite of suffix, returns filename without suffix |
+   | addsuffix  |                              | Appends suffix to each item in list                 |
+   | addprefix  |                              | Prepends a prefix to each item in list              |
+   | join       |                              | Joins prefix list and suffix list                   |
+   |------------+------------------------------+-----------------------------------------------------|
+   | FLOW       |                              |                                                     |
+   |------------+------------------------------+-----------------------------------------------------|
+   | if         |                              | Checks conditional                                  |
+   | error      |                              | Print a fatal error                                 |
+   | warning    |                              | Print a warning                                     |
+   | foreach    |                              |                                                     |
+   |------------+------------------------------+-----------------------------------------------------|
+   | OTHER      |                              |                                                     |
+   |------------+------------------------------+-----------------------------------------------------|
+   | strip      | $(strip " abcd ")            | Trims text                                          |
+   | origin     | $(origin foo)                | Origin of a variable                                |
+   |------------+------------------------------+-----------------------------------------------------|
+* Debugging Functions
+
+  Some gotchas:
+
+** Don't suffix function names with a comma. If you type $(function, ...), Make looks for "function," which is null.
+** If you want to dynamically call a function by its name, use $(call function-var), not $(function-var)
+
+   #+BEGIN_SRC sh :results scalar
+     make trace-macro -f data/debugging/Makefile 2>&1
+   #+END_SRC
+
+   #+RESULTS:
+   : data/debugging/Makefile:27: Entering b( '1', '2', '', '', '', '', '', '', '')
+   : data/debugging/Makefile:27: Entering a( '1', '2', '3', '', '', '', '', '', '')
+   : data/debugging/Makefile:27: leaving a
+   : data/debugging/Makefile:27: leaving b
+   : 1 2 3
+* eval => feed text directly to the make parser
+
+#+BEGIN_SRC sh :results scalar
+cd ./data/eval
+
+make clean all
+#+END_SRC
+
+#+RESULTS:
+: rm -rf ls
+: rm -rf *.o
+: cc    -c -o ls.o ls.c
+: cc   ls.o   -o ls

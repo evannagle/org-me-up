@@ -233,3 +233,20 @@
 | printenv           | Give values for environment vars                  |
 | history            | List command history                              |
 |--------------------+---------------------------------------------------|
+* Some Less Common Commands
+
+|------------------------------+------------------------------------------------|
+| Command                      | Description                                    |
+|------------------------------+------------------------------------------------|
+| cd -                         | Change back to previous dir                    |
+| sudo !!                      | Repeat last command with sudo priveleges       |
+| ping <domain>                | Ping domain to determine IP                    |
+| traceroute <domain>          | Show redirection route of domain               |
+| mtr                          | Diagnose a domain resolution                   |
+| [space] command              | Run command without having it saved to history |
+| jot -r <results> <min> <max> | Produce random numbers                         |
+| df                           | Show disk usage                                |
+| cal                          | Show a calendar                                |
+| yes <str>                    | Repeat str forever                             |
+| nl                           | Print line numbers                             |
+|------------------------------+------------------------------------------------|
