@@ -172,7 +172,8 @@ emacs org-me-up/the-awk-programming-language/readme.org
    - State "NOTATED"    from "READING"    [2018-09-21 Fri 14:27]
    :END:
    The grep commands let users find text in a given file or output quickly and easily.
-** READING [#B] Managing Projects with GNU Make                       :LINUX:
+** NOTATED [#B] Managing Projects with GNU Make                       :LINUX:
+   CLOSED: [2018-11-02 Fri 13:10]
    :PROPERTIES:
    :AUTHOR:   Robert Mecklenburg
    :PUB:      O'Reilly Media
@@ -181,6 +182,10 @@ emacs org-me-up/the-awk-programming-language/readme.org
    :LANGUAGE: grep
    :BUY:      [[https://www.amazon.com/Managing-Projects-GNU-Make-Handbooks/dp/0596006101][Amazon.com: Managing Projects with GNU Make]]
    :NOTES:    [[file+emacs:notes/managing-projects-with-gnu-make/readme.org][Notes: Managing Projects with GNU Make]]
+   :END:
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2018-11-02 Fri 13:10] \\
+     There's an entire section on large projects and more complex Makefiles (p107+). I decided to skip taking notes on these, at least for now.
    :END:
    Use the power of GNU Make to Build Anyting.
 ** NOTATED [#C] Modern Vim                                              :VIM:

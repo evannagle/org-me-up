@@ -8,16 +8,47 @@
 * A simple makefile
 
   #+BEGIN_SRC sh :results scalar
+    nl data/simple/Makefile
+    echo
+    echo --- TASK 1:
+    make task1 -f data/simple/Makefile
+    echo
+    echo --- TASK 2:
+    make task2 -f data/simple/Makefile
+    echo
+    echo --- TASK 3:
     make task3 -f data/simple/Makefile
   #+END_SRC
 
   #+RESULTS:
-  : echo "Task 1"
-  : Task 1
-  : echo "Task 2"
-  : Task 2
-  : echo "Task 3"
-  : Task 3
+  #+begin_example
+       1	task1:
+       2		echo "Task 1"
+
+       3	task2: task1
+       4		echo "Task 2"
+
+       5	task3: task2
+       6		echo "Task 3"
+
+  --- TASK 1:
+  echo "Task 1"
+  Task 1
+
+  --- TASK 2:
+  echo "Task 1"
+  Task 1
+  echo "Task 2"
+  Task 2
+
+  --- TASK 3:
+  echo "Task 1"
+  Task 1
+  echo "Task 2"
+  Task 2
+  echo "Task 3"
+  Task 3
+  #+end_example
 
 * Multiple Targets
 
@@ -88,17 +119,14 @@
   #+END_SRC
 
   #+RESULTS:
-* Double Colon Targets
-** Command runs if dependencies are newer than the target.
-   #+BEGIN_SRC sh :results scalar
-     touch data/double-colon/file-a.txt
+* Passing Arguments
 
-     make data/double-colon/file-c.txt -f data/double-colon/Makefile
-   #+END_SRC
+  #+BEGIN_SRC sh :results scalar
+    make module name=foo flags=abcd -f "data/pass-args/Makefile"
+  #+END_SRC
 
-   #+RESULTS:
-   : echo "file-a was updated"
-   : file-a was updated
+  #+RESULTS:
+  : You passed foo with flags "abcd"
 
 * Variables
 ** Constants defined with := 
@@ -142,6 +170,18 @@
    | MAKECMDGOALS  | All targets specified on command line |
    | .VARIABLES    | All variales defined so far           |
    |---------------+---------------------------------------|
+
+* Double Colon Targets
+** Command runs if dependencies are newer than the target.
+   #+BEGIN_SRC sh :results scalar
+     touch data/double-colon/file-a.txt
+
+     make data/double-colon/file-c.txt -f data/double-colon/Makefile
+   #+END_SRC
+
+   #+RESULTS:
+   : echo "file-a was updated"
+   : file-a was updated
 
 * Macros
 ** define <macro> ... endef => defines macro
@@ -204,11 +244,9 @@
    | origin     | $(origin foo)                | Origin of a variable                                |
    |------------+------------------------------+-----------------------------------------------------|
 * Debugging Functions
-
-  Some gotchas:
-
-** Don't suffix function names with a comma. If you type $(function, ...), Make looks for "function," which is null.
-** If you want to dynamically call a function by its name, use $(call function-var), not $(function-var)
+** Some Gotchas
+*** Don't suffix function names with a comma. If you type $(function, ...), Make looks for "function," which is null.
+*** If you want to dynamically call a function by its name, use $(call function-var), not $(function-var)
 
    #+BEGIN_SRC sh :results scalar
      make trace-macro -f data/debugging/Makefile 2>&1
@@ -220,16 +258,53 @@
    : data/debugging/Makefile:27: leaving a
    : data/debugging/Makefile:27: leaving b
    : 1 2 3
+
+** Quieting commands
+
+  #+BEGIN_SRC sh :results scalar
+    echo "pass 1:"
+    make -f data/quiet/Makefile
+    echo "pass 2:"
+    make QUIET= -f data/quiet/Makefile
+  #+END_SRC
+
+  #+RESULTS:
+  : pass 1:
+  : pass 2:
+  : cd ~
+  : cd /
+  : cd ~
+* Calling Hooks
+
+  #+BEGIN_SRC sh :results scalar
+    make target1 -f data/hooks/Makefile
+    echo
+    make target2 -f data/hooks/Makefile
+    echo
+    make target3 TARGET=2 -f data/hooks/Makefile
+  #+END_SRC
+
+  #+RESULTS:
+  : hook(target1)
+  : hook1(target1)
+  : 
+  : hook(target2)
+  : hook2(target2)
+  : 
+  : hook(target3)
+  : hook2(target3)
+
 * eval => feed text directly to the make parser
 
-#+BEGIN_SRC sh :results scalar
-cd ./data/eval
+  #+BEGIN_SRC sh :results scalar
+    cd ./data/eval
 
-make clean all
-#+END_SRC
+    make clean all
+  #+END_SRC
 
-#+RESULTS:
-: rm -rf ls
-: rm -rf *.o
-: cc    -c -o ls.o ls.c
-: cc   ls.o   -o ls
+  #+RESULTS:
+  : rm -rf ls
+  : rm -rf *.o
+  : cc    -c -o ls.o ls.c
+  : cc   ls.o   -o ls
+
