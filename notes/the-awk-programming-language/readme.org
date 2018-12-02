@@ -1466,7 +1466,7 @@ function missing(x, i) {
 : Japan	120	Tokyo
 : USSR	275	Moscow
 
-* Chapter 5: Proocessing words
+* Chapter 5: Processing words
 ** Generate a random number
 #+BEGIN_SRC awk
 BEGIN {
