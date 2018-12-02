@@ -6,11 +6,10 @@
 #+CREATOR: Evan Nagle
 #+TAGS: @vim
 
-* Fundamentals
-** Comments are started with a "
-** You can run a source file using `w | source %`   
-* Functions and Variables
-** Simple Function def = function! Name() ... endfunction
+* The Lay of the Land
+** Comment lines start with a "   
+** Functions and Variables
+*** Simple Function def = function! Name() ... endfunction
 
    #+BEGIN_SRC
 function! EchoQuote()
@@ -18,7 +17,7 @@ function! EchoQuote()
 endfunction
    #+END_SRC
 
-** Define variable using let
+*** Define variable using let
 
    #+BEGIN_SRC 
 function !EchoQuote()
@@ -27,7 +26,7 @@ function !EchoQuote()
 endfunction
    #+END_SRC
 
-** g:<var> = global, l:<var> = local 
+*** g:<var> = global, l:<var> = local 
 
    #+BEGIN_SRC 
 let g:quote = 'I am global'
@@ -38,7 +37,7 @@ function! EchoQuote()
 endfunction
    #+END_SRC
 
-** a: = function arguments, a:000 = zero-indexed array of args such that a:2 = a:000[1]
+*** a: = function arguments, a:000 = zero-indexed array of args such that a:2 = a:000[1]
 
    #+BEGIN_SRC
 function! EchoQuote(quote, ...)
@@ -48,8 +47,8 @@ function! EchoQuote(quote, ...)
 endfunction
 
    #+END_SRC
-** Strings quoted with "" or '', concatted with .
-** Functions as arguments let <Var> = function('<Function>')
+*** Strings quoted with "" or '', concatted with .
+*** Functions as arguments let <Var> = function('<Function>')
    
    #+BEGIN_SRC 
 function! EchoQuote(quote)
@@ -62,23 +61,23 @@ function! RefQuote()
 endfunction
    #+END_SRC
 
-* Lists
-** Lists like javascript arrays = [ 'a', 'b', 3 ]
-** Lists can be sliced using array[first:last]   
-** Get first n items = array[:n]
-** Get all but first n items = array[n:-1]   
-** len(array) returns count of items   
-** remove item from array = call remove(array, n)   
-* Dictionaries
-** Dictionaries like javascript objects = { 'a': 1, 'b': 2}
-** Retrieve dict values using object['key'] notation   
+** Lists
+*** Lists like javascript arrays = [ 'a', 'b', 3 ]
+*** Lists can be sliced using array[first:last]   
+*** Get first n items = array[:n]
+*** Get all but first n items = array[n:-1]   
+*** len(array) returns count of items   
+*** remove item from array = call remove(array, n)   
+** Dictionaries
+*** Dictionaries like javascript objects = { 'a': 1, 'b': 2}
+*** Retrieve dict values using object['key'] notation   
 
    #+BEGIN_SRC
 let numbers = { 'one': 1, 'two': 2 }
 echo numbers['one']
    #+END_SRC
-* Loops
-** while / endwhile
+** Loops
+*** while / endwhile
 
    #+BEGIN_SRC viml
 let animals = [ 'cat', 'cow', 'dog' ]
@@ -89,7 +88,7 @@ while len(animals)
 endwhile
    #+END_SRC
 
-** for / endfor
+*** for / endfor
 
 #+BEGIN_SRC viml
 let animals = [ 'cow', 'cat', 'dog' ]
@@ -98,8 +97,8 @@ for animal in animals
     echo animal
 endfor
 #+END_SRC
-* Conditionals
-** if / elseif / else / endif
+** Conditionals
+*** if / elseif / else / endif
    
 #+BEGIN_SRC viml
 let bees = 32
@@ -113,3 +112,5 @@ else
     echo 'I don't know which.'
 endif
 #+END_SRC
+
+** system(cmd) = run a system command
