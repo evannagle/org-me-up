@@ -1,4 +1,3 @@
-
 #+TITLE: The VimL Primery
 #+AUTHOR: Benjamin Klein
 #+DATE: 2015
@@ -9,6 +8,7 @@
 * The Lay of the Land
 ** Comment lines start with a "   
 ** Functions and Variables
+*** Functions should start with capital letters and use camel case   
 *** Simple Function def = function! Name() ... endfunction
 
    #+BEGIN_SRC
@@ -114,3 +114,18 @@ endif
 #+END_SRC
 
 ** system(cmd) = run a system command
+* Plug Management   
+** I suggest using vim-plug: https://github.com/junegunn/vim-plug
+* Autoloading
+** Two folders in plugin = plugin/ and autoload/
+** Autoload is only called *after* being called the first time
+
+#+BEGIN_SRC viml
+" in myplug/autoload/myplug.vim
+
+function! myplug#LazyMethod()
+    echo "meh, maybe later"
+endfunction
+#+END_SRC
+
+
