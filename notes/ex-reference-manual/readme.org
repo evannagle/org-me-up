@@ -157,7 +157,7 @@ p'
 #+RESULTS:
 : buy groceries
 
-** g/re/p
+** g/re/p = print matching lines
 
 #+BEGIN_SRC sh :results scalar
 ex data/todo <<<'g/\(eat\|sleep\)/p'
@@ -167,7 +167,7 @@ ex data/todo <<<'g/\(eat\|sleep\)/p'
 : eat breakfast
 : sleep for nine hours
 
-** g!/re/p
+** g!/re/p = print non-matching lines
 
 #+BEGIN_SRC sh :results scalar
 ex <<<'e data/todo
@@ -212,7 +212,7 @@ ex data/todo <<<'1 j 2
 : swing around the tree
 : call mom
 
-** j!
+** j! = join with a space
 
 #+BEGIN_SRC sh :results scalar
 ex data/todo <<<'1 a

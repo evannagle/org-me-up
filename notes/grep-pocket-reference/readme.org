@@ -351,7 +351,6 @@ grep -Rie peach data
 #+RESULTS:
 : data/price-list.txt:Peach $2.75
 
-
 * Other Flags
 ** --line-buffered = use line buffering for output
 ** --mmap = Uses mmap() POSIX function instead of read()
@@ -396,7 +395,6 @@ grep -iE ap+les data/price-list.txt
 
 #+RESULTS:
 : Apples $9.00
-
 
 * fgrep|grep -F = fixed string, with no regexes and faster perf
 

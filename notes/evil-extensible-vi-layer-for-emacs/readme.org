@@ -35,7 +35,7 @@ When a macro or function requests a **state** variable, you can pass one of the 
 
 * Settings
 
-Setting should preferably be set before Evil is loaded:
+Settings should preferably be set before Evil is loaded:
 
 #+BEGIN_SRC elisp
 (setq evil-shift-width 8)
