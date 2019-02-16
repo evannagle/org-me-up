@@ -1,0 +1,144 @@
+#+TITLE: Learn VimScript the Hard Way
+#+AUTHOR: Steve Losh
+#+LINK: learnvimscriptthehardway.stevelosh.com/
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @ed @linux
+
+* Help
+** :help <command>
+** :help <command> | /search/
+** :helpgrep <command>   
+* Echoing
+** :echo => print to bottom of window
+** :echom => print to bottom of window, save as message
+** :messages => show all messages
+* Setting 
+** :set number => shows linum
+** :set nonumber => hides linum
+** :set number! => toggles linum
+** :set number? => returns current value
+* Mapping
+** map <sequence> <sequence>
+*** e.g. map - dd => maps - key to dd (delete line)
+
+
+** nmap => mapping in normal mode
+** vmap => mapping in visual mode
+** imap => mapping in insert mode
+** unmap, <n,v,i>unmap => remove mapping
+** nnoremap => map but do not recursively map
+*** avoids infinite recursions
+** let mapleapder = "," => define the <Leader> key
+** nnoremap <Leader>A => maps to ,A in normal mode
+** let maplocalleader = "\\" => define a <LocalLeader> key for a given file type
+* Some nice maps
+
+  #+BEGIN_SRC Vim
+let mapleader = ","
+
+" Delete upward until an empty line is encountered
+nnoremap <Leader>D :/^$/,.d<CR>
+
+" Delete downward until an empty line is encounter
+nnoremap <Leader>d :.,/^$/d<CR>
+
+" Open and edit your .vimrc file
+nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
+
+" Copy the current line above
+nnoremap <Leader>P yyP
+
+" Copy the current line below
+nnoremap <Leader>p yyp
+
+" Source the current file
+nnoremap <Leader>sv :w<CR>:so %<CR>:echo @% . " saved and sourced"<CR>
+
+" Escape out of insert mode by pressing jk quickly 
+inoremap jk <esc>
+  #+END_SRC
+
+* Abbreviations
+** iabbrev adn and => changes "adn" to "and" as you type
+* Autocommands
+** autocmd <event> <pattern> <command>  
+** autocmd BufWritePre,BuffRead *.html :normal gg=G => auto-indent Html files on BuffWritePre and BuffRead   
+** autocmd FileType <type> <command>   
+   
+* Autocommand Grouprs
+
+  #+BEGIN_SRC sh
+    augroup testgroup
+    autocmd!
+    autocmd BufWrite * :echom "Foo"
+    autocmd BufWrite * :echom "Bar"
+    augroup END
+  #+END_SRC
+
+* Operator-Pending Mappings
+** onoremap p i( => dp now does the same thing as di(
+* VIML Language Features
+** Variables
+*** let foo = "bar" => set foo globally
+*** let b:foo = "bar" => set foo in local buffer
+*** echo foo
+*** echo a:foo => echo argument from a function within that function's scope
+*** echo &textwidth => echo an option value
+*** set &l:textwidth => set textwidth locally per file   
+*** set @a = "hello" => set value in register   
+** if / elseif / else / endif
+
+   #+BEGIN_SRC viml
+if 0
+    echom "if"
+elseif "nope"
+    echom "elseif"
+else
+    echo "finally"
+endif
+   #+END_SRC
+** Comparisons
+*** == is dependand on a user's settings #+BEGIN_SRC viml " always set this: set noignorecase if "foo" == "FOO" echo "This is false" #+END_SRC
+*** ==? => always case INsensitive
+** Functions
+
+*** Void
+    #+BEGIN_SRC viml
+function Meow()
+    echom "Meow!"
+endfunction
+    #+END_SRC
+
+*** With a return value
+    #+BEGIN_SRC viml
+function GetMeow()
+    return "Meow!"
+endfunction
+    #+END_SRC
+
+*** With arguments
+    #+BEGIN_SRC viml
+    function DisplayName(name)
+	echom "Hello! My name is:"
+	echom a:name
+    endfunction
+    #+END_SRC
+*** With Varargs
+    function Var(...)
+        " number of arguments given
+        echom a:0
+	
+        " argument one
+        echom a:1
+	
+        " list containing all extra arguments
+        echo a:000
+    endfunction
+
+** String concatenation with .    
+** strlen => length of a string   
+** split() and join()
+** tolower() and toupper()
+** :execute "<command>" => execute a command as a string   
+** :normal <command> => run commands mapped to normal mode   
