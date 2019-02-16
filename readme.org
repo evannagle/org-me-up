@@ -177,7 +177,8 @@
    :AUTHOR:   Steve Losh
    :PUB:      Steve Losh
    :LANGUAGE: Vim
-   :LINK: http://learnvimscriptthehardway.stevelosh.com/
+   :LINK:     http://learnvimscriptthehardway.stevelosh.com/
+   :NOTES:    d
    :END:
 ** NOTATED [#B] Managing Projects with GNU Make                       :LINUX:
    CLOSED: [2018-11-02 Fri 13:10]
