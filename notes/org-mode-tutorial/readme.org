@@ -28,7 +28,7 @@
 **** Item B
 *** Item 2
 *** Item 3
-**** Item C    
+**** Item C
 ***** Item i     
 ***** Item ii
 *** Item 4
@@ -47,7 +47,6 @@
 
 *** On the line below, you can type C-c C-c to update the todo sequence:
     **#+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
-    *
 **** SOMEDAY I'll do this.
 **** NEXT I'll do another thing
 **** WAITING One this other thing

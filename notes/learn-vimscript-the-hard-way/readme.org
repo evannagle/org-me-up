@@ -8,17 +8,46 @@
 * Help
 ** :help <command>
 ** :help <command> | /search/
-** :helpgrep <command>   
+** :helpgrep /{pattern}/[g][j]
 * Echoing
 ** :echo => print to bottom of window
 ** :echom => print to bottom of window, save as message
-** :messages => show all messages
+** :messages => show all messages, including those that have been echom'd
 * Setting 
+  |--------------+---------------+--------------------------------------|
+  | Format       | Example       | Action                               |
+  |--------------+---------------+--------------------------------------|
+  | :set <var>   | :set number   | sets <var> to TRUE                   |
+  | :set no<var> | :set nonumber | sets <var> to FALSE                  |
+  | :set <var>!  | :set number!  | toggles <var> between TRUE and FALSE |
+  | :set <var>?  | :set number?  | returns current value of <var>       |
+  |--------------+---------------+--------------------------------------|
 ** :set number => shows linum
 ** :set nonumber => hides linum
 ** :set number! => toggles linum
 ** :set number? => returns current value
+* Modes
+  |------------------+--------|
+  | Mode             | Prefix |
+  |------------------+--------|
+  | Normal           | n      |
+  | Visual/Select    | v      |
+  | Select           | s      |
+  | Visual           | x      |
+  | Operator-Pending | o      |
+  | Insert           | i      |
+  | Command-Line     | c      |
+  | Terminal         | t      |
+  |------------------+--------|
 * Mapping
+  |-------------------------+---------------+---------------------------------------------------------------------|
+  | Format                  | Example       | Action                                                              |
+  |-------------------------+---------------+---------------------------------------------------------------------|
+  | :map <c1> <c2>          | map - dd      | <c1> performs same action as <c2>                                   |
+  | :[nvi]map <c1> <c2>     | nmap - dd     | :map <c1> to <c2> in specified mode or globally                     |
+  | :[nvi]unmap <c1>        | vunmap -      | Unmaps <c1> from specified mode or globally                         |
+  | :[nvi]noremap <c1> <c2> | nnoremap - dd | :maps <c1> to <c2> without recursively mapping any contents in <c1> |
+  |-------------------------+---------------+---------------------------------------------------------------------|
 ** map <sequence> <sequence>
 *** e.g. map - dd => maps - key to dd (delete line)
 
@@ -57,6 +86,26 @@ nnoremap <Leader>sv :w<CR>:so %<CR>:echo @% . " saved and sourced"<CR>
 
 " Escape out of insert mode by pressing jk quickly 
 inoremap jk <esc>
+
+" Grep for word under cusor
+:nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
+  #+END_SRC
+
+* Some advanced maps
+** Toggling with a global flag
+
+  #+BEGIN_SRC viml
+nnoremap <leader>q :call QuickfixToggle()<cr>
+
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+    else
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
   #+END_SRC
 
 * Abbreviations
@@ -66,8 +115,7 @@ inoremap jk <esc>
 ** autocmd BufWritePre,BuffRead *.html :normal gg=G => auto-indent Html files on BuffWritePre and BuffRead   
 ** autocmd FileType <type> <command>   
    
-* Autocommand Grouprs
-
+* Autocommand Groupers
   #+BEGIN_SRC sh
     augroup testgroup
     autocmd!
@@ -76,9 +124,25 @@ inoremap jk <esc>
     augroup END
   #+END_SRC
 
-* Operator-Pending Mappings
-** onoremap p i( => dp now does the same thing as di(
 * VIML Language Features
+** Common Functions  
+   |--------------------------------+--------------------------------------------|
+   | Function                       | Purpose                                    |
+   |--------------------------------+--------------------------------------------|
+   | STRINGS                        |                                            |
+   |--------------------------------+--------------------------------------------|
+   | split(<string>, <delim = " ">) | Split a string using <delim>               |
+   | join(<string>, <delim>)        |                                            |
+   | tolower(<string>)              | Change case to lower                       |
+   | toupper(<string>)              | Change case to upper                       |
+   | strlen(<string>)               | Get length of a string                     |
+   |--------------------------------+--------------------------------------------|
+   | LAMBDA / EVAL                  |                                            |
+   |--------------------------------+--------------------------------------------|
+   | execute(<string>)              | Evaluate a string as if it were a command  |
+   | normal <string>                | Execute a normal command                   |
+   | normal! <sting>                | Execute a normal command with no remapping |
+   |                                |                                            |
 ** Variables
 *** let foo = "bar" => set foo globally
 *** let b:foo = "bar" => set foo in local buffer
@@ -98,11 +162,12 @@ else
     echo "finally"
 endif
    #+END_SRC
+** <condition> ? <iftrue> : <iffalse> => ternary   
 ** Comparisons
 *** == is dependand on a user's settings #+BEGIN_SRC viml " always set this: set noignorecase if "foo" == "FOO" echo "This is false" #+END_SRC
+*** ==# => always case sensitive    
 *** ==? => always case INsensitive
 ** Functions
-
 *** Void
     #+BEGIN_SRC viml
 function Meow()
@@ -126,19 +191,80 @@ endfunction
     #+END_SRC
 *** With Varargs
     function Var(...)
-        " number of arguments given
-        echom a:0
+    " number of arguments given
+    echom a:0
 	
-        " argument one
-        echom a:1
+    " argument one
+    echom a:1
 	
-        " list containing all extra arguments
-        echo a:000
+    " list containing all extra arguments
+    echo a:000
     endfunction
 
+** For Loops
+
+   #+BEGIN_SRC viml
+let c = 0
+for i in [1,2,3,4]
+  let c += 1   
+endfor
+
+echo c
+   #+END_SRC
+
+** While Loops   
+   
+   #+BEGIN_SRC viml
+let c = 1
+let total = 0
+
+while c <= 4
+  let total += c
+  let c += 1
+endwhile
+
+echo total
+   #+END_SRC
+
+* Functions   
+
+#+BEGIN_SRC viml
+let Myfunc = function("Append")
+echo Myfunc([1, 2], 3)
+#+END_SRC
+
+* Strings
 ** String concatenation with .    
 ** strlen => length of a string   
 ** split() and join()
 ** tolower() and toupper()
-** :execute "<command>" => execute a command as a string   
-** :normal <command> => run commands mapped to normal mode   
+** :exe[cute] "<command>" => execute a command as a string   
+** :norm[al] <command> => run commands mapped to normal mode   
+** :norm[al]! <command> => run default commands in normal mode (no remappings)
+* Lists
+** [0, 1, 2] => List   
+** [0, 1, 2][0:2] => slice
+** "abcd"[0:2] => slice string   
+** [0, 1] + [2] => concat lists
+** :call add(arr, val) => add value to list   
+** :get(arr, index, default) => get value in list   
+** :index(arr, val) => find value in list and return its index
+** join(arr, delim) => join elements of array into a string   
+** split(arr, delim) => split string into array at delim   
+** reverse(arr)   
+* Dictionaries
+** let dict = { 'a': 1, 100: 'foo' }
+** echo dict['a'] => returns value of property 'a' in dict   
+** dict.a = 100 => set property value   
+** get(obj, property, default) => returns value of property in dict, or default if nonexistent   
+** remove(dict, 'a') => remove property   
+* Paths
+** expand('%') => current file
+** expand('%:p') => absolue path to current file
+** fnamemodify('foo.txt', ':p') => get absolute path to foo.txt file
+** globapath(<path>, <expr>) => list of files
+* Regex and Search
+** /foo => look for 'foo' starting at cursor and going to END of file
+** ?foo => look for 'foo' starting at cursor and going to START of file
+** /\vfoo => use "very magic" regex mode which mimics more standard/Perlish regex patterning
+** :vimgrep /{pattern}/[g][j] {file} => search for pattern in file   
