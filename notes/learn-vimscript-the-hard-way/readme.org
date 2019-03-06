@@ -268,3 +268,6 @@ echo Myfunc([1, 2], 3)
 ** ?foo => look for 'foo' starting at cursor and going to START of file
 ** /\vfoo => use "very magic" regex mode which mimics more standard/Perlish regex patterning
 ** :vimgrep /{pattern}/[g][j] {file} => search for pattern in file   
+* s/ Searches
+** s/old/new/g => replace all on current line
+** s/old/new/gc => replace all on current line, prompt per replacement
