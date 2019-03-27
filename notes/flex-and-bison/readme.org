@@ -4,6 +4,7 @@
 #+EMAIL: evan@mantle.co
 #+CREATOR: Evan Nagle
 #+TAGS: @c @linux @flex @bison
+ccccijgfddbrigkrubretltkhjfeuhlftietbfdulr
 
 * Introduction
 ** Lexing = scanning = parsing text into tokens
@@ -57,31 +58,31 @@ $(APP): lex.yy.c
 ** inline example 
 
 #+BEGIN_SRC sh :results scalar
-# flex created lex.yy.c
-flex <<<'
-%option noyywrap
+  # flex created lex.yy.c
+  flex <<<'
+  %option noyywrap
 
-%%
-"hello"          { printf("goodbye"); }
-"goodbye"        { printf("hello"); }
-"myself"         { printf("world"); }
-"world"          { printf("myself"); }
-.                { printf("%s", yytext); }
-%%
+  %%
+  "hello"          { printf("goodbye"); }
+  "goodbye"        { printf("hello"); }
+  "myself"         { printf("world"); }
+  "world"          { printf("myself"); }
+  .                { printf("%s", yytext); }
+  %%
 
-int main() {
-    yylex();
-}
-'
+  int main() {
+      yylex();
+  }
+  '
 
-#gcc creates hello
-gcc -o hello lex.yy.c
+  #gcc creates hello
+  gcc -o hello lex.yy.c
 
-#running our translator
-echo "oh goodbye, myself" | ./hello
+  #running our translator
+  echo "oh goodbye, myself" | ./hello
 
-#cleaning up after our short sting of madness
-rm lex.yy.c hello
+  #cleaning up after our short sting of madness
+  rm lex.yy.c hello
 
 #+END_SRC
 
