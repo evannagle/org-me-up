@@ -1222,14 +1222,18 @@ perl -le 'print length "foo"'
 ** Find the number of elements in an array
 
 #+BEGIN_SRC sh
-perl -le '
-  @a = qw/one two three/;
-  print ~~@a;
-'
+  perl -le '
+    @a = qw/one two three/;
+    print scalar @a;
+
+    # shorter:
+    print ~~@a;
+  '
 #+END_SRC
 
 #+RESULTS:
-: 3
+| 3 |
+| 3 |
 
 * Text Conversion and Substitution
 ** y operator = transliterate
@@ -1716,7 +1720,6 @@ perl -alne '
 : 3 line
 : 4 line
 * Selectively Printing and Deleting Lines
-
 ** Print the first line of a file (emulate head -1)
 
 #+BEGIN_SRC sh :results scalar
