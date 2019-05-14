@@ -302,6 +302,22 @@
    :NOTES:    [[file+emacs:notes/the-viml-primer/readme.org][The VimL Primer]]
    :END: 
    Edit like a pro with Vim plugins and scripts.
+** NOTATED [#B] tmux 2: Productive Mouse-Free Development
+   CLOSED: [2019-05-13 Mon 15:35]
+   :PROPERTIES:
+   :AUTHOR:   Brian P. Hogan
+   :PUB:      The Pragmatic Programmers LLC
+   :DATE:     2016
+   :PAGES:    79
+   :LANGUAGE: Bash, Vim
+   :BUY:      [[https://www.amazon.com/tmux-2-Productive-Mouse-Free-Development-ebook/dp/B01N9HBR3D][tmux 2: Productive Mouse-Free Development]]
+   :NOTES:    [[file+emacs:notes/tmux-2-productive-mouse-free-development/readme.org][tmux 2: Productive Mouse-Free Development]]
+   :END: 
+   :LOGBOOK:
+   - State "NOTATED"    from "READING"    [2019-05-13 Mon 15:35] \\
+     Quick and easy read, with lots of code samples. Includes a full configuration file in Appendix 1
+   :END:
+   Edit like a pro with Vim plugins and scripts.
 ** READING [#B] Useful One-Line Scripts for Sed                     :PDF:SED:
    :PROPERTIES:
    :AUTHOR:   Eric Pement

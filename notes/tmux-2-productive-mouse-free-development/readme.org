@@ -1,0 +1,119 @@
+#+TITLE: tmux 2: Productive Mouse-Free Development
+#+AUTHOR: Brian P. Hogan
+#+DATE: 2016
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @vim @bash
+
+* Resources
+** [[https://gist.github.com/MohamedAlaa/2961058][tmux shortcuts & cheatsheet]]
+** C-d ? => list all default bindings inside tmux   
+* Tmux Hierarchy
+** Sessions => groups of windows
+** Window => a layout of panes
+** Pane => aka Splits, a terminal
+* Sessions, Windows, and Panes
+** Common Commands
+
+   |---------+--------------------------------------|
+   | SUFFIX  | DESCRIPTION                          |
+   |---------+--------------------------------------|
+   | d       | Detach from session                  |
+   | :       | Enter command mode                   |
+   | c       | Create a new window                  |
+   | n       | Move to the next window              |
+   | p       | Move to the previous window          |
+   | 0-9     | Select window by number              |
+   | w       | Display a selectable list of windows |
+   | f       | Search for text in window            |
+   | ,       | Rename a window                      |
+   | &       | Close a window                       |
+   | %       | Divide window vertically             |
+   | "       | Divide window horizontally           |
+   | o       | Cycle through open panes             |
+   | q       | Display pane numbers                 |
+   | x       | Close the current pane               |
+   | <SPACE> | Cycle through pane layouts           |
+   |---------+--------------------------------------|
+** Sessions
+*** `tmux` opens new session
+*** `tmux new -s <name>` => create a named session 
+*** C-b d => close sessions
+*** `tmux ls` => list sessions
+   
+    #+BEGIN_SRC sh
+      tmux ls
+    #+END_SRC
+
+    #+RESULTS:
+    : hack: 1 windows (created Mon May 13 09:27:37 2019)
+
+
+*** `tmux at -t <name>` => reattach to closed session
+    Or `tmux at[tach] <#>
+*** `tmux kill-session -t <name>` => kill session
+   
+
+    Kill all sessions:
+    #+BEGIN_SRC sh
+      tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill 
+    #+END_SRC
+** Windows
+*** C-b c => create new session *window*
+*** C-b , => name window   
+*** C-b w <window> => change window
+*** C-b & => kill window   
+** Panes
+*** C-b % => split vertically
+*** C-b " => split horizontally
+*** C-b x => kill pane
+*** C-b o => cycle through panes   
+*** C-b <ARROW> => select pane
+*** C-b ! => Pop out pane into new window    
+*** :join-pane -s <session>:<window>:<location>    
+*** :set-window-option synchronize-panes => type same command into all panes
+** Command Mode
+*** C-b : => open command mode
+*** new-window -n <name>  
+*** new-window -n <name> "<command>"
+* Configuration
+** ~/.tmux.config => config file 
+** `source-file ~/.tmux.config` => update config from command mode   
+** `set -g prefix C-a` => change default C-b prefix
+   #+BEGIN_SRC sh
+     # Setting the prefix from C-b to C-a
+     set -g prefix C-a
+
+     # setn C-a through to app via C-a C-a
+     bind C-a send-prefix
+
+     # remove C-b
+     unbind C-b
+   #+END_SRC
+** bind <letter> <command>
+   #+BEGIN_SRC sh
+     # Update config without resorting to command mode
+     bind r source-file ~/.tmux.config
+   #+END_SRC
+** bind -r <letter> <command> => repeat command by pressing letter again
+* Copying/Pasting via Buffers   
+** C-b [ => Start copy mode
+** SPACE => begin copying
+** SPACE (again) => end copying
+** ENTER => exit copy mode   
+** C-b ] => Paste
+** Setup for Mac/iTerm2: [[https://evertpot.com/osx-tmux-vim-copy-paste-clipboard/]]   
+* Session Setup   
+** tmux new-session <name> -n editor -d => create a session and detach
+** tmux send-keys -t <name> "<command>" C-m => send tmux command to session created
+** tmux split-window -v -t <name>
+** tmux select-layout -t <name> <layout> => set prebuilt layout, e.g. main-horizontal
+** tmux send-keys -t <name>:<frame> "<command>" C-m => send tmux command to a particular pane
+* Tmuxinator
+** [[https://github.com/tmuxinator/tmuxinator]] 
+** tmuxinator new <project> => create project   
+** tmuxinator s <project> => start a project
+* Plugins
+** [[https://github.com/tmux-plugins/tpm]]
+** [[https://github.com/tmux-plugins/tmux-sensible]] 
+** [[https://github.com/tmux-plugins]]   

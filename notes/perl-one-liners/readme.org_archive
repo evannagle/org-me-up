@@ -1,0 +1,26 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/evannagle/Repos/org-me-up/notes/perl-one-liners/readme.org
+
+
+* DONE Find the number of elements in an array
+  CLOSED: [2019-04-18 Thu 10:27]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2019-04-18 Thu 10:27
+  :ARCHIVE_FILE: ~/Repos/org-me-up/notes/perl-one-liners/readme.org
+  :ARCHIVE_OLPATH: Working with Arrays and Strings
+  :ARCHIVE_CATEGORY: readme
+  :ARCHIVE_TODO: DONE
+  :END:
+
+#+BEGIN_SRC sh
+perl -le '
+  @a = qw/one two three/;
+  print ~~@a;
+'
+#+END_SRC
+
+#+RESULTS:
+: 3
+
