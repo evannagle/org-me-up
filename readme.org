@@ -264,6 +264,17 @@
    - State "NOTATED"    from "READING"    [2018-10-04 Thu 16:17]
    :END:
    The bash shell features a wide variety of keyboard shortcuts you can use.
+** READING [#D] The Icon Programming Language                   :BAB:PDF:ESO:
+   :PROPERTIES:
+   :AUTHOR:   Ralph E. Griswold, Madge T. Griswold
+   :PUB:      Prentice Hall
+   :DATE:     1990
+   :PAGES:    367
+   :LANGUAGE: Icon
+   :BOOK:     [[https://www.amazon.com/Icon-programming-language-Prentice-Hall-software/dp/0134497775][The Icon Programming Language]]
+   :PDF:      [[file:books/the-icon-programming-language.pdf][The Icon Programmign Language]]
+   :NOTES:    [[file+emacs:notes/the-icon-programming-language/readme.org][The Icon Programming Language]]
+   :END:
 ** NOTATED [#C] The M4 Macro Processor                        :BAB:LINUX:PDF:
    CLOSED: [2018-09-05 Wed 14:42]
    :PROPERTIES:

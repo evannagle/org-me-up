@@ -1,0 +1,6 @@
+#+TITLE: The Icon Programming Language
+#+AUTHOR: Ralph E. Griswold, Madge T. Griswold
+#+DATE: 1990
+#+EMAIL: evan@mantle.co
+#+CREATOR: Evan Nagle
+#+TAGS: @bab @pdf @eso
