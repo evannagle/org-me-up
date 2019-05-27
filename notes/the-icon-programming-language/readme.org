@@ -4,3 +4,133 @@
 #+EMAIL: evan@mantle.co
 #+CREATOR: Evan Nagle
 #+TAGS: @bab @pdf @eso
+
+* Basics
+  :PROPERTIES:
+  :header-args: :results scalar
+  :END:
+** Resource Links
+*** [[http://www.cs.arizona.edu/icon/lb3.htm][The Icon Programming Language]]
+*** [[http://www.cs.arizona.edu/icon/gb/index.htm][Graphics Programming in Icon]]    
+** File extension is usually *.icn 
+** icon - <<< '<code here>'
+
+   #+BEGIN_SRC sh :output-results scalar
+     icon - <<< '
+
+     procedure main()
+       write("hello, world")
+     end
+
+     '
+   #+END_SRC
+
+   #+RESULTS:
+   : hello, world
+
+** icon -P '<code here>'
+
+   #+BEGIN_SRC sh
+     icon -P '
+     procedure main() 
+       write("hello, world")
+     end
+
+     '
+   #+END_SRC
+
+   #+RESULTS:
+   : hello, world
+
+** # starts a comment
+** foo := 1 => set variable value
+   
+   #+BEGIN_SRC sh
+     ./data/iconl.sh '
+	line := "hello, world"
+	write(line)
+	 '
+   #+END_SRC
+
+   #+RESULTS:
+   : hello, world
+
+** read() => reads from input   
+
+   #+BEGIN_SRC sh
+     icon -P '
+procedure main()
+    line := read()
+    write("Hello, ", line)
+end
+       ' <<< 'Myself'
+   #+END_SRC
+
+   #+RESULTS:
+   : Hello, Myself
+
+** write() => writes to output
+
+#+BEGIN_SRC sh
+data/iconl.sh "write('hi')"
+#+END_SRC
+
+#+RESULTS:
+: hi
+
+** Find lines that contain a word
+
+#+BEGIN_SRC sh
+  icon -P '
+
+  procedure main()
+    lineno := 0
+    while line := read() do {
+      lineno := lineno + 1
+      if find("fancy", line) then write(lineno, ": ", line)
+    }
+  end
+
+  ' < ./data/venice.txt
+#+END_SRC
+
+#+RESULTS:
+: 1: Tell me, where is fancy bred,
+: 6: With gazing fed; and fancy dies
+: 8:   Let us all ring fancy's knell;
+
+* Expressions
+  :PROPERTIES:
+  :header-args: :results scalar
+  :END:
+** Evaluations are goal-directed  
+
+#+BEGIN_SRC sh
+icon -P '
+procedure main()
+  if find("x", read()) > 15 then write("found") 
+end
+' <<< 'the first x fails but the second x succeeds'
+#+END_SRC
+
+#+RESULTS:
+: found
+
+** every <expr1> do <expr2>
+   
+#+BEGIN_SRC sh
+  icon -P '
+  procedure main()
+    line := read()
+    write(find("x", line)) # finds the first
+    write("---")
+    every write(find("x", line)) # finds them all
+  end
+  ' <<< 'there is an x here and an x there'
+#+END_SRC
+
+#+RESULTS:
+: 13
+: ---
+: 13
+: 27
